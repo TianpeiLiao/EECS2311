@@ -14,6 +14,8 @@ public class Main {
 		System.out.println("Test 2");
 		System.out.println("Test 2");
 		System.out.println("final");
+		System.out.println("new ");
+		
 
 	}
 
