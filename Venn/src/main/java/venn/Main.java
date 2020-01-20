@@ -36,40 +36,55 @@ public class Main extends Application{
 		
 	}
 	
-	final static int SCENE_WIDTH = 1024;
-	final static int SCENE_HEIGHT = 841;
+	final static int SCENE_WIDTH = 700;
+	final static int SCENE_HEIGHT = 500;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		//Canvas cs = new Canvas(SCENE_WIDTH, SCENE_HEIGHT);
-		//GraphicsContext gc= cs.getGraphicsContext2D();
-		GridPane pane = new GridPane();
-        pane.setHgap(8);
-        pane.setVgap(8);
-        pane.setPadding(new Insets(10));
-        pane.setPrefSize(SCENE_WIDTH, SCENE_HEIGHT);
-     
-        Label lbl = new Label("VENN Diagram Prototype");
-        lbl.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.ITALIC, 15));
+		
+		
+		GridPane root = new GridPane();
+        root.setHgap(8);
+        root.setVgap(8);
+        root.setPadding(new Insets(5));
+        
+        
+        ColumnConstraints cons1 = new ColumnConstraints();
+        cons1.setHgrow(Priority.NEVER);
+        root.getColumnConstraints().add(cons1);
+
+        ColumnConstraints cons2 = new ColumnConstraints();
+        cons2.setHgrow(Priority.ALWAYS);
+        
+        root.getColumnConstraints().addAll(cons1, cons2);
+        
+        RowConstraints rcons1 = new RowConstraints();
+        rcons1.setVgrow(Priority.NEVER);
+        
+        RowConstraints rcons2 = new RowConstraints();
+        rcons2.setVgrow(Priority.ALWAYS);  
+        
+        root.getRowConstraints().addAll(rcons1, rcons2);
+        
+        Label lbl = new Label("Name:");
         TextField field = new TextField();
-        
-        
+        ListView view = new ListView();
         Button okBtn = new Button("OK");
         Button closeBtn = new Button("Close");
-        GridPane.setHalignment(lbl, HPos.CENTER);
-        
-        pane.add(lbl,2,0);
-        pane.add(field, 0, 2);
-        pane.add(okBtn, 2, 2);
-        
-		//gc.setFill(Color.ALICEBLUE);
-		//gc.fillRect(0, 0, SCENE_WIDTH, SCENE_HEIGHT);
 
+        GridPane.setHalignment(okBtn, HPos.RIGHT);
+        
+        root.setStyle("-fx-background-color: #CCFFFF;");
+        
+        root.add(lbl, 0, 0);
+        root.add(field, 2, 0, 2, 1);
+        root.add(view, 0, 1, 4, 2);
+        root.add(okBtn, 2, 3);
+        root.add(closeBtn, 3, 3);
+ 
 		 
 		
-		//Group root = new Group();
-		//root.getChildren().addAll(pane);
-		Scene s = new Scene(pane, SCENE_WIDTH, SCENE_HEIGHT);
+		Scene s = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
 		primaryStage.setTitle("Venn Diagrams");
 		primaryStage.setScene(s);
 		primaryStage.show();
