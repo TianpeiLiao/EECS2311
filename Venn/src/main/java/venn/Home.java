@@ -195,7 +195,7 @@ public class Home extends JFrame {
 							count += 1;
 						}
 						
-						textField.setText(" ");  
+						textField.setText("  ");  
 						
 					}
 				});
