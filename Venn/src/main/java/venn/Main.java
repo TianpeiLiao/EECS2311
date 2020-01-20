@@ -1,6 +1,7 @@
 package venn;
 
 
+
 import javafx.animation.*;
 import javafx.application.*;
 import javafx.geometry.HPos;
@@ -90,6 +91,7 @@ public class Main extends Application{
 		primaryStage.setScene(s);
 		primaryStage.show();
 	
+
 
 
 
