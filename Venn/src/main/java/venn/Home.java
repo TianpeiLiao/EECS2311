@@ -35,7 +35,7 @@ public class Home extends JFrame {
 				try {
 					Home frame = new Home();
 					frame.setVisible(true);
-					frame.setTitle("GoVenn");
+					frame.setTitle("GoVenn ");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
