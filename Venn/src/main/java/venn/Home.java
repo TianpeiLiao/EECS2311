@@ -165,7 +165,7 @@ public class Home extends JFrame {
 				
 				//Image img = new ImageIcon(this.getClass().getResource("/plus.png")).getImage();
 				
-				JButton btnNewButton = new JButton("Add Statements");
+				JButton btnNewButton = new JButton("Add Statements ");
 				btnNewButton.setBounds(303, 55, 155, 30);
 				contentPane.add(btnNewButton);
 				
