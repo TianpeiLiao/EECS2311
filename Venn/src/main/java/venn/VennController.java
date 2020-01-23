@@ -12,7 +12,6 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -35,7 +34,7 @@ public class VennController {
 	@FXML
 	private Text mytxt;
 	
-	private ArrayList<Label> entries = new ArrayList<Label>();
+	private ArrayList<DraggableText> entries = new ArrayList<DraggableText>();
 	int entrycount = 0;
 	
 	public void initilize() {
@@ -45,11 +44,9 @@ public class VennController {
 	public void createText(ActionEvent e) {
 		if(!entryName.getText().isEmpty() ) {
 		 Color c = cp.getValue();	
-		 
-	     Background bg = new Background(new BackgroundFill(c, new CornerRadii(10), null));
-		 Label newTxt = new Label(entryName.getText());
-		 newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 20));
-		 newTxt.setBackground(bg);
+		 double radi  = 10;
+		 DraggableText newTxt = new DraggableText(entryName.getText(), c, radi);
+		 newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 10));
 		 newTxt.getStyleClass().add("createdText");
 		 entries.add(newTxt);
 		 txtField.getChildren().add(entries.get(entrycount));
