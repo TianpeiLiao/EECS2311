@@ -1,0 +1,24 @@
+.root{
+	-fx-background-color: linear-gradient( to right, #a1c4fd, #c2e9fb);
+}
+.btn{
+	-fx-background-color: transparent; 
+	-fx-border-width: 0px 0px 2px 0px;
+	 
+	-fx-border-color: black;
+}
+.btn:hover {
+    -fx-border-color: #B0904D;
+    -fx-text-fill:#B0904D;
+    
+}
+.btn:pressed{
+	-fx-border-width: 2px;
+	-fx-border-color: #FCDFA2;
+	-fx-background-color: #B0904D;
+     -fx-text-fill:white;
+}
+
+.createdText{
+	-fx-padding: 5px 5px 5px 5px;
+}
