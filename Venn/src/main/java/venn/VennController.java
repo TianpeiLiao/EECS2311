@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -25,20 +26,15 @@ public class VennController {
 	@FXML
 	public static FlowPane txtField;
 	@FXML
-	private Button create;
+	private Button editEntry;
 	@FXML
-	private Button newScene;
-	@FXML
-	private Button dltEntry;
+	private Button newEntry;
 	@FXML
 	private TextField entryName;
 	@FXML
-	private TextField dltName;
-	@FXML
 	private ColorPicker cp;
 	@FXML
-	private Text mytxt;
-	
+	private FlowPane root;
 	
 	private ArrayList<DraggableText> entries = new ArrayList<DraggableText>();
 	int entrycount = 0;
@@ -71,23 +67,8 @@ public class VennController {
 		 newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
 		 newTxt.getStyleClass().add("createdText");
 		 entries.add(newTxt);
-		 txtField.getChildren().add(entries.get(entrycount));
+		 root.getChildren().add(entries.get(entrycount));
 		 entrycount++;
-		}
-	}
-	
-	public void removeEntry(ActionEvent e) {
-		//txtField.getChildren().remove(0);
-		if(!dltName.getText().isEmpty()) {
-			
-			for(int i = 0; i<entries.size(); i++ ) {
-				System.out.println(dltName.getText() + entries.get(i).getText()  );
-				if(entries.get(i).getText().equals(dltName.getText())) {
-					txtField.getChildren().remove(i);
-					entrycount--;
-					entries.remove(i);
-				}
-			}
 		}
 	}
 
