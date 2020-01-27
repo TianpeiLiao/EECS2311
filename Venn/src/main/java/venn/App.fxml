@@ -5,6 +5,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,7 +18,26 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1000.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="venn.VennController">
    <children>
-      <HBox alignment="CENTER" prefHeight="118.0" prefWidth="1000.0" AnchorPane.bottomAnchor="602.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <MenuBar prefHeight="25.0" prefWidth="1000.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <HBox alignment="CENTER" layoutY="25.0" prefHeight="63.0" prefWidth="1000.0" AnchorPane.bottomAnchor="632.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
@@ -27,7 +49,7 @@
             </Label>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" layoutX="114.0" layoutY="118.0" prefHeight="168.0" prefWidth="784.0">
+      <HBox alignment="CENTER_LEFT" layoutX="114.0" layoutY="118.0">
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
@@ -59,7 +81,7 @@
                         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                      </padding>
                      <children>
-                        <Button fx:id="create" mnemonicParsing="false" onAction="#createText" styleClass="btn" stylesheets="@style.css" text="Create Entry" textAlignment="CENTER">
+                        <Button fx:id="editEntry" mnemonicParsing="false" onAction="#createText" styleClass="btn" stylesheets="@style.css" text="Edit Entry" textAlignment="CENTER">
                            <font>
                               <Font name="Roboto Slab Medium" size="18.0" />
                            </font>
@@ -84,40 +106,28 @@
                      </padding>
                   </HBox>
                   <HBox alignment="TOP_CENTER" spacing="15.0">
-                     <children>
-                        <TextField fx:id="dltName" promptText="Enter Entry Name">
-                           <font>
-                              <Font name="Roboto Slab Regular" size="14.0" />
-                           </font>
-                        </TextField>
-                        <Button fx:id="dltEntry" mnemonicParsing="false" onAction="#removeEntry" styleClass="btn" stylesheets="@style.css" text="Delete Entry">
-                           <font>
-                              <Font name="Roboto Slab Medium" size="18.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                           </padding>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <effect>
-                              <Reflection bottomOpacity="0.3" fraction="0.5" topOffset="-2.0" topOpacity="0.0" />
-                           </effect>
-                        </Button>
-                     </children>
                      <padding>
                         <Insets top="5.0" />
                      </padding>
                   </HBox>
                </children>
             </VBox>
-            <FlowPane fx:id="txtField" hgap="10.0" prefHeight="158.0" prefWidth="445.0" vgap="10.0">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </FlowPane>
          </children>
       </HBox>
+      <Button fx:id="newEntry" layoutX="557.0" layoutY="159.0" mnemonicParsing="false" onAction="#openNewScene" styleClass="btn" stylesheets="@style.css" text=" Create new entry" textAlignment="CENTER">
+         <font>
+            <Font name="Roboto Slab Medium" size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <padding>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+         </padding>
+         <effect>
+            <Reflection bottomOpacity="0.3" fraction="0.5" topOffset="-2.0" topOpacity="0.0" />
+         </effect>
+      </Button>
+      <FlowPane fx:id="root" hgap="15.0" layoutX="183.0" layoutY="307.0" prefHeight="200.0" prefWidth="338.0" vgap="15.0" />
    </children>
 </AnchorPane>
-
