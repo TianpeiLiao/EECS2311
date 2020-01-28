@@ -128,6 +128,6 @@
             <Reflection bottomOpacity="0.3" fraction="0.5" topOffset="-2.0" topOpacity="0.0" />
          </effect>
       </Button>
-      <FlowPane fx:id="root" hgap="15.0" layoutX="183.0" layoutY="307.0" prefHeight="200.0" prefWidth="338.0" vgap="15.0" />
+      <FlowPane fx:id="textSpace" hgap="15.0" layoutX="183.0" layoutY="307.0" prefHeight="200.0" prefWidth="338.0" vgap="15.0" />
    </children>
 </AnchorPane>

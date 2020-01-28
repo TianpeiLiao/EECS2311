@@ -34,7 +34,7 @@ public class VennController {
 	@FXML
 	private ColorPicker cp;
 	@FXML
-	private FlowPane root;
+	private FlowPane textSpace;
 	
 	private ArrayList<DraggableText> entries = new ArrayList<DraggableText>();
 	int entrycount = 0;
@@ -44,18 +44,7 @@ public class VennController {
 	}
 	
 	public void openNewScene(ActionEvent e) {
-		try {
-			Parent fxml  = FXMLLoader.load(getClass().getResource("getData.fxml"));
-			Stage secondStage = new Stage();
-			secondStage.setTitle("Enter Data");
-			secondStage.setScene(new Scene(fxml));
-			secondStage.show();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		
+		Main.showAddStage();
 	}
 	
 	
@@ -67,7 +56,7 @@ public class VennController {
 		 newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
 		 newTxt.getStyleClass().add("createdText");
 		 entries.add(newTxt);
-		 root.getChildren().add(entries.get(entrycount));
+		 textSpace.getChildren().add(entries.get(entrycount));
 		 entrycount++;
 		}
 	}
