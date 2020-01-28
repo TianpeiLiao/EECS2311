@@ -38,28 +38,17 @@ public class VennController {
 	
 	private ArrayList<DraggableText> entries = new ArrayList<DraggableText>();
 	int entrycount = 0;
-	
-	public void initilize() {
+	@FXML
+	private void initialize() {
 		cp.getStyleClass().add("split-button");
+		cp.setValue(Color.ANTIQUEWHITE);
 	}
+	
+	
 	
 	public void openNewScene(ActionEvent e) {
 		Main.showAddStage();
 	}
-	
-	
-	public void createText(ActionEvent e) {
-		if(!entryName.getText().isEmpty() ) {
-		 Color c = cp.getValue();	
-		 double radi  = 10;
-		 DraggableText newTxt = new DraggableText(entryName.getText(), c, radi);
-		 newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
-		 newTxt.getStyleClass().add("createdText");
-		 entries.add(newTxt);
-		 textSpace.getChildren().add(entries.get(entrycount));
-		 entrycount++;
-		}
-	}
-
+		
 }
 

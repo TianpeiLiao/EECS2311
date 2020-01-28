@@ -24,6 +24,12 @@ public class GetDataController {
 	@FXML
 	TextField name;
 	
+	@FXML
+	private void initialize() {
+		cp.getStyleClass().add("split-button");
+		cp.setValue(Color.ANTIQUEWHITE);
+	}
+	
 	public void createText(ActionEvent e) {
 		DraggableText newTxt;
 		Stage thisStage = (Stage) create.getScene().getWindow();
