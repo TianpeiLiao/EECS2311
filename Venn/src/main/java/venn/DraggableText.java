@@ -1,10 +1,16 @@
 package venn;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
@@ -31,7 +37,8 @@ public class DraggableText extends Label {
 		this.setCursor(Cursor.HAND);
 		this.bg = Color.WHITE;
 		this.borderRadius = 0.0;
-		this.setColorBorder();
+		this.setColorBackGround();
+		this.setEvents();
 	}
 	
 	
@@ -41,7 +48,8 @@ public class DraggableText extends Label {
 		this.setCursor(Cursor.HAND);
 		this.bg = bg;
 		this.borderRadius = 0.0;
-		this.setColorBorder();
+		this.setColorBackGround();
+		this.setEvents();
 	}
 	
 	DraggableText(String txt, Color bg, double borderRadius){
@@ -49,8 +57,8 @@ public class DraggableText extends Label {
 		this.setCursor(Cursor.HAND);
 		this.bg = bg;
 		this.borderRadius = borderRadius;
-		this.setColorBorder();
-		
+		this.setColorBackGround();
+		this.setEvents();
 	}
 	
 	/**
@@ -60,7 +68,7 @@ public class DraggableText extends Label {
 
 	public void changeColor(Color c) {
 		this.bg = c;
-		this.setColorBorder();
+		this.setColorBackGround();
 	}
 	
 	/**
@@ -70,7 +78,7 @@ public class DraggableText extends Label {
 	
 	public void changeBorder(double radi) {
 		this.borderRadius = radi;
-		this.setColorBorder();
+		this.setColorBackGround();
 	}
 	
 	/**
@@ -78,10 +86,33 @@ public class DraggableText extends Label {
 	 * this object. Also this method is called when the object is first created.
 	 */
 	
-	private void setColorBorder() {
+	private void setColorBackGround() {
 		Background textbg = new Background(new BackgroundFill(bg, new CornerRadii(borderRadius), new Insets(-4)));
 		this.setBackground(textbg);
 	}
 	
+	private void setx(double x, double y) {
+		this.setTranslateX(x);
+		this.setTranslateY(y);
+		System.out.println(this.getLayoutX());
+	}
 	
+	private void setEvents() {
+		this.setOnMouseEntered(new EventHandler<MouseEvent>(){
+			public void handle(MouseEvent m){
+				changeColor(bg.saturate());
+			}
+		});
+		this.setOnMouseExited(new EventHandler<MouseEvent>(){
+			public void handle(MouseEvent m){
+				changeColor(bg.desaturate());
+			}
+		});
+		this.setOnMouseDragged(new EventHandler<MouseEvent>(){
+			public void handle(MouseEvent m){
+				setx(m.getX(), m.getY());
+				
+			}
+		});
+	}
 }
