@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -26,7 +27,7 @@ public class DraggableText extends Label {
 	 */
 	private Color bg;
 	private double borderRadius;
-	
+	private Tooltip draggableTip;
 	
 	/**
 	 * The constructor with only text of the label
@@ -38,7 +39,7 @@ public class DraggableText extends Label {
 		this.bg = Color.WHITE;
 		this.borderRadius = 0.0;
 		this.setColorBackGround();
-		this.setEvents();
+		this.setEventsAndTip();
 	}
 	
 	
@@ -49,7 +50,7 @@ public class DraggableText extends Label {
 		this.bg = bg;
 		this.borderRadius = 0.0;
 		this.setColorBackGround();
-		this.setEvents();
+		this.setEventsAndTip();
 	}
 	
 	DraggableText(String txt, Color bg, double borderRadius){
@@ -58,7 +59,7 @@ public class DraggableText extends Label {
 		this.bg = bg;
 		this.borderRadius = borderRadius;
 		this.setColorBackGround();
-		this.setEvents();
+		this.setEventsAndTip();
 	}
 	
 	/**
@@ -97,7 +98,10 @@ public class DraggableText extends Label {
 		System.out.println(this.getLayoutX());
 	}
 	
-	private void setEvents() {
+	private void setEventsAndTip() {
+		
+		this.draggableTip = new Tooltip("Double click to edit");
+		this.setTooltip(draggableTip);
 		this.setOnMouseEntered(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent m){
 				changeColor(bg.saturate());
@@ -111,7 +115,15 @@ public class DraggableText extends Label {
 		this.setOnMouseDragged(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent m){
 				setx(m.getX(), m.getY());
-				
+			}
+		});
+		
+		this.setOnMouseClicked(new EventHandler<MouseEvent>(){
+			public void handle(MouseEvent m){
+				if(m.getClickCount() == 2){
+	                System.out.println("Double clicked");
+	                Main.showEditStage();
+	            }
 			}
 		});
 	}

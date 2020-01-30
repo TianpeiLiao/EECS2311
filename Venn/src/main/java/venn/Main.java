@@ -48,6 +48,23 @@ public class Main extends Application{
 		}
 	}
 	
+	public static void showEditStage() {
+		Parent fxml;
+		try {
+			fxml = FXMLLoader.load(Main.class.getResource("EditText.fxml"));
+			Stage secondStage = new Stage();
+			secondStage.setTitle("Edit the Entry");
+			secondStage.initModality(Modality.WINDOW_MODAL);
+			secondStage.setScene(new Scene(fxml));
+			secondStage.initOwner(primaryStage);
+			secondStage.showAndWait();;
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public static void main(String[]args) {
 		launch(args);

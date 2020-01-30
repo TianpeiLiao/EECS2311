@@ -11,5 +11,6 @@
 		</accessrules>
 	</classpathentry>
 	<classpathentry exported="true" kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
+	<classpathentry kind="lib" path="C:/Users/ardat/Downloads/fontawesomefx-8.9.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -55,10 +55,8 @@ public class VennController {
 					if(textSpace.getChildren().get(i).getBoundsInParent().contains(m.getX(), m.getY())) {
 						selected = (DraggableText) textSpace.getChildren().get(i);
 						found = true;
-						System.out.println("selected text: " + selected.toString());
 					}else {
 						selected = null;
-						System.out.println("selected text: " + selected);
 					}
 				}
 			}
