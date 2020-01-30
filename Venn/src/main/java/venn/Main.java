@@ -5,19 +5,24 @@ package venn;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Main extends Application{
 
 	public static Stage primaryStage;
+	Scene s;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Parent fxml = FXMLLoader.load(getClass().getResource("App.fxml"));
-		Scene s = new Scene(fxml, 1000, 720);
+		s = new Scene(fxml, 1000, 720);
+		
+		
 		
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("VENN DIAGRAM");
@@ -41,10 +46,10 @@ public class Main extends Application{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
+	
 	public static void main(String[]args) {
-		launch(args );
+		launch(args);
 	}
 }

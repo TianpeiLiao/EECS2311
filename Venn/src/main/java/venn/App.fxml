@@ -11,8 +11,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -81,7 +81,7 @@
                         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                      </padding>
                      <children>
-                        <Button fx:id="editEntry" mnemonicParsing="false" styleClass="btn" stylesheets="@style.css" text="Edit Entry" textAlignment="CENTER">
+                        <Button fx:id="editEntry" mnemonicParsing="false" onAction="#editText" styleClass="btn" stylesheets="@style.css" text="Edit Entry" textAlignment="CENTER">
                            <font>
                               <Font name="Roboto Slab Medium" size="18.0" />
                            </font>
@@ -129,6 +129,6 @@
             <Reflection bottomOpacity="0.3" fraction="0.5" topOffset="-2.0" topOpacity="0.0" />
          </effect>
       </Button>
-      <FlowPane fx:id="textSpace" hgap="15.0" layoutX="183.0" layoutY="307.0" prefHeight="200.0" prefWidth="338.0" vgap="15.0" />
+      <Pane fx:id="textSpace" layoutX="38.0" layoutY="317.0" prefHeight="295.0" prefWidth="912.0" />
    </children>
 </AnchorPane>
