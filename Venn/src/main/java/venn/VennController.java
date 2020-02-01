@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,8 +12,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -34,43 +37,47 @@ public class VennController {
 	@FXML
 	private ColorPicker cp;
 	@FXML
-	private FlowPane root;
+	private Pane textSpace;
 	
+	
+	private DraggableText selected = null;
 	private ArrayList<DraggableText> entries = new ArrayList<DraggableText>();
 	int entrycount = 0;
 	
-	public void initilize() {
+	@FXML
+	private void initialize() {
 		cp.getStyleClass().add("split-button");
+		cp.setValue(Color.ANTIQUEWHITE);
+		textSpace.setOnMousePressed(new EventHandler<MouseEvent>(){
+			public void handle(MouseEvent m){
+				boolean found = false;
+				for(int i = 0; i < textSpace.getChildren().size() && !found;i++) {
+					if(textSpace.getChildren().get(i).getBoundsInParent().contains(m.getX(), m.getY())) {
+						selected = (DraggableText) textSpace.getChildren().get(i);
+						found = true;
+						System.out.println("selected text: " + selected.toString());
+					}else {
+						selected = null;
+						System.out.println("selected text: " + selected);
+					}
+				}
+			}
+		});
 	}
 	
 	public void openNewScene(ActionEvent e) {
-		try {
-			Parent fxml  = FXMLLoader.load(getClass().getResource("getData.fxml"));
-			Stage secondStage = new Stage();
-			secondStage.setTitle("Enter Data");
-			secondStage.setScene(new Scene(fxml));
-			secondStage.show();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		
+		Main.showAddStage();
 	}
 	
-	
-	public void createText(ActionEvent e) {
-		if(!entryName.getText().isEmpty() ) {
-		 Color c = cp.getValue();	
-		 double radi  = 10;
-		 DraggableText newTxt = new DraggableText(entryName.getText(), c, radi);
-		 newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
-		 newTxt.getStyleClass().add("createdText");
-		 entries.add(newTxt);
-		 root.getChildren().add(entries.get(entrycount));
-		 entrycount++;
+	public void editText(ActionEvent e) {
+		if(selected != null) {
+			if(!entryName.getText().isEmpty()) {
+				selected.setText(entryName.getText());
+			}
+			Color c = cp.getValue();
+			selected.changeColor(c);
 		}
 	}
-
+	
 }
 
