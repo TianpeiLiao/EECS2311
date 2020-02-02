@@ -70,6 +70,11 @@ public class DraggableText extends Label {
 	public void changeColor(Color c) {
 		this.bg = c;
 		this.setColorBackGround();
+		if (bg.getBrightness() < 0.9) {
+			   this.setStyle("-fx-text-fill: " + "white" + ";");
+			} else {
+			    this.setStyle("-fx-text-fill: " + "black" + ";");
+			}
 	}
 	
 	/**
