@@ -26,28 +26,17 @@ import javafx.stage.Stage;
 
 public class VennController {
 
-	@FXML
-	public static FlowPane txtField;
-	@FXML
-	private Button editEntry;
-	@FXML
 	private Button newEntry;
-	@FXML
-	private TextField entryName;
-	@FXML
-	private ColorPicker cp;
 	@FXML
 	private Pane textSpace;
 	
 	
-	private DraggableText selected = null;
+	private static DraggableText selected = null;
 	private ArrayList<DraggableText> entries = new ArrayList<DraggableText>();
 	int entrycount = 0;
 	
 	@FXML
 	private void initialize() {
-		cp.getStyleClass().add("split-button");
-		cp.setValue(Color.ANTIQUEWHITE);
 		textSpace.setOnMousePressed(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent m){
 				boolean found = false;
@@ -62,19 +51,12 @@ public class VennController {
 			}
 		});
 	}
+	public static DraggableText getSelected() {
+		return selected;
+	}
 	
 	public void openNewScene(ActionEvent e) {
 		Main.showAddStage();
-	}
-	
-	public void editText(ActionEvent e) {
-		if(selected != null) {
-			if(!entryName.getText().isEmpty()) {
-				selected.setText(entryName.getText());
-			}
-			Color c = cp.getValue();
-			selected.changeColor(c);
-		}
 	}
 	
 }

@@ -45,8 +45,8 @@ public class GetDataController {
 		 if(ts.getChildren().size() > 0) {
 			 newTxt.setTranslateX((ts.getChildren().get(ts.getChildren().size() - 1).getBoundsInParent().getMaxX() + 10));
 			 newTxt.setTranslateY(ts.getChildren().get(ts.getChildren().size() - 1).getBoundsInParent().getMinY() + 4);
-			 if(newTxt.getBoundsInParent().getMaxX() <= ts.getMaxWidth()) {
-				 System.out.println("in statment");
+			 if(newTxt.getBoundsInParent().getMaxX() >= ts.getPrefWidth()) {
+				 System.out.println("in statment, " + ts.getPrefWidth());
 				 newTxt.setTranslateX(0);
 				 newTxt.setTranslateY((ts.getChildren().get(ts.getChildren().size() - 1).getBoundsInParent().getMaxY() + 10));
 			 }

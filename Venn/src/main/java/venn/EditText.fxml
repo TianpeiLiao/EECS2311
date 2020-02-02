@@ -17,7 +17,7 @@
 
 <AnchorPane id="EditPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="venn.EditController">
    <children>
-      <Button fx:id="apply" accessibleRole="IMAGE_VIEW" layoutX="396.0" layoutY="199.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="74.0" styleClass="btn" stylesheets="@style.css" text="Edit">
+      <Button fx:id="apply" accessibleRole="IMAGE_VIEW" layoutX="396.0" layoutY="199.0" mnemonicParsing="false" onAction="#edit" prefHeight="41.0" prefWidth="74.0" styleClass="btn" stylesheets="@style.css" text="Edit">
          <font>
             <Font name="Roboto" size="14.0" />
          </font>

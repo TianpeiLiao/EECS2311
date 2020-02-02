@@ -121,7 +121,7 @@ public class DraggableText extends Label {
 		this.setOnMouseClicked(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent m){
 				if(m.getClickCount() == 2){
-	                System.out.println("Double clicked");
+					
 	                Main.showEditStage();
 	            }
 			}
