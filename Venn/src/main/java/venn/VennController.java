@@ -2,6 +2,7 @@ package venn;
 
 import java.util.ArrayList;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -40,6 +41,10 @@ public class VennController {
 	
 	public void initilize() {
 		cp.getStyleClass().add("split-button");
+	}
+	public void CloseApp(ActionEvent event) {
+		Platform.exit();
+		System.exit(0);
 	}
 	
 	public void createText(ActionEvent e) {
