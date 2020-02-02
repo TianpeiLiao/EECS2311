@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -135,5 +136,26 @@
          </graphic>
       </Button>
       <Pane fx:id="textSpace" layoutX="38.0" layoutY="317.0" prefHeight="295.0" prefWidth="912.0" />
+      <Button contentDisplay="CENTER" layoutX="613.0" layoutY="136.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="67.0" style="-fx-background-radius: 30; -fx-border-radius: 30;" styleClass="btn" stylesheets="@style.css" textAlignment="CENTER">
+         <font>
+            <Font name="Roboto Medium" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+         <tooltip>
+            <Tooltip text="Drag and Delete">
+               <font>
+                  <Font name="Roboto" size="14.0" />
+               </font>
+            </Tooltip>
+         </tooltip>
+         <graphic>
+            <FontAwesomeIconView glyphName="TRASH" size="50" />
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

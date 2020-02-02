@@ -21,9 +21,6 @@ public class Main extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		Parent fxml = FXMLLoader.load(getClass().getResource("App.fxml"));
 		s = new Scene(fxml, 1000, 720);
-		
-		
-		
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("VENN DIAGRAM");
 		this.primaryStage.setScene(s);
