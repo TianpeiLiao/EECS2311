@@ -42,16 +42,19 @@ public class GetDataController {
 		 newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
 		 newTxt.getStyleClass().add("createdText");
 		 Pane ts = (Pane) root.lookup("#textSpace");
-		 if(ts.getChildren().size() > 0) {
-			 newTxt.setTranslateX((ts.getChildren().get(ts.getChildren().size() - 1).getBoundsInParent().getMaxX() + 10));
-			 newTxt.setTranslateY(ts.getChildren().get(ts.getChildren().size() - 1).getBoundsInParent().getMinY() + 4);
-			 if(newTxt.getBoundsInParent().getMaxX() >= ts.getPrefWidth()) {
-				 System.out.println("in statment, " + ts.getPrefWidth());
-				 newTxt.setTranslateX(0);
-				 newTxt.setTranslateY((ts.getChildren().get(ts.getChildren().size() - 1).getBoundsInParent().getMaxY() + 10));
-			 }
+		 double x = ts.getBoundsInParent().getMinX();
+		 double y = ts.getBoundsInParent().getMinY();
+		
+		 if(VennController.entries.size() != 0) {
+			 DraggableText prev = VennController.entries.get(VennController.entries.size() - 1);
+			 newTxt.setTranslateX(prev.getBoundsInParent().getMaxX() + 10);
+			 newTxt.setTranslateY(prev.getBoundsInParent().getMinY() + 4);
+		 }else {
+		 newTxt.setTranslateX(x);
+		 newTxt.setTranslateY(y);
 		 }
-		 ts.getChildren().add(newTxt);
+		 VennController.entries.add(newTxt);
+		 root.getChildren().add(newTxt);
 		}
 		thisStage.close();
 	}

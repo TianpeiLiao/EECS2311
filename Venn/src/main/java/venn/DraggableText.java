@@ -3,6 +3,7 @@ package venn;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
@@ -70,11 +71,7 @@ public class DraggableText extends Label {
 	public void changeColor(Color c) {
 		this.bg = c;
 		this.setColorBackGround();
-		if (bg.getBrightness() < 0.9) {
-			   this.setStyle("-fx-text-fill: " + "white" + ";");
-			} else {
-			    this.setStyle("-fx-text-fill: " + "black" + ";");
-			}
+		
 	}
 	
 	/**
@@ -95,15 +92,23 @@ public class DraggableText extends Label {
 	private void setColorBackGround() {
 		Background textbg = new Background(new BackgroundFill(bg, new CornerRadii(borderRadius), new Insets(-4)));
 		this.setBackground(textbg);
+		if (bg.getBrightness() < 0.9) {
+			   this.setStyle("-fx-text-fill: " + "white" + ";");
+			} else {
+			    this.setStyle("-fx-text-fill: " + "black" + ";");
+			}
 	}
 	
-	private void setx(double x, double y) {
-		this.setTranslateX(x);
-		this.setTranslateY(y);
-		System.out.println(this.getLayoutX());
-	}
+	
+
 	
 	private void setEventsAndTip() {
+		 class DragContext {
+	         double x;
+	         double y;
+	     }
+		 
+		DragContext dragContext = new DragContext();
 		
 		this.draggableTip = new Tooltip("Double click to edit");
 		this.setTooltip(draggableTip);
@@ -119,17 +124,35 @@ public class DraggableText extends Label {
 		});
 		this.setOnMouseDragged(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent m){
-				setx(m.getX(), m.getY());
+				DraggableText node = ((DraggableText) (m.getSource()));
+
+                node.setTranslateX( dragContext.x + m.getSceneX());
+                node.setTranslateY( dragContext.y + m.getSceneY());
 			}
 		});
-		
+		this.setOnMousePressed(new EventHandler<MouseEvent>(){
+			public void handle(MouseEvent m) {
+				DraggableText node = (DraggableText) m.getSource();
+				dragContext.x = node.getTranslateX() - m.getSceneX();
+                dragContext.y = node.getTranslateY() - m.getSceneY();
+			}
+		});
 		this.setOnMouseClicked(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent m){
 				if(m.getClickCount() == 2){
-					
 	                Main.showEditStage();
 	            }
 			}
 		});
+	}
+
+
+
+	public boolean collision(Object obj) {
+		Node other = (Node) obj;
+		System.out.println(this.getBoundsInParent() + " Other: " + other.getBoundsInParent() );
+		
+		return this.getBoundsInParent().intersects(other.getBoundsInParent());
+		
 	}
 }

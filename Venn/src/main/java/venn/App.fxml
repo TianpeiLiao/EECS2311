@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1000.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="venn.VennController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1000.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="venn.VennController">
    <children>
       <MenuBar prefHeight="25.0" prefWidth="1000.0">
         <menus>
@@ -48,7 +48,7 @@
             </Label>
          </children>
       </HBox>
-      <Button contentDisplay="CENTER" layoutX="877.0" layoutY="612.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="67.0" style="-fx-background-radius: 30; -fx-border-radius: 30;" styleClass="btn" stylesheets="@style.css" textAlignment="CENTER">
+      <Button fx:id="dlt" contentDisplay="CENTER" layoutX="877.0" layoutY="612.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="67.0" style="-fx-background-radius: 30; -fx-border-radius: 30;" styleClass="btn" stylesheets="@style.css" textAlignment="CENTER">
          <font>
             <Font name="Roboto Medium" size="14.0" />
          </font>
@@ -69,7 +69,7 @@
             <FontAwesomeIconView glyphName="TRASH" size="50" />
          </graphic>
       </Button>
-      <Pane fx:id="textSpace" layoutX="38.0" layoutY="317.0" prefHeight="295.0" prefWidth="912.0" />
+      <Pane fx:id="textSpace" layoutX="57.0" layoutY="140.0" />
       <Button fx:id="newEntry" contentDisplay="CENTER" layoutX="748.0" layoutY="613.0" mnemonicParsing="false" onAction="#openNewScene" prefHeight="51.0" prefWidth="67.0" style="-fx-background-radius: 30; -fx-border-radius: 30;" styleClass="btn" stylesheets="@style.css" textAlignment="CENTER">
          <font>
             <Font name="Roboto Medium" size="14.0" />

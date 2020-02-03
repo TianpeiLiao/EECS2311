@@ -25,27 +25,50 @@ import javafx.stage.Stage;
 
 
 public class VennController {
-
+	@FXML
 	private Button newEntry;
 	@FXML
 	private Pane textSpace;
-	
+	@FXML
+	private Button dlt;
+	@FXML 
+	private AnchorPane pane;
 	
 	private static DraggableText selected = null;
-	private ArrayList<DraggableText> entries = new ArrayList<DraggableText>();
-	int entrycount = 0;
+	public static ArrayList<DraggableText> entries = new ArrayList<DraggableText>();
+	
 	
 	@FXML
 	private void initialize() {
-		textSpace.setOnMousePressed(new EventHandler<MouseEvent>(){
+
+		pane.setOnMousePressed(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent m){
 				boolean found = false;
-				for(int i = 0; i < textSpace.getChildren().size() && !found;i++) {
-					if(textSpace.getChildren().get(i).getBoundsInParent().contains(m.getX(), m.getY())) {
-						selected = (DraggableText) textSpace.getChildren().get(i);
+				for(int i = 0; i < entries.size() && !found; i++) {
+					if(entries.get(i).getBoundsInParent().contains(m.getX(), m.getY())) {
+						selected = (DraggableText) entries.get(i);
 						found = true;
+						
 					}else {
 						selected = null;
+					}
+				
+				}
+			}
+		});
+		pane.setOnMouseReleased(new EventHandler<MouseEvent>(){
+			public void handle(MouseEvent m){
+				if(selected !=null) {
+					System.out.println("delete this " + selected.collision(dlt));
+					for(int i =0; i < entries.size(); i++) {
+						if(selected.collision(entries.get(i)) && entries.get(i) != selected){
+							selected.setTranslateX(entries.get(i).getBoundsInParent().getMaxX() + 10);
+						}
+					}
+					if(selected.collision(dlt)) {
+						System.out.println("delete this");
+						pane.getChildren().remove(selected);
+						entries.remove(selected);
 					}
 				}
 			}
