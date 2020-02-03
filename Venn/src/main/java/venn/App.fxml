@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -82,6 +83,9 @@
                </font>
             </Tooltip>
          </tooltip>
+         <graphic>
+            <FontAwesomeIconView glyphName="PLUS" size="50" />
+         </graphic>
       </Button>
    </children>
 </AnchorPane>
