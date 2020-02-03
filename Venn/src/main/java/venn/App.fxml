@@ -91,5 +91,5 @@
             <MaterialDesignIconView glyphName="PLUS" size="50" text="" />
          </graphic>
       </Button>
-   </children>
+   </children> 
 </AnchorPane>
