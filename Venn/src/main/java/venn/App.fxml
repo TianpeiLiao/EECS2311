@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -65,9 +63,6 @@
                </font>
             </Tooltip>
          </tooltip>
-         <graphic>
-            <FontAwesomeIconView glyphName="TRASH" size="50" />
-         </graphic>
       </Button>
       <Pane fx:id="textSpace" layoutX="57.0" layoutY="140.0" />
       <Button fx:id="newEntry" contentDisplay="CENTER" layoutX="748.0" layoutY="613.0" mnemonicParsing="false" onAction="#openNewScene" prefHeight="51.0" prefWidth="67.0" style="-fx-background-radius: 30; -fx-border-radius: 30;" styleClass="btn" stylesheets="@style.css" textAlignment="CENTER">
@@ -87,9 +82,6 @@
                </font>
             </Tooltip>
          </tooltip>
-         <graphic>
-            <MaterialDesignIconView glyphName="PLUS" size="50" text="" />
-         </graphic>
       </Button>
    </children> 
 </AnchorPane>
