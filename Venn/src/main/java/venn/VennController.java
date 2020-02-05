@@ -59,7 +59,6 @@ public class VennController {
 		pane.setOnMouseReleased(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent m){
 				if(selected !=null) {
-					System.out.println("delete this " + selected.collision(dlt));
 					for(int i =0; i < entries.size(); i++) {
 						if(selected.collision(entries.get(i)) && entries.get(i) != selected){
 							selected.setTranslateX(entries.get(i).getBoundsInParent().getMaxX() + 10);
