@@ -1,81 +1,89 @@
 package venn;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+
 
 public class VennController {
+	@FXML
+	private Button newEntry;
+	@FXML
+	private Pane textSpace;
+	@FXML
+	private Button dlt;
+	@FXML 
+	private AnchorPane pane;
+	
+	private static DraggableText selected = null;
+	public static ArrayList<DraggableText> entries = new ArrayList<DraggableText>();
+	
+	
+	@FXML
+	private void initialize() {
 
-	@FXML
-	private Button create;
-	@FXML
-	private Button dltEntry;
-	@FXML
-	private TextField entryName;
-	@FXML
-	private TextField dltName;
-	@FXML
-	private ColorPicker cp;
-	@FXML
-	private FlowPane txtField;
-	@FXML
-	private Text mytxt;
-	
-	private ArrayList<Label> entries = new ArrayList<Label>();
-	int entrycount = 0;
-	
-	public void initilize() {
-		cp.getStyleClass().add("split-button");
-	}
-	public void CloseApp(ActionEvent event) {
-		Platform.exit();
-		System.exit(0);
-	}
-	
-	public void createText(ActionEvent e) {
-		if(!entryName.getText().isEmpty() ) {
-		 Color c = cp.getValue();	
-		 
-	     Background bg = new Background(new BackgroundFill(c, new CornerRadii(10), null));
-		 Label newTxt = new Label(entryName.getText());
-		 newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 20));
-		 newTxt.setBackground(bg);
-		 newTxt.getStyleClass().add("createdText");
-		 entries.add(newTxt);
-		 txtField.getChildren().add(entries.get(entrycount));
-		 entrycount++;
-		}
-	}
-	
-	public void removeEntry(ActionEvent e) {
-		//txtField.getChildren().remove(0);
-		if(!dltName.getText().isEmpty()) {
-			
-			for(int i = 0; i<entries.size(); i++ ) {
-				System.out.println(dltName.getText() + entries.get(i).getText()  );
-				if(entries.get(i).getText().equals(dltName.getText())) {
-					txtField.getChildren().remove(i);
-					entrycount--;
-					entries.remove(i);
+
+		pane.setOnMousePressed(new EventHandler<MouseEvent>(){
+			public void handle(MouseEvent m){
+				boolean found = false;
+				for(int i = 0; i < entries.size() && !found; i++) {
+					if(entries.get(i).getBoundsInParent().contains(m.getX(), m.getY())) {
+						selected = (DraggableText) entries.get(i);
+						found = true;
+						
+					}else {
+						selected = null;
+					}
+				
+
 				}
 			}
-		}
+		});
+		pane.setOnMouseReleased(new EventHandler<MouseEvent>(){
+			public void handle(MouseEvent m){
+				if(selected !=null) {
+					System.out.println("delete this " + selected.collision(dlt));
+					for(int i =0; i < entries.size(); i++) {
+						if(selected.collision(entries.get(i)) && entries.get(i) != selected){
+							selected.setTranslateX(entries.get(i).getBoundsInParent().getMaxX() + 10);
+						}
+					}
+					if(selected.collision(dlt)) {
+						System.out.println("delete this");
+						pane.getChildren().remove(selected);
+						entries.remove(selected);
+					}
+				}
+			}
+		});
 	}
-
+	public static DraggableText getSelected() {
+		return selected;
+	}
+	
+	public void openNewScene(ActionEvent e) {
+		Main.showAddStage();
+	}
+	
 }
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="249.0" prefWidth="478.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="venn.GetDataController">
+   <children>
+      <TextField fx:id="name" layoutX="75.0" layoutY="66.0" promptText="Entery Name">
+         <font>
+            <Font name="Roboto Slab Regular" size="12.0" />
+         </font>
+      </TextField>
+      <ColorPicker fx:id="cp" layoutX="268.0" layoutY="66.0" />
+      <Button fx:id="create" layoutX="213.0" layoutY="190.0" mnemonicParsing="false" onAction="#createText" text="Create">
+         <font>
+            <Font name="Roboto Slab Regular" size="12.0" />
+         </font>
+      </Button>
+      <Slider fx:id="cornerRadi" layoutX="156.0" layoutY="125.0" />
+      <Text layoutX="101.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cornered" />
+      <Text layoutX="296.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rounded " />
+      
+   </children>
+</AnchorPane>
