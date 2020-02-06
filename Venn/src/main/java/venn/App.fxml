@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-
-
-
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -17,11 +19,15 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1000.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="venn.VennController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1000.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="venn.VennController">
    <children>
       <MenuBar prefHeight="25.0" prefWidth="1000.0">
         <menus>
-          <Menu mnemonicParsing="false" text="File" />
+          <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exitProgram" text="Exit" />
+                  <MenuItem fx:id="capture" mnemonicParsing="false" onAction="#captureData" text="Import" />
+               </items></Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
               <MenuItem mnemonicParsing="false" text="Delete" />
@@ -84,9 +90,7 @@
                </font>
             </Tooltip>
          </tooltip>
-         <graphic>
-            <FontAwesomeIconView glyphName="PLUS" size="50" />
-         </graphic>
+         
       </Button>
    </children> 
 </AnchorPane>
