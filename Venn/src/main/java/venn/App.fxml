@@ -19,11 +19,7 @@
    <children>
       <MenuBar prefHeight="25.0" prefWidth="1000.0">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
+          <Menu mnemonicParsing="false" text="File" />
           <Menu mnemonicParsing="false" text="Edit">
             <items>
               <MenuItem mnemonicParsing="false" text="Delete" />
@@ -75,7 +71,7 @@
                   <MaterialDesignIconView glyphName="PLUS" size="55" />
                </graphic>
             </Button>
-            <Button fx:id="dlt" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="51.0" prefWidth="67.0" style="-fx-background-radius: 30; -fx-border-radius: 30;" styleClass="btn" stylesheets="@style.css" textAlignment="CENTER">
+            <Button fx:id="dlt" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-radius: 30; -fx-border-radius: 30;" styleClass="btn" stylesheets="@style.css" textAlignment="CENTER">
                <font>
                   <Font name="Roboto Medium" size="14.0" />
                </font>
@@ -83,7 +79,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                </padding>
                <tooltip>
                   <Tooltip text="Drag and Delete">
