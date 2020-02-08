@@ -142,6 +142,7 @@ public class VennController {
 					 newTxt.setTranslateX(x);
 					 newTxt.setTranslateY(y);
 					 
+					 
 					 }
 					 VennController.entries.add(newTxt);
 					 
