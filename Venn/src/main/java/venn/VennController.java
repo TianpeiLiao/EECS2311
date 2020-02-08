@@ -126,20 +126,13 @@ public class VennController {
 			double x = textSpace.getBoundsInParent().getMinX();
 			double y = textSpace.getBoundsInParent().getMinY();
 			while ((st = br.readLine()) != null) {
-				  System.out.println(st);
-				  
-				  
 				     newTxt = new DraggableText(st, c, 400);
 				     newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
 					 newTxt.getStyleClass().add("createdText");
-					 
-					 
-					
-					 
+					 					 
 					 newTxt.setTranslateX(x + 50 );
 					 newTxt.setTranslateY(y);
-					
-					 System.out.println(newTxt.getBoundsInParent());
+
 					 entries.add(newTxt);
 					 x = newTxt.getBoundsInParent().getMaxX();
 					 pane.getChildren().add(newTxt);
