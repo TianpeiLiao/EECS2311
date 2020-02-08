@@ -77,14 +77,12 @@ public class VennController {
 		pane.setOnMouseReleased(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent m){
 				if(selected !=null) {
-					System.out.println("delete this " + selected.collision(dlt));
 					for(int i =0; i < entries.size(); i++) {
 						if(selected.collision(entries.get(i)) && entries.get(i) != selected){
 							selected.setTranslateX(entries.get(i).getBoundsInParent().getMaxX() + 10);
 						}
 					}
 					if(selected.collision(dlt)) {
-						System.out.println("delete this");
 						pane.getChildren().remove(selected);
 						entries.remove(selected);
 					}
@@ -124,31 +122,26 @@ public class VennController {
 		try {
 			String st;
 			br = new BufferedReader(new FileReader(file));
+			double x = textSpace.getBoundsInParent().getMinX();
+			double y = textSpace.getBoundsInParent().getMinY();
 			while ((st = br.readLine()) != null) {
 				  System.out.println(st);
-
-				  newTxt = new DraggableText(st, c, 400);
-					 newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
-					 newTxt.getStyleClass().add("createdText");
-					 Pane ts = (Pane) pane.lookup("#textSpace");
-					 double x = ts.getBoundsInParent().getMinX();
-					 double y = ts.getBoundsInParent().getMinY();
-					
-					 if(VennController.entries.size() != 0) {
-						 DraggableText prev = VennController.entries.get(VennController.entries.size() - 1);
-						 newTxt.setTranslateX(prev.getBoundsInParent().getMaxX() + 10);
-						 newTxt.setTranslateY(prev.getBoundsInParent().getMinY() + 4);
-					 }else {
-					 newTxt.setTranslateX(x);
-					 newTxt.setTranslateY(y);
-					 
-					 
-					 }
-					 VennController.entries.add(newTxt);
-					 
-					 pane.getChildren().add(newTxt);
-					 
 				  
+				  
+				     newTxt = new DraggableText(st, c, 400);
+				     newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
+					 newTxt.getStyleClass().add("createdText");
+					 
+					 
+					
+					 
+					 newTxt.setTranslateX(x + 50 );
+					 newTxt.setTranslateY(y);
+					
+					 System.out.println(newTxt.getBoundsInParent());
+					 entries.add(newTxt);
+					 x = newTxt.getBoundsInParent().getMaxX();
+					 pane.getChildren().add(newTxt);
 				}
 		}        
          catch (Exception e) {
