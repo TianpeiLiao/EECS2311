@@ -8,6 +8,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+
+import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -28,12 +31,16 @@ public class Main extends Application{
 	
 	public static void showAddStage() {
 		Parent fxml;
+		Parent fxml2;
 		try {
 			fxml = FXMLLoader.load(Main.class.getResource("getData.fxml"));
+			
+
 			Stage secondStage = new Stage();
 			secondStage.setTitle("Enter Data");
 			secondStage.initModality(Modality.WINDOW_MODAL);
 			secondStage.setScene(new Scene(fxml));
+			
 			secondStage.initOwner(primaryStage);
 			secondStage.showAndWait();;
 			

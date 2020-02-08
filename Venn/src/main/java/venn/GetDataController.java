@@ -53,7 +53,9 @@ public class GetDataController {
 		 newTxt.setTranslateY(y);
 		 }
 		 VennController.entries.add(newTxt);
+		 
 		 root.getChildren().add(newTxt);
+		 System.out.print(root.getChildren());
 		}
 		thisStage.close();
 	}
