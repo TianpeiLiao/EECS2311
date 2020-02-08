@@ -16,9 +16,4 @@ public class Main extends Application{
 		Scene s = new Scene(fxml, 1000, 720);
 		primaryStage.setScene(s);
 		primaryStage.show();
-	}
-	
-	public static void main(String[]args) {
-		launch(args );
-	}
-}
+
