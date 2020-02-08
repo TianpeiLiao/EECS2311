@@ -9,10 +9,6 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
@@ -151,7 +147,7 @@ public class DraggableText extends Label {
 	public boolean collision(Object obj) {
 		Node other = (Node) obj;
 		
-		return this.getBoundsInParent().intersects(other.getBoundsInParent());
+		return this.getBoundsInParent().intersects(other.localToScene(other.getBoundsInLocal()));
 		
 	}
 }
