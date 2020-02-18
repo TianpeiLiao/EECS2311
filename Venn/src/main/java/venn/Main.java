@@ -5,6 +5,7 @@ package venn;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -37,7 +38,7 @@ public class Main extends Application{
 			
 
 			Stage secondStage = new Stage();
-			secondStage.setTitle("Enter Data");
+			secondStage.setTitle("Add New Entry");
 			secondStage.initModality(Modality.WINDOW_MODAL);
 			secondStage.setScene(new Scene(fxml));
 			

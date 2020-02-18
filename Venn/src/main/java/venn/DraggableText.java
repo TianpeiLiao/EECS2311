@@ -95,9 +95,6 @@ public class DraggableText extends Label {
 			}
 	}
 	
-	
-
-	
 	private void setEventsAndTip() {
 		 class DragContext {
 	         double x;
@@ -141,8 +138,6 @@ public class DraggableText extends Label {
 			}
 		});
 	}
-
-
 
 	public boolean collision(Object obj) {
 		Node other = (Node) obj;
