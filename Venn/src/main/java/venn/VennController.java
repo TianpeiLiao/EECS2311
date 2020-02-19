@@ -136,8 +136,8 @@ public class VennController {
 					
 					 if(VennController.entries.size() != 0) {
 						 DraggableText prev = VennController.entries.get(VennController.entries.size() - 1);
-						 newTxt.setTranslateX(prev.getBoundsInParent().getMaxX() + 10);
-						 newTxt.setTranslateY(prev.getBoundsInParent().getMinY() + 4);
+						 newTxt.setTranslateX(x);
+						 newTxt.setTranslateY(prev.getBoundsInParent().getMaxY() + 30);
 					 }else {
 					 newTxt.setTranslateX(x);
 					 newTxt.setTranslateY(y);
