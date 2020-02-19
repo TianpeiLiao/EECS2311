@@ -12,8 +12,10 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-
-
+import javafx.geometry.Point2D;
+import javafx.scene.Group;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.ColorPicker;
@@ -22,8 +24,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -38,7 +42,7 @@ public class VennController {
 	@FXML
 	private Button newEntry;
 	@FXML
-	private Pane textSpace;
+	private FlowPane textSpace;
 	@FXML
 	private Button dlt;
 	@FXML 
@@ -47,7 +51,9 @@ public class VennController {
 	private Button selectFile;
 	@FXML
 	private ListView listview;
-	@FXML
+	
+	SetCircle cir1;
+	SetCircle cir2;
 	
 	
 	private static DraggableText selected = null;
@@ -57,8 +63,18 @@ public class VennController {
 	@FXML
 	private void initialize() {
 		
-
-
+		int radius = 225;
+		Color c1 = Color.web("#b4ffff");
+		Color c2 = Color.web("#ffc4ff");
+		int px = Main.WIDTH/2 + 50;
+		int py = Main.HEIGHT/2 + radius/6;
+		SetCircle cir1 = new SetCircle(px - 150, py, radius, "circle", c1);
+		SetCircle cir2 = new SetCircle(px + 150, py, radius, "circle", c2);
+		Group circles = new Group();
+		circles.getChildren().addAll(cir1, cir2);
+		pane.getChildren().add(circles);
+		
+		
 		pane.setOnMousePressed(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent m){
 				boolean found = false;
@@ -90,6 +106,37 @@ public class VennController {
 				}
 			}
 		});
+		pane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent m) {
+				if(selected != null) {
+					if(cir1.inBound(selected) && !cir1.isElem(selected)) {
+						cir1.addElem(selected);
+						System.out.println(cir1.elems.toString());
+					}else if(!cir1.inBound(selected) && cir1.isElem(selected)) {
+						cir1.removeElem(selected);
+					}
+					if(cir2.inBound(selected)&& !cir2.isElem(selected)) {
+						cir2.addElem(selected);
+					}else if(!cir2.inBound(selected) && cir2.isElem(selected)) {
+						cir2.removeElem(selected);
+					}
+				}
+				if(cir1.localToScene(cir1.getBoundsInLocal()).contains(new Point2D(m.getSceneX(), m.getSceneY()))) {
+					if(cir1.getSetSize() > 0)
+						cir1.setOpacity(0.8);
+				}else {
+					if(cir1.getSetSize() == 0)
+						cir1.setOpacity(0.5);
+				}
+				if(cir2.localToScene(cir2.getBoundsInLocal()).contains(new Point2D(m.getSceneX(), m.getSceneY()))) {
+					if(cir2.getSetSize() > 0)
+						cir2.setOpacity(0.8);
+				}else {
+					if(cir2.getSetSize() == 0)
+						cir2.setOpacity(0.5);
+				}
+			}
+		});
 	}
 	public static DraggableText getSelected() {
 		return selected;
@@ -98,6 +145,7 @@ public class VennController {
 	public void openNewScene(ActionEvent e) {
 		Main.showAddStage();
 	}
+	
 	public void exitProgram()
 	{
 		Platform.exit();

@@ -147,7 +147,7 @@ public class DraggableText extends Label {
 	public boolean collision(Object obj) {
 		Node other = (Node) obj;
 		
-		return this.getBoundsInParent().intersects(other.localToScene(other.getBoundsInLocal()));
+		return this.localToScene(this.getBoundsInLocal()).intersects(other.localToScene(other.getBoundsInLocal()));
 		
 	}
 }
