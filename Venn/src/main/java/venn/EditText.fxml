@@ -15,9 +15,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="addPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="venn.GetDataController">
+<AnchorPane id="EditPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="venn.EditController">
    <children>
-      <Button fx:id="create" accessibleRole="IMAGE_VIEW" layoutX="396.0" layoutY="199.0" mnemonicParsing="false" onAction="#createText" prefHeight="41.0" prefWidth="74.0" styleClass="btn" stylesheets="@style.css" text="Add">
+      <Button fx:id="apply" accessibleRole="IMAGE_VIEW" layoutX="396.0" layoutY="199.0" mnemonicParsing="false" onAction="#edit" prefHeight="41.0" prefWidth="74.0" styleClass="btn" stylesheets="@style.css" text="Edit">
          <font>
             <Font name="Roboto" size="14.0" />
          </font>
@@ -41,7 +41,7 @@
           <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField fx:id="name" onAction="#changePrev" promptText="Create Text" GridPane.columnIndex="1">
+            <TextField fx:id="tf" onAction="#changePrev" promptText="Change Text" GridPane.columnIndex="1">
                <tooltip>
                   <Tooltip text="To edit the text of the selected entry" />
                </tooltip>
@@ -64,7 +64,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ColorPicker>
-            <Slider fx:id="cornerRadi" onDragDone="#changePrev" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Slider fx:id="sd" onDragDone="#changePrev" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <tooltip>
                   <Tooltip text="To change the corners of the selected entry">
                      <font>
