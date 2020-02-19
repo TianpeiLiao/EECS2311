@@ -16,7 +16,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Main extends Application{
-
+	public static final int WIDTH = 1000;
+	public static final int HEIGHT = 720;
 	public static Stage primaryStage;
 	Scene s;
 	@Override
