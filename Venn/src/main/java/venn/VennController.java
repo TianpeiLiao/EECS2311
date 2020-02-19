@@ -49,8 +49,7 @@ public class VennController {
 	private AnchorPane pane;
 	@FXML
 	private Button selectFile;
-	@FXML
-	private ListView listview;
+	
 	
 	SetCircle cir1;
 	SetCircle cir2;

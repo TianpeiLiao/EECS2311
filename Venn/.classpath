@@ -8,7 +8,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/User/Desktop/apps/jar_files.zip"/>
 	<classpathentry kind="lib" path="C:/Users/ardat/Downloads/fontawesomefx-8.9.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
