@@ -15,18 +15,22 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Main extends Application{
-	public static final int WIDTH = 1000;
-	public static final int HEIGHT = 720;
+	public static final int WIDTH = 1200;
+	public static final int HEIGHT = 960;
+	public static double sWidth;
+	public static double sHeight;
 	public static Stage primaryStage;
 	Scene s;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Parent fxml = FXMLLoader.load(getClass().getResource("App.fxml"));
-		s = new Scene(fxml, 1000, 720);
+		s = new Scene(fxml, 1200, 960);
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("VENN DIAGRAM");
 		this.primaryStage.setScene(s);
 		this.primaryStage.show();
+		sWidth = s.getWidth();
+		sHeight = s.getHeight();
 	}
 	
 	

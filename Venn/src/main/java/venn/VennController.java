@@ -65,8 +65,8 @@ public class VennController {
 		int radius = 225;
 		Color c1 = Color.web("#b4ffff");
 		Color c2 = Color.web("#ffc4ff");
-		int px = Main.WIDTH/2 + 50;
-		int py = Main.HEIGHT/2 + radius/6;
+		int px = Main.WIDTH/2 ;//+ 50;
+		int py = Main.HEIGHT/2 +  (3*radius)/4;
 		SetCircle cir1 = new SetCircle(px - 150, py, radius, "circle", c1);
 		SetCircle cir2 = new SetCircle(px + 150, py, radius, "circle", c2);
 		Group circles = new Group();

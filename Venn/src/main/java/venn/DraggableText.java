@@ -1,16 +1,19 @@
 package venn;
 
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 /**
  * A text object that extends Label for venn diagram. this will be a draggable object in the 
@@ -25,6 +28,9 @@ public class DraggableText extends Label {
 	private Color bg;
 	private double borderRadius;
 	private Tooltip draggableTip;
+	@FXML
+	private AnchorPane pane;
+	Main ms;
 	
 	/**
 	 * The constructor with only text of the label
@@ -95,9 +101,6 @@ public class DraggableText extends Label {
 			}
 	}
 	
-	
-
-	
 	private void setEventsAndTip() {
 		 class DragContext {
 	         double x;
@@ -121,11 +124,21 @@ public class DraggableText extends Label {
 		this.setOnMouseDragged(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent m){
 				DraggableText node = ((DraggableText) (m.getSource()));
+				
+				 double newX = m.getSceneX() + dragContext.x;
+	             double newY = m.getSceneY() + dragContext.y ;
+	                
+	              if(newX < 55 || newX > (Main.WIDTH - 100) || newY < 75 || newY > (ms.sHeight - 70) )
+	              {
+	            	  return;
+	              }
 
                 node.setTranslateX( dragContext.x + m.getSceneX());
                 node.setTranslateY( dragContext.y + m.getSceneY());
+                
 			}
 		});
+		
 		this.setOnMousePressed(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent m) {
 				DraggableText node = (DraggableText) m.getSource();
