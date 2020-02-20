@@ -47,7 +47,7 @@ public class VennController {
 	@FXML
 	private ListView listview;
 	@FXML
-	
+	private static double counter;
 	
 	private static DraggableText selected = null;
 	public static ArrayList<DraggableText> entries = new ArrayList<DraggableText>();
@@ -55,7 +55,7 @@ public class VennController {
 	
 	@FXML
 	private void initialize() {
-		
+		counter=1.0;
 
 
 		pane.setOnMousePressed(new EventHandler<MouseEvent>(){
@@ -127,7 +127,7 @@ public class VennController {
 			while ((st = br.readLine()) != null) {
 				  System.out.println(st);
 
-				  newTxt = new DraggableText(st, c, 400);
+				  	 newTxt = new DraggableText(st, c, 400);
 					 newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
 					 newTxt.getStyleClass().add("createdText");
 					 Pane ts = (Pane) pane.lookup("#textSpace");
@@ -136,8 +136,38 @@ public class VennController {
 					
 					 if(VennController.entries.size() != 0) {
 						 DraggableText prev = VennController.entries.get(VennController.entries.size() - 1);
+						 if(counter/16.0 <=1) {
 						 newTxt.setTranslateX(x);
 						 newTxt.setTranslateY(prev.getBoundsInParent().getMaxY() + 30);
+						 }
+						 else if(counter/16.0 ==2 || counter/16.0==3 || counter/16.0==4)
+						 {
+							 DraggableText prev1 = VennController.entries.get(15);
+							 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 150*(counter/16.0-1));
+							 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
+						 }
+						 else if(counter/16.0 > 1 && counter/16.0 <2) {
+							 DraggableText prev1 = VennController.entries.get((int)counter%16-1);
+							 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 150);
+							 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
+							 
+						 }
+						 else if(counter/16.0 > 2 && counter/16.0<3) {
+							 DraggableText prev1 = VennController.entries.get((int)counter%16-1);
+							 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 300);
+							 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
+							 
+						 }
+						 else if(counter/16.0 > 3 && counter/16.0<4) {
+							 DraggableText prev1 = VennController.entries.get((int)counter%16-1);
+							 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 450);
+							 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());							 
+						 }
+						 else if(counter/16.0 > 4 && counter/16.0<5) {
+							 DraggableText prev1 = VennController.entries.get((int)counter%16-1);
+							 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 600);
+							 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());							 
+						 }
 					 }else {
 					 newTxt.setTranslateX(x);
 					 newTxt.setTranslateY(y);
@@ -145,9 +175,12 @@ public class VennController {
 					 
 					 }
 					 VennController.entries.add(newTxt);
-					 
 					 pane.getChildren().add(newTxt);
-					 
+//					 System.out.print("x:"+newTxt.getLayoutX()+"   y: "+newTxt.getLayoutY()+"\n");
+//					 System.out.print("x:"+x+"   y: "+y+"\n");
+//					 System.out.print(counter+" "+counter/16);
+					 counter++;
+					 System.out.print(counter);
 				  
 				}
 		}        
