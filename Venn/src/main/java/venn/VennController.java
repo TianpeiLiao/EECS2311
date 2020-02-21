@@ -49,12 +49,16 @@ public class VennController {
 	private AnchorPane pane;
 	@FXML
 	private Button selectFile;
-	@FXML
-	private ListView listview;
-	
+		
 	SetCircle cir1;
 	SetCircle cir2;
 	
+	Text setName1;
+	Text setName2;
+	Text setElem1;
+	Text setElem2;
+	
+	int elems1, elems2 = 0;
 	
 	private static DraggableText selected = null;
 	public static ArrayList<DraggableText> entries = new ArrayList<DraggableText>();
@@ -70,8 +74,17 @@ public class VennController {
 		int py = Main.HEIGHT/2 + radius/6;
 		SetCircle cir1 = new SetCircle(px - 150, py, radius, "circle", c1);
 		SetCircle cir2 = new SetCircle(px + 150, py, radius, "circle", c2);
+		setName1 = new Text("Set1");
+		setName2 = new Text("Set2");
+		setElem1 = new Text("Number of elements: " + String.valueOf(elems1));
+		setElem2 = new Text("Number of elements: " + String.valueOf(elems2));
+		setName1.getStyleClass().add("setText");
+		setName2.getStyleClass().add("setText");
+		setElem1.getStyleClass().add("setText");
+		setElem2.getStyleClass().add("setText");
+		
 		Group circles = new Group();
-		circles.getChildren().addAll(cir1, cir2);
+		circles.getChildren().addAll(cir1, cir2, setName1, setName2, setElem1, setElem2);
 		pane.getChildren().add(circles);
 		
 		
