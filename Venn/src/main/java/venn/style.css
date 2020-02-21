@@ -26,5 +26,14 @@
 	-fx-background-radius: 5px;
 }
 .setText{
-	
+	 -fx-font: 30px Roboto;
+	 -fx-font-weight: bold;
+    -fx-fill: white;
+    
+}
+.setNum{
+	 -fx-font: 15px Roboto;
+	 -fx-font-weight: 100;
+    -fx-fill: white;
+    
 }
