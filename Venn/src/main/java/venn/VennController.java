@@ -42,7 +42,7 @@ public class VennController {
 	@FXML
 	private Button newEntry;
 	@FXML
-	private FlowPane textSpace;
+	private Pane textSpace;
 	@FXML
 	private Button dlt;
 	@FXML 

@@ -128,13 +128,20 @@ public class DraggableText extends Label {
 				 double newX = m.getSceneX() + dragContext.x;
 	             double newY = m.getSceneY() + dragContext.y ;
 	                
-	              if(newX < 55 || newX > (Main.WIDTH - 100) || newY < 75 || newY > (ms.sHeight - 70) )
+	              if( m.getSceneX() < 0) 
 	              {
-	            	  return;
+	            	  newX = 0;
+	              }else if(m.getSceneX() > Main.WIDTH ) {
+	            	  newX = Main.WIDTH - node.getBoundsInParent().getWidth() + 10;
+	              }
+	              if(m.getSceneY() < 0) {
+	            	  newY = 0;
+	              }else if(m.getSceneY() > Main.HEIGHT ) {
+	            	  newY = Main.HEIGHT - node.getBoundsInParent().getHeight() + 10;
 	              }
 
-                node.setTranslateX( dragContext.x + m.getSceneX());
-                node.setTranslateY( dragContext.y + m.getSceneY());
+                node.setTranslateX( newX);
+                node.setTranslateY( newY);
                 
 			}
 		});
