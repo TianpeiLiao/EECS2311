@@ -49,11 +49,16 @@ public class VennController {
 	private AnchorPane pane;
 	@FXML
 	private Button selectFile;
-	
-	
+
 	SetCircle cir1;
 	SetCircle cir2;
 	
+	Text setName1;
+	Text setName2;
+	Text setElem1;
+	Text setElem2;
+	
+	int elems1, elems2 = 0;
 	
 	private static DraggableText selected = null;
 	public static ArrayList<DraggableText> entries = new ArrayList<DraggableText>();
@@ -69,8 +74,24 @@ public class VennController {
 		int py = Main.HEIGHT/2 +  (3*radius)/4;
 		SetCircle cir1 = new SetCircle(px - 150, py, radius, "circle", c1);
 		SetCircle cir2 = new SetCircle(px + 150, py, radius, "circle", c2);
+		setName1 = new Text("Set1");
+		setName2 = new Text("Set2");
+		setElem1 = new Text("Number of elements: " + String.valueOf(elems1));
+		setElem2 = new Text("Number of elements: " + String.valueOf(elems2));
+		setName1.getStyleClass().add("setText");
+		setName2.getStyleClass().add("setText");
+		setElem1.getStyleClass().add("setNum");
+		setElem2.getStyleClass().add("setNum");
+		setName1.setLayoutX(cir1.getCenterX() - radius);
+		setName1.setLayoutY(cir1.getCenterY() - radius - 40);
+		setName2.setLayoutX(cir2.getCenterX() + radius - 60);
+		setName2.setLayoutY(cir2.getCenterY() - radius - 40 );
+		setElem1.setLayoutX(setName1.getLayoutX());
+		setElem1.setLayoutY(setName1.getBoundsInParent().getMaxY() + 30);
+		setElem2.setLayoutX(setName2.getLayoutX());
+		setElem2.setLayoutY(setName2.getBoundsInParent().getMaxY() + 30);
 		Group circles = new Group();
-		circles.getChildren().addAll(cir1, cir2);
+		circles.getChildren().addAll(cir1, cir2, setName1, setName2, setElem1, setElem2);
 		pane.getChildren().add(circles);
 		
 		
@@ -110,14 +131,22 @@ public class VennController {
 				if(selected != null) {
 					if(cir1.inBound(selected) && !cir1.isElem(selected)) {
 						cir1.addElem(selected);
+						elems1++;
+						setElem1.setText("Number of Elements: " + String.valueOf(elems1));
 						System.out.println(cir1.elems.toString());
 					}else if(!cir1.inBound(selected) && cir1.isElem(selected)) {
 						cir1.removeElem(selected);
+						elems1--;
+						setElem1.setText("Number of Elements: " + String.valueOf(elems1));
 					}
 					if(cir2.inBound(selected)&& !cir2.isElem(selected)) {
 						cir2.addElem(selected);
+						elems2++;
+						setElem2.setText("Number of Elements: " + String.valueOf(elems2));
 					}else if(!cir2.inBound(selected) && cir2.isElem(selected)) {
 						cir2.removeElem(selected);
+						elems2--;
+						setElem2.setText("Number of Elements: " + String.valueOf(elems2));
 					}
 				}
 				if(cir1.localToScene(cir1.getBoundsInLocal()).contains(new Point2D(m.getSceneX(), m.getSceneY()))) {
