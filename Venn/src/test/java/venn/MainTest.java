@@ -2,25 +2,30 @@ package venn;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import java.util.concurrent.TimeoutException;
+
+import org.junit.*;
 import org.testfx.api.FxToolkit;
 //import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.util.WaitForAsyncUtils;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
+import javafx.scene.control.*;
+import javafx.scene.input.*;
+import javafx.scene.*;
 import javafx.stage.Stage;
-import javafx.application.Application;
-import javafx.application.Platform;
+import javafx.application.*;
 import javafx.embed.swing.JFXPanel;
+//import torgen.utils.FxRobotColourPicker;
 
 public class MainTest extends ApplicationTest{
+	
+	
+	ColorPicker picker;
+	Slider slide;
+	Button delete;
+	Button addNew;
 	
 	@Before
 	public void testA() throws InterruptedException
@@ -46,15 +51,49 @@ public class MainTest extends ApplicationTest{
 			}
 			});
 			thread.start();
-			Thread.sleep(5000);
+			Thread.sleep(3000);
 	}
 
+	/* Just a shortcut to retrieve widgets in the GUI. */
+    public <T extends Node> T find(final String query) {
+        /* TestFX provides many operations to retrieve elements from the loaded GUI. */
+        return lookup(query).query();
+    }
+    
+	@Before
+	public void setUp()
+	{
+		addNew = find("#newEntry");
+		delete = find("#dlt");
+	}
+
+/*	@Override
+	public void start (Stage primaryStage) throws Exception
+	{
+	
+		Parent mainNode = FXMLLoader.load(Main.class.getResource("App.fxml"));
+		primaryStage.setScene(new Scene(mainNode));
+		primaryStage.show();
+		primaryStage.toFront();
+		Thread.sleep(1000);
+	}
+*/
+	
 	@After
-	public void tearDown() throws Exception
+	public void tearDown() throws TimeoutException
 	{
 		FxToolkit.hideStage();
 		release(new KeyCode[]{});
 		release(new MouseButton[]{});
+	}
+	
+	@Test
+	public void testWidgets() throws Exception
+	{
+		final String errMsg = "One of the button cannot be retireved anymore!";
+		assertNotNull(errMsg, addNew);
+		assertNotNull(errMsg, delete);
+		
 	}
 	
 	@Test
@@ -65,10 +104,42 @@ public class MainTest extends ApplicationTest{
 		clickOn("#name");
 		Thread.sleep(1000);
 		write("ABCDEF");
-		clickOn();
 		Thread.sleep(1000);
+		clickOn("#cp").type(KeyCode.TAB).type(KeyCode.TAB).type(KeyCode.DOWN).type(KeyCode.DOWN);
+		Thread.sleep(1000);
+		clickOn("#cornerRadi").type(KeyCode.TAB).type(KeyCode.RIGHT);
+		Thread.sleep(1000);
+		clickOn("#create");
+		Thread.sleep(1000);
+		type(KeyCode.ENTER);
+		Thread.sleep(1000);
+		
+		WaitForAsyncUtils.waitForFxEvents();
+	
 	}
 	
+	@Test
+	public void testEditData()  throws InterruptedException
+	{
+//		clickOn("#newEntry");
+//		Thread.sleep(1000);
+//		clickOn("#name");
+//		Thread.sleep(1000);
+//		write("ABCDEF");
+//		Thread.sleep(1000);
+//		clickOn("#cp").type(KeyCode.TAB).type(KeyCode.TAB).type(KeyCode.DOWN).type(KeyCode.DOWN);
+//		Thread.sleep(1000);
+//		clickOn("#cornerRadi").type(KeyCode.TAB).type(KeyCode.RIGHT);
+//		Thread.sleep(1000);
+//		clickOn("#create");
+//		Thread.sleep(1000);
+//		type(KeyCode.ENTER);
+//		Thread.sleep(1000);
+//		
+//		WaitForAsyncUtils.waitForFxEvents();
+//		assertEquals();
+	
+	}
 	
 
 }
