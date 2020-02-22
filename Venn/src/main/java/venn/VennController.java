@@ -1,10 +1,13 @@
 package venn;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 
 import javafx.application.Platform;
@@ -192,7 +195,48 @@ public class VennController {
 		
 		return path;
 	}
+	public String exportData(ActionEvent event) throws FileNotFoundException
+	{
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt, extensions)","*.txt");
+		fileChooser.getExtensionFilters().add(extFilter);
+		File file = fileChooser.showSaveDialog(null);
+//		if(file != null)
+//		{
+//			
+//		}
+			for(DraggableText a:VennController.entries) {
+				
+				SaveFile(a.getText()+"\n",file);
+				
+			}
+		BufferedReader rd = new BufferedReader(new FileReader(file));
+		try {
+			System.out.println("\n"+rd.readLine());
+		}
+		catch(Exception ex){
+			
+		}
+		
+		
+		
+		
 	
+		
+		return "";
+	}
+	private void SaveFile(String content, File file){
+        try {
+            FileWriter fileWriter;
+           
+            fileWriter = new FileWriter(file,true);
+            fileWriter.write(content);
+            fileWriter.close();
+        } catch (IOException ex) {
+           
+        }
+          
+    }	
 	
 	
 }
