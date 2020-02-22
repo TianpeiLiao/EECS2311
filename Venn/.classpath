@@ -6,5 +6,6 @@
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
 	<classpathentry kind="lib" path="C:/Users/jpras/OneDrive/Pictures/fontawesomefx-8.9.jar"/>
 	<classpathentry kind="lib" path="/Users/liaotianpei/Downloads/fontawesomefx-8.9 2.jar"/>
+	<classpathentry kind="lib" path="/Users/liaotianpei/Desktop/fontawesomefx-8.9 .jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
