@@ -56,6 +56,8 @@ public class EditController {
 	                prev.changeBorder(newValue.doubleValue()); 
 	            } 
 	        });
+		
+		apply.setDefaultButton(true);
 		}
 	
 	public void changePrev(ActionEvent e) {
