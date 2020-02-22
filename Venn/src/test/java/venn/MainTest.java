@@ -26,6 +26,7 @@ public class MainTest extends ApplicationTest{
 	Slider slide;
 	Button delete;
 	Button addNew;
+	MouseButton btn;
 	
 	@Before
 	public void testA() throws InterruptedException
@@ -96,28 +97,28 @@ public class MainTest extends ApplicationTest{
 		
 	}
 	
-//	@Test
-//	public void testGetData()  throws InterruptedException
-//	{
-//		clickOn("#newEntry");
-//		Thread.sleep(1000);
-//		clickOn("#name");
-//		Thread.sleep(1000);
-//		write("ABCDEF");
-//		Thread.sleep(1000);
-//		clickOn("#cp").type(KeyCode.TAB).type(KeyCode.TAB).type(KeyCode.DOWN).type(KeyCode.DOWN);
-//		Thread.sleep(1000);
-//		clickOn("#cornerRadi").type(KeyCode.TAB).type(KeyCode.RIGHT);
-//		Thread.sleep(1000);
-//		clickOn("#create");
-//		Thread.sleep(1000);
-//		type(KeyCode.ENTER);
-//		Thread.sleep(1000);
-//		
-//		WaitForAsyncUtils.waitForFxEvents();
-//		VennController.entries.removeAll(VennController.entries);
-//	}
-//	
+	@Test
+	public void testGetData()  throws InterruptedException
+	{
+		clickOn("#newEntry");
+		Thread.sleep(1000);
+		clickOn("#name");
+		Thread.sleep(1000);
+		write("ABCDEF");
+		Thread.sleep(1000);
+		clickOn("#cp").type(KeyCode.TAB).type(KeyCode.TAB).type(KeyCode.DOWN).type(KeyCode.DOWN);
+		Thread.sleep(1000);
+		clickOn("#cornerRadi").type(KeyCode.TAB).type(KeyCode.RIGHT);
+		Thread.sleep(1000);
+		clickOn("#create");
+		Thread.sleep(1000);
+		type(KeyCode.ENTER);
+		Thread.sleep(1000);
+		
+		WaitForAsyncUtils.waitForFxEvents();
+		VennController.entries.removeAll(VennController.entries);
+	}
+	
 
 	@Test
 	public void testEditData()  throws InterruptedException
@@ -133,8 +134,7 @@ public class MainTest extends ApplicationTest{
 		type(KeyCode.ENTER);
 		Thread.sleep(1000);
 		type(KeyCode.ESCAPE);
-		clickOn(VennController.entries.get(0));
-		clickOn(VennController.entries.get(0));
+		doubleClickOn(VennController.entries.get(0));
 		Thread.sleep(1000);
 		clickOn("#tf");
 		Thread.sleep(1000);
@@ -148,14 +148,13 @@ public class MainTest extends ApplicationTest{
 		clickOn("#apply");
 		Thread.sleep(1000);
 		
-		
-		
 		WaitForAsyncUtils.waitForFxEvents();
 		VennController.entries.removeAll(VennController.entries);
 	
 	}
+	
 	@Test
-	public void deleteEntry() throws InterruptedException {
+	public void testdDeleteEntry() throws InterruptedException {
 		clickOn("#newEntry");
 		Thread.sleep(1000);
 		clickOn("#name");
@@ -169,8 +168,41 @@ public class MainTest extends ApplicationTest{
 		
 		
 		WaitForAsyncUtils.waitForFxEvents();
-		VennController.entries.removeAll(VennController.entries);
-		
+		VennController.entries.removeAll(VennController.entries);	
 	}
+	
+/*	@Test 
+	public void testDraggedEntry() throws InterruptedException {
+		
+		clickOn("#newEntry");
+		Thread.sleep(1000);
+		clickOn("#name");
+		Thread.sleep(1000);
+		write("ABCDEF");
+		Thread.sleep(1000);
+		clickOn("#create");
+		Thread.sleep(1000);
+		type(KeyCode.ENTER);
+		Thread.sleep(1000);
+		type(KeyCode.ESCAPE);
+		Thread.sleep(1000);
+		drag(VennController.entries.get(0)).dropTo(800, 700);
+		Thread.sleep(1000);
+		drag(VennController.entries.get(0)).dropTo(950, 700);
+		Thread.sleep(1000);
+		drag(VennController.entries.get(0)).dropTo(1150, 700);
+		Thread.sleep(1000);
+		drag(VennController.entries.get(0)).dropTo(1150, 300);
+		Thread.sleep(1000);
+		
+		double newX = VennController.entries.get(1).getBoundsInParent().getMinX();
+		double newY = VennController.entries.get(1).getBoundsInParent().getMinX();
+		
+		drag(VennController.entries.get(0)).dropTo(VennController.entries.get(1)).dropTo(newX, newY);
+		Thread.sleep(1000);
+		VennController.entries.removeAll(VennController.entries);	
+	}
+	
+*/	
 
 }
