@@ -2,28 +2,25 @@ package venn;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.testfx.api.FxToolkit;
+//import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.framework.junit.ApplicationTest;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 
-public class MainTest {
-	
-//	@Override
-//	public void start (Stage primaryStage) throws Exception
-//	{
-//		Parent mainNode = FXMLLoader.load(Main.class.getResource("App.fxml"));
-//		primaryStage.setScene(new Scene(mainNode));
-//		primaryStage.show();
-//		primaryStage.toFront();
-//	}
+public class MainTest extends ApplicationTest{
 	
 	@Before
 	public void testA() throws InterruptedException
@@ -31,7 +28,7 @@ public class MainTest {
 		Thread thread = new Thread(new Runnable() {
 			@Override 
 			public void run() {
-				new JFXPanel();
+			new JFXPanel();
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {
@@ -49,13 +46,29 @@ public class MainTest {
 			}
 			});
 			thread.start();
-			Thread.sleep(10000);
-		}
-			
+			Thread.sleep(5000);
+	}
+
+	@After
+	public void tearDown() throws Exception
+	{
+		FxToolkit.hideStage();
+		release(new KeyCode[]{});
+		release(new MouseButton[]{});
+	}
 	
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testGetData()  throws InterruptedException
+	{
+		clickOn("#newEntry");
+		Thread.sleep(1000);
+		clickOn("#name");
+		Thread.sleep(1000);
+		write("ABCDEF");
+		clickOn();
+		Thread.sleep(1000);
 	}
+	
+	
 
 }
