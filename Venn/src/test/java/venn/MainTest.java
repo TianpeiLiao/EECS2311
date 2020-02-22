@@ -171,7 +171,7 @@ public class MainTest extends ApplicationTest{
 		VennController.entries.removeAll(VennController.entries);	
 	}
 	
-/*	@Test 
+	@Test 
 	public void testDraggedEntry() throws InterruptedException {
 		
 		clickOn("#newEntry");
@@ -203,6 +203,6 @@ public class MainTest extends ApplicationTest{
 		VennController.entries.removeAll(VennController.entries);	
 	}
 	
-*/	
+	
 
 }
