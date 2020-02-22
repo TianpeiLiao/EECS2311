@@ -2,10 +2,13 @@ package venn;
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 
 import javafx.application.Platform;
@@ -49,11 +52,17 @@ public class VennController {
 	private AnchorPane pane;
 	@FXML
 	private Button selectFile;
+
 	
 	
 	SetCircle cir1;
 	SetCircle cir2;
-	
+
+	@FXML
+	private ListView listview;
+	@FXML
+	private static double counter;
+
 	
 	private static DraggableText selected = null;
 	public static ArrayList<DraggableText> entries = new ArrayList<DraggableText>();
@@ -61,6 +70,7 @@ public class VennController {
 	
 	@FXML
 	private void initialize() {
+
 		
 		int radius = 225;
 		Color c1 = Color.web("#b4ffff");
@@ -74,6 +84,11 @@ public class VennController {
 		pane.getChildren().add(circles);
 		
 		
+
+		counter=1.0;
+
+
+
 		pane.setOnMousePressed(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent m){
 				boolean found = false;
@@ -170,19 +185,67 @@ public class VennController {
 		try {
 			String st;
 			br = new BufferedReader(new FileReader(file));
-			double x = textSpace.getBoundsInParent().getMinX();
-			double y = textSpace.getBoundsInParent().getMinY();
+			
 			while ((st = br.readLine()) != null) {
-				     newTxt = new DraggableText(st, c, 400);
-				     newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
-					 newTxt.getStyleClass().add("createdText");
-					 					 
-					 newTxt.setTranslateX(x + 50 );
-					 newTxt.setTranslateY(y);
 
-					 entries.add(newTxt);
-					 x = newTxt.getBoundsInParent().getMaxX();
+				  System.out.println(st);
+
+				  	 newTxt = new DraggableText(st, c, 400);
+					 newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
+					 newTxt.getStyleClass().add("createdText");
+					 Pane ts = (Pane) pane.lookup("#textSpace");
+					 double x = ts.getBoundsInParent().getMinX();
+					 double y = ts.getBoundsInParent().getMinY();
+					
+					 if(VennController.entries.size() != 0) {
+						 DraggableText prev = VennController.entries.get(VennController.entries.size() - 1);
+						 if(counter/16.0 <=1) {
+						 newTxt.setTranslateX(x);
+						 newTxt.setTranslateY(prev.getBoundsInParent().getMaxY() + 30);
+						 }
+						 else if(counter/16.0 ==2 || counter/16.0==3 || counter/16.0==4)
+						 {
+							 DraggableText prev1 = VennController.entries.get(15);
+							 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 150*(counter/16.0-1));
+							 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
+						 }
+						 else if(counter/16.0 > 1 && counter/16.0 <2) {
+							 DraggableText prev1 = VennController.entries.get((int)counter%16-1);
+							 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 150);
+							 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
+							 
+						 }
+						 else if(counter/16.0 > 2 && counter/16.0<3) {
+							 DraggableText prev1 = VennController.entries.get((int)counter%16-1);
+							 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 300);
+							 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
+							 
+						 }
+						 else if(counter/16.0 > 3 && counter/16.0<4) {
+							 DraggableText prev1 = VennController.entries.get((int)counter%16-1);
+							 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 450);
+							 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());							 
+						 }
+						 else if(counter/16.0 > 4 && counter/16.0<5) {
+							 DraggableText prev1 = VennController.entries.get((int)counter%16-1);
+							 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 600);
+							 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());							 
+						 }
+					 }else {
+					 newTxt.setTranslateX(x);
+
+					 newTxt.setTranslateY(y);
+					 }
+					 VennController.entries.add(newTxt);
+
 					 pane.getChildren().add(newTxt);
+
+
+//					 System.out.print("x:"+newTxt.getLayoutX()+"   y: "+newTxt.getLayoutY()+"\n");
+//					 System.out.print("x:"+x+"   y: "+y+"\n");
+//					 System.out.print(counter+" "+counter/16);
+					 counter++;
+					 
 				}
 		}        
          catch (Exception e) {
@@ -193,7 +256,48 @@ public class VennController {
 		
 		return path;
 	}
+	public String exportData(ActionEvent event) throws FileNotFoundException
+	{
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt, extensions)","*.txt");
+		fileChooser.getExtensionFilters().add(extFilter);
+		File file = fileChooser.showSaveDialog(null);
+//		if(file != null)
+//		{
+//			
+//		}
+			for(DraggableText a:VennController.entries) {
+				
+				SaveFile(a.getText()+"\n",file);
+				
+			}
+		BufferedReader rd = new BufferedReader(new FileReader(file));
+		try {
+			System.out.println("\n"+rd.readLine());
+		}
+		catch(Exception ex){
+			
+		}
+		
+		
+		
+		
 	
+		
+		return "";
+	}
+	private void SaveFile(String content, File file){
+        try {
+            FileWriter fileWriter;
+           
+            fileWriter = new FileWriter(file,true);
+            fileWriter.write(content);
+            fileWriter.close();
+        } catch (IOException ex) {
+           
+        }
+          
+    }	
 	
 	
 }

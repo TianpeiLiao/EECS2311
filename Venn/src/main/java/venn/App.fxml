@@ -26,6 +26,7 @@
                <items>
                   <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exitProgram" text="Exit" />
                   <MenuItem fx:id="capture" mnemonicParsing="false" onAction="#captureData" text="Import" />
+                  <MenuItem fx:id="export" mnemonicParsing="false" onAction="#exportData" text="Export" />
                </items></Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
