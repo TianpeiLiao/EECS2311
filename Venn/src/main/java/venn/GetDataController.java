@@ -80,13 +80,16 @@ public class GetDataController {
 		 double x = ts.getBoundsInParent().getMinX();
 		 double y = ts.getBoundsInParent().getMinY();
 		
+		 newTxt.setLayoutY(y);
 		 if(VennController.entries.size() != 0) {
-			 DraggableText prev = VennController.entries.get(VennController.entries.size() - 1);
-			 newTxt.setTranslateX(prev.getBoundsInParent().getMaxX() + 10);
-			 newTxt.setTranslateY(prev.getBoundsInParent().getMinY() + 4);
+			 for(DraggableText t : VennController.entries) {
+				if(t.getBoundsInParent().contains(x, y)) {
+					x = t.getBoundsInParent().getMaxX() + 10;
+				}
+			 }
+			 newTxt.setLayoutX(x); 
 		 }else {
-		 newTxt.setTranslateX(x);
-		 newTxt.setTranslateY(y);
+			 newTxt.setLayoutX(x);
 		 }
 		 VennController.entries.add(newTxt);
 		 
