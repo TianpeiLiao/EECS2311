@@ -296,10 +296,6 @@ public class VennController {
 		catch(Exception ex){
 			
 		}
-		
-		
-		
-		
 	
 		
 		return "";

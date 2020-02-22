@@ -80,7 +80,7 @@ public class GetDataController {
 		 double x = ts.getBoundsInParent().getMinX();
 		 double y = ts.getBoundsInParent().getMinY();
 		
-		 newTxt.setLayoutY(y);
+		 newTxt.setTranslateY(y);
 		 if(VennController.entries.size() != 0) {
 			 for(DraggableText t : VennController.entries) {
 				if(t.getBoundsInParent().contains(x, y)) {
@@ -92,8 +92,8 @@ public class GetDataController {
 				}
 			 }
 		 }
-		 newTxt.setLayoutX(x);
-		 newTxt.setLayoutY(y);
+		 newTxt.setTranslateX(x);
+		 newTxt.setTranslateY(y);
 		 
 		 VennController.entries.add(newTxt);
 		 

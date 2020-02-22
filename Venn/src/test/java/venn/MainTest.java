@@ -121,23 +121,24 @@ public class MainTest extends ApplicationTest{
 	@Test
 	public void testEditData()  throws InterruptedException
 	{
-//		clickOn("#newEntry");
-//		Thread.sleep(1000);
-//		clickOn("#name");
-//		Thread.sleep(1000);
-//		write("ABCDEF");
-//		Thread.sleep(1000);
-//		clickOn("#cp").type(KeyCode.TAB).type(KeyCode.TAB).type(KeyCode.DOWN).type(KeyCode.DOWN);
-//		Thread.sleep(1000);
-//		clickOn("#cornerRadi").type(KeyCode.TAB).type(KeyCode.RIGHT);
-//		Thread.sleep(1000);
-//		clickOn("#create");
-//		Thread.sleep(1000);
-//		type(KeyCode.ENTER);
-//		Thread.sleep(1000);
-//		
-//		WaitForAsyncUtils.waitForFxEvents();
-//		assertEquals();
+		clickOn("#newEntry");
+		Thread.sleep(1000);
+		clickOn("#name");
+		Thread.sleep(1000);
+		write("ABCDEF");
+		Thread.sleep(1000);
+		clickOn("#cp").type(KeyCode.TAB).type(KeyCode.TAB).type(KeyCode.DOWN).type(KeyCode.DOWN);
+		Thread.sleep(1000);
+		clickOn("#cornerRadi").type(KeyCode.TAB).type(KeyCode.RIGHT);
+		Thread.sleep(1000);
+		clickOn("#create");
+		Thread.sleep(1000);
+		type(KeyCode.ENTER);
+		Thread.sleep(1000);
+		
+		
+		WaitForAsyncUtils.waitForFxEvents();
+
 	
 	}
 	
