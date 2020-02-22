@@ -3,12 +3,15 @@ package venn;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -25,8 +28,11 @@ public class EditController {
 	TextField tf;
 	@FXML
 	Button apply;
+	@FXML
+	AnchorPane editPane;
 	
 	
+	Stage thisStage;
 	DraggableText prev = new DraggableText("SampleText");
 	
 	@FXML
@@ -56,6 +62,16 @@ public class EditController {
 	                prev.changeBorder(newValue.doubleValue()); 
 	            } 
 	        });
+		editPane.setOnKeyReleased(new EventHandler<KeyEvent>() {
+	        @Override
+	        public void handle(KeyEvent t) {
+	            KeyCode key = t.getCode();
+	            if (key == KeyCode.ESCAPE){
+	       		 thisStage = (Stage) editPane.getScene().getWindow();
+	                thisStage.close();
+	            }
+	        }
+	    });
 		
 		apply.setDefaultButton(true);
 		}
@@ -69,7 +85,7 @@ public class EditController {
 	}
 	
 	public void edit(ActionEvent e) {
-		Stage thisStage = (Stage) apply.getScene().getWindow();
+		thisStage = (Stage) apply.getScene().getWindow();
 		AnchorPane root = (AnchorPane) thisStage.getOwner().getScene().getRoot();
 		DraggableText txt = VennController.getSelected();
 		if(!tf.getText().isEmpty()) {

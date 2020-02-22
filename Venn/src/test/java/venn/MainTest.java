@@ -96,28 +96,29 @@ public class MainTest extends ApplicationTest{
 		
 	}
 	
-	@Test
-	public void testGetData()  throws InterruptedException
-	{
-		clickOn("#newEntry");
-		Thread.sleep(1000);
-		clickOn("#name");
-		Thread.sleep(1000);
-		write("ABCDEF");
-		Thread.sleep(1000);
-		clickOn("#cp").type(KeyCode.TAB).type(KeyCode.TAB).type(KeyCode.DOWN).type(KeyCode.DOWN);
-		Thread.sleep(1000);
-		clickOn("#cornerRadi").type(KeyCode.TAB).type(KeyCode.RIGHT);
-		Thread.sleep(1000);
-		clickOn("#create");
-		Thread.sleep(1000);
-		type(KeyCode.ENTER);
-		Thread.sleep(1000);
-		
-		WaitForAsyncUtils.waitForFxEvents();
-	
-	}
-	
+//	@Test
+//	public void testGetData()  throws InterruptedException
+//	{
+//		clickOn("#newEntry");
+//		Thread.sleep(1000);
+//		clickOn("#name");
+//		Thread.sleep(1000);
+//		write("ABCDEF");
+//		Thread.sleep(1000);
+//		clickOn("#cp").type(KeyCode.TAB).type(KeyCode.TAB).type(KeyCode.DOWN).type(KeyCode.DOWN);
+//		Thread.sleep(1000);
+//		clickOn("#cornerRadi").type(KeyCode.TAB).type(KeyCode.RIGHT);
+//		Thread.sleep(1000);
+//		clickOn("#create");
+//		Thread.sleep(1000);
+//		type(KeyCode.ENTER);
+//		Thread.sleep(1000);
+//		
+//		WaitForAsyncUtils.waitForFxEvents();
+//		VennController.entries.removeAll(VennController.entries);
+//	}
+//	
+
 	@Test
 	public void testEditData()  throws InterruptedException
 	{
@@ -127,20 +128,49 @@ public class MainTest extends ApplicationTest{
 		Thread.sleep(1000);
 		write("ABCDEF");
 		Thread.sleep(1000);
-		clickOn("#cp").type(KeyCode.TAB).type(KeyCode.TAB).type(KeyCode.DOWN).type(KeyCode.DOWN);
-		Thread.sleep(1000);
-		clickOn("#cornerRadi").type(KeyCode.TAB).type(KeyCode.RIGHT);
-		Thread.sleep(1000);
 		clickOn("#create");
 		Thread.sleep(1000);
 		type(KeyCode.ENTER);
 		Thread.sleep(1000);
+		type(KeyCode.ESCAPE);
+		clickOn(VennController.entries.get(0));
+		clickOn(VennController.entries.get(0));
+		Thread.sleep(1000);
+		clickOn("#tf");
+		Thread.sleep(1000);
+		write("TEST");
+		type(KeyCode.ENTER);
+		Thread.sleep(1000);
+		clickOn("#cp").type(KeyCode.TAB).type(KeyCode.TAB).type(KeyCode.DOWN).type(KeyCode.DOWN);
+		Thread.sleep(1000);
+		clickOn("#sd").type(KeyCode.TAB).type(KeyCode.RIGHT);
+		Thread.sleep(1000);
+		clickOn("#apply");
+		Thread.sleep(1000);
+		
 		
 		
 		WaitForAsyncUtils.waitForFxEvents();
-
+		VennController.entries.removeAll(VennController.entries);
 	
 	}
-	
+	@Test
+	public void deleteEntry() throws InterruptedException {
+		clickOn("#newEntry");
+		Thread.sleep(1000);
+		clickOn("#name");
+		Thread.sleep(1000);
+		write("ABCDEF");
+		Thread.sleep(1000);
+		clickOn("#create");
+		Thread.sleep(1000);
+		type(KeyCode.ESCAPE);
+		drag(VennController.entries.get(0)).dropTo("#dlt");
+		
+		
+		WaitForAsyncUtils.waitForFxEvents();
+		VennController.entries.removeAll(VennController.entries);
+		
+	}
 
 }

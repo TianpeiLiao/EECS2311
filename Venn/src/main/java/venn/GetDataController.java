@@ -1,11 +1,13 @@
 package venn;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.scene.input.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
@@ -36,6 +38,7 @@ public class GetDataController {
 	@FXML 
 	private AnchorPane addPane;
 	
+	Stage thisStage;
 	DraggableText prev = new DraggableText("SampleText");
 	
 	@FXML
@@ -43,7 +46,13 @@ public class GetDataController {
 		cp.getStyleClass().add("split-button");
 		cp.setValue(Color.ANTIQUEWHITE);
 		 prev.setOnMouseDragged(null);
-		
+
+		 
+		 prev.setOnMouseEntered(null);
+		 prev.setOnMouseClicked(null);
+		 prev.setOnMouseExited(null);
+		 prev.setOnMouseDragged(null);
+		 prev.setCursor(Cursor.DEFAULT);
 		prevPane.getChildren().add(prev);
 		System.out.println(prev.getBoundsInParent().getWidth());
 		prev.setLayoutX((prevPane.getPrefWidth()/2) - prev.getBoundsInParent().getWidth()/2);
@@ -63,12 +72,24 @@ public class GetDataController {
 	            } 
 	        });	
 		
-		create.setDefaultButton(true);
+		addPane.setOnKeyReleased(new EventHandler<KeyEvent>() {
+	        @Override
+	        public void handle(KeyEvent t) {
+	            KeyCode key = t.getCode();
+	            if (key == KeyCode.ESCAPE){
+	       		 thisStage = (Stage) create.getScene().getWindow();
+	                thisStage.close();
+	            }
+	            if (key == KeyCode.ENTER) {
+	            	createText();
+	            }
+	        }
+	    });
 	}
 	
 	public void createText() {
 		DraggableText newTxt;
-		Stage thisStage = (Stage) create.getScene().getWindow();
+		thisStage = (Stage) create.getScene().getWindow();
 		AnchorPane root = (AnchorPane) thisStage.getOwner().getScene().getRoot();
 		if(!name.getText().isEmpty() ) {
 		 Color c = cp.getValue();	
@@ -101,6 +122,8 @@ public class GetDataController {
 		 System.out.print(root.getChildren());
 		}
 	}
+	
+	
 	
 	public void changePrev(ActionEvent e) {
 		if(!name.getText().isEmpty())
