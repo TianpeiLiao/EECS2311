@@ -82,10 +82,10 @@ public class VennController {
 		setName2.getStyleClass().add("setText");
 		setElem1.getStyleClass().add("setNum");
 		setElem2.getStyleClass().add("setNum");
-		setName1.setLayoutX(cir1.getCenterX() - radius);
-		setName1.setLayoutY(cir1.getCenterY() - radius - 40);
+		setName1.setLayoutX(cir1.getCenterX() - radius - 100);
+		setName1.setLayoutY(cir1.getCenterY() - radius - 20);
 		setName2.setLayoutX(cir2.getCenterX() + radius - 60);
-		setName2.setLayoutY(cir2.getCenterY() - radius - 40 );
+		setName2.setLayoutY(cir2.getCenterY() - radius - 20 );
 		setElem1.setLayoutX(setName1.getLayoutX());
 		setElem1.setLayoutY(setName1.getBoundsInParent().getMaxY() + 30);
 		setElem2.setLayoutX(setName2.getLayoutX());
