@@ -96,28 +96,28 @@ public class MainTest extends ApplicationTest{
 		
 	}
 	
-//	@Test
-//	public void testGetData()  throws InterruptedException
-//	{
-//		clickOn("#newEntry");
-//		Thread.sleep(1000);
-//		clickOn("#name");
-//		Thread.sleep(1000);
-//		write("ABCDEF");
-//		Thread.sleep(1000);
-//		clickOn("#cp").type(KeyCode.TAB).type(KeyCode.TAB).type(KeyCode.DOWN).type(KeyCode.DOWN);
-//		Thread.sleep(1000);
-//		clickOn("#cornerRadi").type(KeyCode.TAB).type(KeyCode.RIGHT);
-//		Thread.sleep(1000);
-//		clickOn("#create");
-//		Thread.sleep(1000);
-//		type(KeyCode.ENTER);
-//		Thread.sleep(1000);
-//		
-//		WaitForAsyncUtils.waitForFxEvents();
-//		VennController.entries.removeAll(VennController.entries);
-//	}
-//	
+	@Test
+	public void testGetData()  throws InterruptedException
+	{
+		clickOn("#newEntry");
+		Thread.sleep(1000);
+		clickOn("#name");
+		Thread.sleep(1000);
+		write("ABCDEF");
+		Thread.sleep(1000);
+		clickOn("#cp").type(KeyCode.TAB).type(KeyCode.TAB).type(KeyCode.DOWN).type(KeyCode.DOWN);
+		Thread.sleep(1000);
+		clickOn("#cornerRadi").type(KeyCode.TAB).type(KeyCode.RIGHT);
+		Thread.sleep(1000);
+		clickOn("#create");
+		Thread.sleep(1000);
+		type(KeyCode.ENTER);
+		Thread.sleep(1000);
+		
+		WaitForAsyncUtils.waitForFxEvents();
+		VennController.entries.removeAll(VennController.entries);
+	}
+	
 
 	@Test
 	public void testEditData()  throws InterruptedException
@@ -147,12 +147,52 @@ public class MainTest extends ApplicationTest{
 		Thread.sleep(1000);
 		clickOn("#apply");
 		Thread.sleep(1000);
-		
-		
+		clickOn(VennController.entries.get(1));
+		clickOn(VennController.entries.get(1));
+		clickOn("#cp").type(KeyCode.TAB).type(KeyCode.TAB).type(KeyCode.DOWN).type(KeyCode.DOWN);
+		Thread.sleep(1000);
+		clickOn("#sd").type(KeyCode.TAB).type(KeyCode.RIGHT);
+		Thread.sleep(1000);
+		clickOn("#apply");
 		
 		WaitForAsyncUtils.waitForFxEvents();
 		VennController.entries.removeAll(VennController.entries);
 	
+	}
+	
+	@Test 
+	public void multipleEntries() throws InterruptedException {
+		clickOn("#newEntry");
+		Thread.sleep(1000);
+		clickOn("#name");
+		write("Test - 0" );
+		for(int i = 1; i < 5 ;i++) {
+			clickOn("#create");
+			
+			clickOn("#name").type(KeyCode.BACK_SPACE);
+			type(KeyCode.BACK_SPACE);
+			type(KeyCode.BACK_SPACE);
+			type(KeyCode.BACK_SPACE);
+			type(KeyCode.BACK_SPACE);
+			type(KeyCode.BACK_SPACE);
+			type(KeyCode.BACK_SPACE);
+			type(KeyCode.BACK_SPACE);
+			clickOn("#name");
+			write("Test - " + String.valueOf(i));
+			
+		}
+		clickOn("#create");
+		Thread.sleep(1000);
+		type(KeyCode.ESCAPE);
+		Thread.sleep(1000);
+		
+		drag(VennController.entries.get(0)).dropTo(VennController.entries.get(1));
+		Thread.sleep(1000);
+		
+		
+		WaitForAsyncUtils.waitForFxEvents();
+		VennController.entries.removeAll(VennController.entries);
+		
 	}
 	@Test
 	public void deleteEntry() throws InterruptedException {
@@ -172,5 +212,74 @@ public class MainTest extends ApplicationTest{
 		VennController.entries.removeAll(VennController.entries);
 		
 	}
-
+	
+	@Test
+	public void boundaryTest() throws InterruptedException {
+		clickOn("#newEntry");
+		Thread.sleep(1000);
+		clickOn("#name");
+		write("Test - 0" );
+		for(int i = 1; i < 5 ;i++) {
+			clickOn("#create");
+			clickOn("#name").type(KeyCode.BACK_SPACE);
+			type(KeyCode.BACK_SPACE);
+			type(KeyCode.BACK_SPACE);
+			type(KeyCode.BACK_SPACE);
+			type(KeyCode.BACK_SPACE);
+			type(KeyCode.BACK_SPACE);
+			type(KeyCode.BACK_SPACE);
+			type(KeyCode.BACK_SPACE);
+			clickOn("#name");
+			write("Test - " + String.valueOf(i));
+		}
+		clickOn("#create");
+		Thread.sleep(1000);
+		type(KeyCode.ESCAPE);
+		Thread.sleep(1000);
+		
+		drag(VennController.entries.get(0)).dropTo(-Main.WIDTH, 150);
+		drag(VennController.entries.get(1)).dropTo(Main.WIDTH + 500, 150);
+		drag(VennController.entries.get(2)).dropTo(500, -500);
+		drag(VennController.entries.get(3)).dropTo(500, 1400);
+		Thread.sleep(1000);
+		
+		
+		WaitForAsyncUtils.waitForFxEvents();
+		VennController.entries.removeAll(VennController.entries);
+	}
+	@Test
+	public void circleTest() throws InterruptedException {
+		clickOn("#newEntry");
+		Thread.sleep(1000);
+		clickOn("#name");
+		write("Test - 0" );
+		for(int i = 1; i < 5 ;i++) {
+			clickOn("#create");
+			clickOn("#name").type(KeyCode.BACK_SPACE);
+			type(KeyCode.BACK_SPACE);
+			type(KeyCode.BACK_SPACE);
+			type(KeyCode.BACK_SPACE);
+			type(KeyCode.BACK_SPACE);
+			type(KeyCode.BACK_SPACE);
+			type(KeyCode.BACK_SPACE);
+			type(KeyCode.BACK_SPACE);
+			clickOn("#name");
+			write("Test - " + String.valueOf(i));
+		}
+		clickOn("#create");
+		Thread.sleep(1000);
+		type(KeyCode.ESCAPE);
+		Thread.sleep(1000);
+		
+		drag(VennController.entries.get(0)).dropTo(700, 650);
+		drag(VennController.entries.get(1)).dropTo(700, 650);
+		drag(VennController.entries.get(2)).dropTo(950, 650);
+		drag(VennController.entries.get(3)).dropTo(1200, 650);
+		drag(VennController.entries.get(4)).dropTo(1200, 650);
+		Thread.sleep(1000);
+		
+		
+		WaitForAsyncUtils.waitForFxEvents();
+		VennController.entries.removeAll(VennController.entries);
+	}
 }
