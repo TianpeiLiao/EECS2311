@@ -121,9 +121,7 @@ public class GetDataController {
 		 root.getChildren().add(newTxt);
 		 System.out.print(root.getChildren());
 		}
-	}
-	
-	
+	}	
 	
 	public void changePrev(ActionEvent e) {
 		if(!name.getText().isEmpty())

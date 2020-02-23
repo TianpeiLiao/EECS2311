@@ -102,6 +102,8 @@ public class MainTest extends ApplicationTest{
 	{
 		clickOn("#newEntry");
 		Thread.sleep(1000);
+		clickOn("#create");
+		Thread.sleep(1000);
 		clickOn("#name");
 		Thread.sleep(1000);
 		write("ABCDEF");
@@ -203,6 +205,32 @@ public class MainTest extends ApplicationTest{
 		VennController.entries.removeAll(VennController.entries);	
 	}
 	
+/*	@Test
+	public void testExit() throws InterruptedException {
+		clickOn("#mFile");
+		Thread.sleep(1000);
+		type(KeyCode.TAB);
+		Thread.sleep(1000);
+		type(KeyCode.ENTER);
 	
+	}
+*/
+	
+	@Test
+	public void testImportData() throws InterruptedException {
+		clickOn("#mFile");
+		Thread.sleep(1000);
+		type(KeyCode.TAB);
+		Thread.sleep(1000);
+		type(KeyCode.TAB);
+		Thread.sleep(1000);
+		type(KeyCode.ENTER);
+		Thread.sleep(1000);	
+		type(KeyCode.TAB);
+		type(KeyCode.TAB);
+		type(KeyCode.ENTER);
+		VennController.entries.removeAll(VennController.entries);	
+	
+	}
 
 }
