@@ -257,8 +257,8 @@ public class MainTest extends ApplicationTest{
 		type(KeyCode.ENTER);
 	
 	}
+
 */
-	
 	@Test
 	public void testImportData() throws InterruptedException {
 		clickOn("#mFile");
@@ -271,6 +271,29 @@ public class MainTest extends ApplicationTest{
 		Thread.sleep(1000);	
 		type(KeyCode.TAB);
 		type(KeyCode.TAB);
+		type(KeyCode.ENTER);
+		VennController.entries.removeAll(VennController.entries);	
+	}
+
+	
+	@Test
+	public void testExportData() throws InterruptedException {
+		clickOn("#mFile");
+		Thread.sleep(1000);
+		type(KeyCode.TAB);
+		Thread.sleep(1000);
+		type(KeyCode.TAB);
+		Thread.sleep(1000);
+		type(KeyCode.TAB);
+		Thread.sleep(1000);
+		type(KeyCode.ENTER);
+		Thread.sleep(1000);	
+		type(KeyCode.TAB);
+		Thread.sleep(1000);	
+		type(KeyCode.TAB);
+		Thread.sleep(1000);	
+		type(KeyCode.TAB);
+		Thread.sleep(1000);	
 		type(KeyCode.ENTER);
 		VennController.entries.removeAll(VennController.entries);	
 	
@@ -345,4 +368,5 @@ public class MainTest extends ApplicationTest{
 		WaitForAsyncUtils.waitForFxEvents();
 		VennController.entries.removeAll(VennController.entries);
 	}
+	
 }
