@@ -13,6 +13,7 @@ Mac/Linux - Using console, the command is java -jar
 **If you want to run the source files from your eclipse IDE**
 - Download the project files to your local computer and lunch eclipse IDE
 - click file --> import --> existing projects into workspace
+- click file --> export --> workspace exports as txt file
 - browse and select the project folder from local space and click finish
 - run the main class file as java application
 
