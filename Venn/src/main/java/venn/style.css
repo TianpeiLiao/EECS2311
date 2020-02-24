@@ -1,0 +1,39 @@
+.root{
+	-fx-background-color: #212121;
+}
+.btn{
+	-fx-background-color:  #ffd54f;
+	-fx-background-insets:  1;
+	-fx-background-radius: 10px;
+	-fx-border-style: solid;
+	-fx-border-radius: 10px;
+	-fx-border-color:#424242;
+	-fx-border-width: 3px;
+	}
+.btn:hover {
+	-fx-background-color:  #ffff81;
+	}
+	
+.clrpick{
+	-fx-background-color:  #ffd54f;
+}
+.clrpick:hover{
+	-fx-backgorund-color: #ffff81;
+}
+
+#EditPane{
+	-fx-background-color: #212121;
+	-fx-background-radius: 5px;
+}
+.setText{
+	 -fx-font: 30px Roboto;
+	 -fx-font-weight: bold;
+    -fx-fill: white;
+    
+}
+.setNum{
+	 -fx-font: 15px Roboto;
+	 -fx-font-weight: 100;
+    -fx-fill: white;
+    
+}
