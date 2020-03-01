@@ -76,6 +76,10 @@ public class DraggableText extends Label {
 		
 	}
 	
+	public Color getColor() {
+		return bg;
+	}
+	
 	/**
 	 * Change the border radius for the object.
 	 * @param radi new border radius for this object
