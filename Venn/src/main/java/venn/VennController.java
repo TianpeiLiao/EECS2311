@@ -207,7 +207,8 @@ public class VennController {
 							elems2--;
 							setElem2.setText("Number of Elements: " + String.valueOf(elems2));
 						}
-					}else {
+					} 
+					if(selectedTxts.size() > 0){
 						for(DraggableText txt:selectedTxts) {
 							if(cir1.inBound(txt) && !cir1.isElem(txt)) {
 								cir1.addElem(txt);
