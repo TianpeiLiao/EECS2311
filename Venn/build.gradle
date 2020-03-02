@@ -10,6 +10,9 @@
 apply plugin: 'java-library'
 
 // In this section you declare where to find the dependencies of your project
+plugins{
+	id "org.openjfx.javafxplugin" version "0.0.8"
+}
 repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
@@ -30,8 +33,6 @@ dependencies {
     testCompile "org.testfx:testfx-core:4.0.+"
 	testCompile "org.testfx:testfx-junit:4.0.+"
 }
-plugins{
-	id "org.openjfx.javafxplugin" version "0.0.8"
-}
+
 
 
