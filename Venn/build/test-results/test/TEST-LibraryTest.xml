@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="LibraryTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-02T02:21:55" hostname="liaotianpeideMacBook-Air.local" time="0.005">
+<testsuite name="LibraryTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-02T15:13:06" hostname="liaotianpeideMacBook-Air.local" time="0.005">
   <properties/>
   <testcase name="testSomeLibraryMethod" classname="LibraryTest" time="0.005"/>
   <system-out><![CDATA[]]></system-out>
