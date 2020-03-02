@@ -24,25 +24,11 @@ dependencies {
     implementation 'com.google.guava:guava:23.0'
 
     // Use JUnit test framework
+    classpath "org.bitbucket.shemnon.javafxplugin:gradle-javafx-plugin:0.5.0-SNAPSHOT"
     testImplementation 'junit:junit:4.12'
     
     testCompile "org.testfx:testfx-core:4.0.+"
 	testCompile "org.testfx:testfx-junit:4.0.+"
 }
-gradlePlugin {
-    plugins {
-        javafxPlugin {
-            id = 'org.openjfx.javafxplugin'
-            displayName = 'JavaFX Gradle Plugin'
-            description = 'Plugin that makes it easy to work with JavaFX'
-            implementationClass = 'org.openjfx.gradle.JavaFXPlugin'
-        }
-    }
-}
 
-pluginBundle {
-    website = 'https://github.com/openjfx/javafx-gradle-plugin'
-    vcsUrl = 'https://github.com/openjfx/javafx-gradle-plugin'
-    tags = [ 'java', 'javafx' ]
-}
 
