@@ -7,10 +7,11 @@
  */
 
 // Apply the java-library plugin to add support for Java Library
-apply plugin: 'java-library'
+
 
 // In this section you declare where to find the dependencies of your project
 plugins{
+	apply plugin: 'java-library'
 	id "org.openjfx.javafxplugin" version "0.0.8"
 }
 repositories {
