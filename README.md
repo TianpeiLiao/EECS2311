@@ -7,8 +7,8 @@ The main usage of this application is to organize and visualize data. The softwa
 This release contains up-to-date feature and functions for mid release.
 
 **Running**
-Windows - Double click the executable .jar file
-Mac/Linux - Using console, the command is java -jar
+- Windows - Double click the executable .jar file
+- Mac/Linux - Using console, the command is java -jar
 
 **If you want to run the source files from your eclipse IDE**
 - Download the project files to your local computer and lunch eclipse IDE
