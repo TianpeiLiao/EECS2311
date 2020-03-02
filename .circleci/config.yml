@@ -43,7 +43,7 @@ jobs:
           key: v1-dependencies-{{ checksum "Venn/build.gradle" }}
 
       # run tests!
-       - run: cd Venn && gradle test
+      - run: cd Venn && gradle test
      
 
       - run: 
