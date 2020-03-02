@@ -13,7 +13,6 @@
 
 plugins {
     // Apply the java-library plugin to add support for Java Library
-    apply plugin: 'java-library'
     id "org.openjfx.javafxplugin" version "0.0.8"
     id 'java'
 }
