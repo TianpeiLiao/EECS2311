@@ -4,6 +4,9 @@
 #
 version: 2
 
+machine:
+    java:
+        version: oraclejdk8
 
     
 jobs:
