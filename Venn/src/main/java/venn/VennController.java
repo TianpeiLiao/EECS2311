@@ -292,12 +292,12 @@ public class VennController {
 		BufferedReader rd = new BufferedReader(new FileReader(file));
 		try {
 			System.out.println("\n"+rd.readLine());
+			//rd.close();
 		}
 		catch(Exception ex){
 			
 		}
 	
-		
 		return "";
 	}
 	

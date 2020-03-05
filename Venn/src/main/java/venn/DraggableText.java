@@ -46,7 +46,6 @@ public class DraggableText extends Label {
 	}
 	
 	
-	
 	DraggableText(String txt, Color bg){
 		super(txt);
 		this.setCursor(Cursor.HAND);
