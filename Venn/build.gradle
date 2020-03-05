@@ -8,9 +8,9 @@
 
 // Apply the java-library plugin to add support for Java Library
 apply plugin: 'java-library'
-apply plugin: 'groovy'
+//apply plugin: 'org.openjfx.javafxplugin'
 
-group = 'org.bitbucket.shemnon.javafxplugin'
+//group = 'org.bitbucket.shemnon.javafxplugin' version "0.0.8"
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -31,7 +31,10 @@ dependencies {
     
     testCompile "org.testfx:testfx-core:4.0.+"
 	testCompile "org.testfx:testfx-junit:4.0.+"
+	
+	//classpath "org.openjfx:javafx-plugin:0.0.8"
 }
+
 
 
 
