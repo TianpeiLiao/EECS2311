@@ -4,15 +4,15 @@
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
-	<classpathentry kind="lib" path="images/fontawesomefx-8.9.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX11"/>
-	<classpathentry kind="lib" path="C:/Users/jpras/Videos/javafx-sdk-11.0.2/lib/javafx.base.jar"/>
-	<classpathentry kind="lib" path="C:/Users/jpras/Videos/javafx-sdk-11.0.2/lib/javafx.controls.jar"/>
-	<classpathentry kind="lib" path="C:/Users/jpras/Videos/javafx-sdk-11.0.2/lib/javafx.fxml.jar"/>
-	<classpathentry kind="lib" path="C:/Users/jpras/Videos/javafx-sdk-11.0.2/lib/javafx.graphics.jar"/>
-	<classpathentry kind="lib" path="C:/Users/jpras/Videos/javafx-sdk-11.0.2/lib/javafx.media.jar"/>
-	<classpathentry kind="lib" path="C:/Users/jpras/Videos/javafx-sdk-11.0.2/lib/javafx.swing.jar"/>
-	<classpathentry kind="lib" path="C:/Users/jpras/Videos/javafx-sdk-11.0.2/lib/javafx.web.jar"/>
-	<classpathentry kind="lib" path="C:/Users/jpras/Videos/javafx-sdk-11.0.2/lib/javafx-swt.jar"/>
+	<classpathentry kind="lib" path="library files/fontawesomefx-8.9.jar"/>
+	<classpathentry kind="lib" path="library files/javafx-swt.jar"/>
+	<classpathentry kind="lib" path="library files/javafx.base.jar"/>
+	<classpathentry kind="lib" path="library files/javafx.graphics.jar"/>
+	<classpathentry kind="lib" path="library files/javafx.media.jar"/>
+	<classpathentry kind="lib" path="library files/javafx.controls.jar"/>
+	<classpathentry kind="lib" path="library files/javafx.swing.jar"/>
+	<classpathentry kind="lib" path="library files/javafx.fxml.jar"/>
+	<classpathentry kind="lib" path="library files/javafx.web.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
