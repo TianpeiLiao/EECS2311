@@ -16,11 +16,22 @@ import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -46,6 +57,8 @@ public class VennController {
 
 	SetCircle cir1;
 	SetCircle cir2;	
+	Rectangle selection;
+	
 	Text setName1;
 	Text setName2;
 	Text setElem1;
@@ -53,13 +66,31 @@ public class VennController {
 	
 	int elems1, elems2 = 0;
 
+
 	@FXML
 	private static double counter;
 
 
+
+	double rectX, rectY;
+	boolean selecting = true;
+	
+	class DragContext {
+        double x;
+        double y;
+        DragContext(double x, double y){
+        	this.x = x;
+        	this.y = y;
+        }
+    }
+	 
+	public ArrayList<DragContext> multipleDrag = new ArrayList<DragContext>();
+
 	
 	private static DraggableText selected = null;
 	public static ArrayList<DraggableText> entries = new ArrayList<DraggableText>();
+	public ArrayList<DraggableText> selectedTxts = new ArrayList<DraggableText>();
+	
 	Stage stage;
 	
 	@FXML
@@ -110,11 +141,27 @@ public class VennController {
 					}else {
 						selected = null;
 					}
-				
+				}
 
+				selection = new Rectangle();
+				rectX = m.getX();
+				rectY = m.getY();
+				selection.setX(rectX);
+				selection.setY(rectY);
+				selection.setFill(Color.AQUA);
+				selection.setOpacity(0.5);
+				pane.getChildren().add(selection);
+				if(selectedTxts.size() > 0) {
+					for(DraggableText txt:selectedTxts) {
+						double x = txt.getTranslateX() - m.getSceneX();
+						double y = txt.getTranslateY() - m.getSceneY();
+						multipleDrag.add(new DragContext(x, y));
+					}
 				}
 			}
 		});
+		
+		
 		pane.setOnMouseReleased(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent m){
 				if(selected !=null) {
@@ -128,29 +175,114 @@ public class VennController {
 						entries.remove(selected);
 					}
 				}
+				if(selection != null) {
+					pane.getChildren().remove(selection);
+					selection = null;
+				}
+				if(selectedTxts.size() > 0 && selecting) {
+					for(DraggableText lbl:selectedTxts) {
+						lbl.changeColor(lbl.getColor().darker());
+					
+						}
+					selecting = false;
+				}else if(!selecting && selectedTxts.size() > 0) {
+
+					for(DraggableText lbl : selectedTxts) {
+						lbl.changeColor(lbl.getColor().brighter());
+						
+					}
+					multipleDrag.removeAll(multipleDrag);
+					selectedTxts.removeAll(selectedTxts);
+					selecting = true;
+				}
+				
 			}
 		});
 		pane.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent m) {
-				if(selected != null) {
-					if(cir1.inBound(selected) && !cir1.isElem(selected)) {
-						cir1.addElem(selected);
-						elems1++;
-						setElem1.setText("Number of Elements: " + String.valueOf(elems1));
-						System.out.println(cir1.elems.toString());
-					}else if(!cir1.inBound(selected) && cir1.isElem(selected)) {
-						cir1.removeElem(selected);
-						elems1--;
-						setElem1.setText("Number of Elements: " + String.valueOf(elems1));
+				
+				if(selected != null || selectedTxts.size() > 0) {
+					if(selected != null) {
+						if(cir1.inBound(selected) && !cir1.isElem(selected)) {
+							cir1.addElem(selected);
+							elems1++;
+							setElem1.setText("Number of Elements: " + String.valueOf(elems1));
+							System.out.println(cir1.elems.toString());
+						}else if(!cir1.inBound(selected) && cir1.isElem(selected)) {
+							cir1.removeElem(selected);
+							elems1--;
+							setElem1.setText("Number of Elements: " + String.valueOf(elems1));
+						}
+						if(cir2.inBound(selected)&& !cir2.isElem(selected)) {
+							cir2.addElem(selected);
+							elems2++;
+							setElem2.setText("Number of Elements: " + String.valueOf(elems2));
+						}else if(!cir2.inBound(selected) && cir2.isElem(selected)) {
+							cir2.removeElem(selected);
+							elems2--;
+							setElem2.setText("Number of Elements: " + String.valueOf(elems2));
+						}
+					} 
+					if(selectedTxts.size() > 0){
+						for(DraggableText txt:selectedTxts) {
+							if(cir1.inBound(txt) && !cir1.isElem(txt)) {
+								cir1.addElem(txt);
+								elems1++;
+								setElem1.setText("Number of Elements: " + String.valueOf(elems1));
+								System.out.println(cir1.elems.toString());
+							}else if(!cir1.inBound(txt) && cir1.isElem(txt)) {
+								cir1.removeElem(txt);
+								elems1--;
+								setElem1.setText("Number of Elements: " + String.valueOf(elems1));
+							}
+							if(cir2.inBound(txt)&& !cir2.isElem(txt)) {
+								cir2.addElem(txt);
+								elems2++;
+								setElem2.setText("Number of Elements: " + String.valueOf(elems2));
+							}else if(!cir2.inBound(txt) && cir2.isElem(txt)) {
+								cir2.removeElem(txt);
+								elems2--;
+								setElem2.setText("Number of Elements: " + String.valueOf(elems2));
+							}
+						}
 					}
-					if(cir2.inBound(selected)&& !cir2.isElem(selected)) {
-						cir2.addElem(selected);
-						elems2++;
-						setElem2.setText("Number of Elements: " + String.valueOf(elems2));
-					}else if(!cir2.inBound(selected) && cir2.isElem(selected)) {
-						cir2.removeElem(selected);
-						elems2--;
-						setElem2.setText("Number of Elements: " + String.valueOf(elems2));
+					
+				} 
+				if(selecting && selected == null){
+					
+					if(m.getX() > rectX && m.getY() > rectY) {
+						selection.setWidth( m.getX()- rectX);
+						selection.setHeight( m.getY()- rectY);
+					}else if(m.getX() < rectX && m.getY() < rectY){
+						selection.setX(m.getX());
+						selection.setWidth(rectX - m.getX());
+						selection.setY(m.getY());
+						selection.setHeight(rectY - m.getY());
+						
+					}else if(m.getY() < rectY){
+						selection.setY(m.getY());
+						selection.setHeight(rectY - m.getY());
+						selection.setWidth( m.getX()- rectX);
+					}else {
+						selection.setX(m.getX());
+						selection.setWidth(rectX - m.getX());
+						selection.setHeight( m.getY()- rectY);
+					}
+					for(DraggableText lbl:entries) {
+						if(!selectedTxts.contains(lbl) && selection.contains(lbl.getBoundsInParent().getMinX(), lbl.getBoundsInParent().getMinY())) {
+							selectedTxts.add(lbl);
+						}else if(selectedTxts.contains(lbl) && !selection.contains(lbl.getBoundsInParent().getMinX(), lbl.getBoundsInParent().getMinY())) {
+							selectedTxts.remove(lbl);
+						}
+					}
+				}if(!selecting) {
+					int i = 0;
+					for(DraggableText txt:selectedTxts) {
+						double newX = m.getSceneX() + multipleDrag.get(i).x;
+			            double newY = m.getSceneY() + multipleDrag.get(i).y;
+						txt.setTranslateX(newX);
+						txt.setTranslateY(newY);
+						i++;
 					}
 				}
 				if(cir1.localToScene(cir1.getBoundsInLocal()).contains(new Point2D(m.getSceneX(), m.getSceneY()))) {
@@ -169,6 +301,16 @@ public class VennController {
 				}
 			}
 		});
+		
+		pane.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent event) {				
+                if (event.getCode() == KeyCode.BACK_SPACE) {
+                	deleteSelected();
+                	System.out.println("Deleting selected");
+                }
+            }
+		});
+		
 	}
 	public static DraggableText getSelected() {
 		return selected;
@@ -297,7 +439,6 @@ public class VennController {
 			
 		}
 	
-		
 		return "";
 	}
 	
@@ -313,6 +454,18 @@ public class VennController {
         }
           
     }	
+
+	public void deleteSelected() {
+		if(!selecting && this.selectedTxts.size() > 0) {
+			for(DraggableText t: this.selectedTxts) {
+				pane.getChildren().remove(t);
+				entries.remove(t);
+			}
+			this.selectedTxts.removeAll(this.selectedTxts);
+			this.selecting = true;
+		}
+	}
+
 	
 	
 }

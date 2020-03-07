@@ -30,7 +30,9 @@ public class EditController {
 	Button apply;
 	@FXML
 	AnchorPane editPane;
-	
+	@FXML 
+	TextField description;
+
 	
 	Stage thisStage;
 	DraggableText prev = new DraggableText("SampleText");
@@ -91,6 +93,9 @@ public class EditController {
 		if(!tf.getText().isEmpty()) {
 			txt.setText(tf.getText());
 		}
+		 if(!description.getText().isEmpty()) {
+			 txt.setDescription(description.getText());
+		 }
 		txt.changeColor(cp.getValue());
 		txt.changeBorder(sd.getValue());
 		thisStage.close();

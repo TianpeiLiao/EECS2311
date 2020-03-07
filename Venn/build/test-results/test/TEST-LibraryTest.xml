@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <testsuite name="LibraryTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-02-26T19:37:42" hostname="DESKTOP-CD2Q9KV" time="0.002">
   <properties/>
   <testcase name="testSomeLibraryMethod" classname="LibraryTest" time="0.002"/>
+=======
+<testsuite name="LibraryTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-05T02:42:44" hostname="DESKTOP-1ED5K99" time="0.004">
+  <properties/>
+  <testcase name="testSomeLibraryMethod" classname="LibraryTest" time="0.004"/>
+>>>>>>> refs/remotes/origin/develop_ArdaTemel
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

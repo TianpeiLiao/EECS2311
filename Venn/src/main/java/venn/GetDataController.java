@@ -37,6 +37,8 @@ public class GetDataController {
 	Pane prevPane;
 	@FXML 
 	private AnchorPane addPane;
+	@FXML 
+	TextField description;
 	
 	Stage thisStage;
 	DraggableText prev = new DraggableText("SampleText");
@@ -92,11 +94,17 @@ public class GetDataController {
 		thisStage = (Stage) create.getScene().getWindow();
 		AnchorPane root = (AnchorPane) thisStage.getOwner().getScene().getRoot();
 		if(!name.getText().isEmpty() ) {
-		 Color c = cp.getValue();	
+		//setting color corner text and description for label 
+		Color c = cp.getValue();	
 		 double radi  = cornerRadi.getValue();
 		 newTxt = new DraggableText(name.getText(), c, radi);
 		 newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
 		 newTxt.getStyleClass().add("createdText");
+		 if(!description.getText().isEmpty()) {
+			 newTxt.setDescription(description.getText());
+		 }
+		 
+		 //Calculating the llocation of the label in the scene
 		 Pane ts = (Pane) root.lookup("#textSpace");
 		 double x = ts.getBoundsInParent().getMinX();
 		 double y = ts.getBoundsInParent().getMinY();
