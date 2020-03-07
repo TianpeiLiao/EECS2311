@@ -89,10 +89,9 @@ public class MainTest extends ApplicationTest{
 	@Test
 	public void testWidgets() throws Exception
 	{
-		final String errMsg = "One of the button cannot be retireved anymore!";
-		assertNotNull(errMsg, addNew);
-		assertNotNull(errMsg, delete);
-		
+			final String errMsg = "One of the button cannot be retireved anymore!";
+			assertNotNull(errMsg, addNew);
+			assertNotNull(errMsg, delete);	
 	}
 	
 	@Test
