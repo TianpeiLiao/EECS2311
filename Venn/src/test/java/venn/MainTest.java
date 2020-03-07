@@ -254,6 +254,10 @@ public class MainTest extends ApplicationTest{
 		Thread.sleep(1000);
 		type(KeyCode.TAB);
 		Thread.sleep(1000);
+		type(KeyCode.TAB);
+		Thread.sleep(1000);
+		type(KeyCode.TAB);
+		Thread.sleep(1000);
 		type(KeyCode.ENTER);
 	
 	}
@@ -262,8 +266,6 @@ public class MainTest extends ApplicationTest{
 	@Test
 	public void testImportData() throws InterruptedException {
 		clickOn("#mFile");
-		Thread.sleep(1000);
-		type(KeyCode.TAB);
 		Thread.sleep(1000);
 		type(KeyCode.TAB);
 		Thread.sleep(1000);
@@ -279,8 +281,6 @@ public class MainTest extends ApplicationTest{
 	@Test
 	public void testExportData() throws InterruptedException {
 		clickOn("#mFile");
-		Thread.sleep(1000);
-		type(KeyCode.TAB);
 		Thread.sleep(1000);
 		type(KeyCode.TAB);
 		Thread.sleep(1000);

@@ -14,6 +14,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.event.Event;
 
 /**
  * A text object that extends Label for venn diagram. this will be a draggable object in the 
@@ -23,7 +24,7 @@ public class DraggableText extends Label {
 	
 	
 	/**Private fields of the object bg refers to object's background color 
-	 * borderRadius is the radius of the objec.
+	 * borderRadius is the radius of the object.
 	 */
 	private Color bg;
 	private double borderRadius;

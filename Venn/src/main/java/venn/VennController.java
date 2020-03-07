@@ -93,12 +93,10 @@ public class VennController {
 		circles.getChildren().addAll(cir1, cir2, setName1, setName2, setElem1, setElem2);
 		pane.getChildren().add(circles);
 		
-		
-
 		counter=1.0;
 
-
-
+		
+		
 		pane.setOnMousePressed(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent m){
 				boolean found = false;
@@ -170,6 +168,8 @@ public class VennController {
 			}
 		});
 	}
+	
+	
 	public static DraggableText getSelected() {
 		return selected;
 	}
@@ -182,6 +182,13 @@ public class VennController {
 	{
 		Platform.exit();
 	}
+	
+/*	@FXML
+	public void onUndo(ActionEvent event)
+	{
+		History.getInstance().undo();
+	}
+*/	
 	public String captureData(ActionEvent event)
 	{
 		stage = new Stage();
@@ -274,6 +281,7 @@ public class VennController {
 		
 		return path;
 	}
+	
 	public String exportData(ActionEvent event) throws FileNotFoundException
 	{
 		FileChooser fileChooser = new FileChooser();
