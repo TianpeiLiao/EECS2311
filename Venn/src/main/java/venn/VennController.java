@@ -22,6 +22,8 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
@@ -287,6 +289,15 @@ public class VennController {
 			}
 		});
 		
+		pane.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent event) {				
+                if (event.getCode() == KeyCode.BACK_SPACE) {
+                	deleteSelected();
+                	System.out.println("Deleting selected");
+                }
+            }
+		});
+		
 	}
 	public static DraggableText getSelected() {
 		return selected;
@@ -345,6 +356,14 @@ public class VennController {
 		return path;
 	}
 	
+	public void deleteSelected() {
+		for(DraggableText t: this.selectedTxts) {
+			pane.getChildren().remove(t);
+			entries.remove(t);
+		}
+		this.selectedTxts.removeAll(this.selectedTxts);
+		
+	}
 	
 	
 }
