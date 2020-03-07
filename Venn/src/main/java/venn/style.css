@@ -13,7 +13,18 @@
 .btn:hover {
 	-fx-background-color:  #ffff81;
 	}
-	
+.textField .content {
+    -fx-background-color: transparent ;
+    -fx-text-fill: white;
+}
+.textField{
+	-fx-background-color: transparent ;
+	-fx-text-fill: white;
+	-fx-border-style: none none solid none;
+  	-fx-border-width: 0 0 2 0;
+    -fx-border-color: #515151;
+}
+
 .clrpick{
 	-fx-background-color:  #ffd54f;
 }

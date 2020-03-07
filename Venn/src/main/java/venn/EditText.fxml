@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
@@ -17,7 +18,7 @@
 
 <AnchorPane id="EditPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="venn.EditController">
    <children>
-      <Button fx:id="apply" accessibleRole="IMAGE_VIEW" layoutX="396.0" layoutY="199.0" mnemonicParsing="false" onAction="#edit" prefHeight="41.0" prefWidth="74.0" styleClass="btn" stylesheets="@style.css" text="Edit">
+      <Button fx:id="apply" accessibleRole="IMAGE_VIEW" layoutX="392.0" layoutY="229.0" mnemonicParsing="false" onAction="#edit" prefHeight="41.0" prefWidth="74.0" styleClass="btn" stylesheets="@style.css" text="Edit">
          <font>
             <Font name="Roboto" size="14.0" />
          </font>
@@ -105,6 +106,29 @@
             </Text>
          </children>
       </Pane>
+      <HBox alignment="CENTER_LEFT" layoutX="31.0" layoutY="220.0" spacing="2.0" style="-fx-background-color: #313131; -fx-background-radius: 10;">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" textAlignment="CENTER">
+               <font>
+                  <Font name="Roboto Medium" size="16.0" />
+               </font>
+            </Text>
+            <TextField fx:id="description" promptText="Create Text" styleClass="textField">
+               <tooltip>
+                  <Tooltip text="To edit the text of the selected entry" />
+               </tooltip>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </HBox>
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

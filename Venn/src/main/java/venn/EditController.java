@@ -25,7 +25,8 @@ public class EditController {
 	TextField tf;
 	@FXML
 	Button apply;
-	
+	@FXML 
+	TextField description;
 	
 	DraggableText prev = new DraggableText("SampleText");
 	
@@ -73,6 +74,9 @@ public class EditController {
 		if(!tf.getText().isEmpty()) {
 			txt.setText(tf.getText());
 		}
+		 if(!description.getText().isEmpty()) {
+			 txt.setDescription(description.getText());
+		 }
 		txt.changeColor(cp.getValue());
 		txt.changeBorder(sd.getValue());
 		thisStage.close();

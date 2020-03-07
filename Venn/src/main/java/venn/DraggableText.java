@@ -89,6 +89,13 @@ public class DraggableText extends Label {
 		this.borderRadius = radi;
 		this.setColorBackGround();
 	}
+	/**
+	 * Change description for the labels
+	 * @param string value for a description.
+	 * */
+	public void setDescription(String s) {
+		draggableTip.setText(s);
+	}
 	
 	/**
 	 * Private method to be called whenever borderRadius or color has been changed for
@@ -113,7 +120,8 @@ public class DraggableText extends Label {
 		 
 		DragContext dragContext = new DragContext();
 		
-		this.draggableTip = new Tooltip("Double click to edit");
+		this.draggableTip = new Tooltip("Double click to set description.");
+		draggableTip.setStyle("-fx-background-color:  #313131;");
 		this.setTooltip(draggableTip);
 		this.setOnMouseEntered(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent m){
