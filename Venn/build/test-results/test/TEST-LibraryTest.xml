@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuite name="LibraryTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-02T15:13:06" hostname="liaotianpeideMacBook-Air.local" time="0.005">
   <properties/>
@@ -5,3 +6,12 @@
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="LibraryTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-06T01:17:43" hostname="DESKTOP-CD2Q9KV" time="0.003">
+  <properties/>
+  <testcase name="testSomeLibraryMethod" classname="LibraryTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
+>>>>>>> branch 'master' of https://github.com/TianpeiLiao/EECS2311.git

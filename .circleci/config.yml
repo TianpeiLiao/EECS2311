@@ -3,6 +3,12 @@
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
 version: 2
+
+machine:
+    java:
+        version: oraclejdk8
+
+    
 jobs:
   build:
     docker:
@@ -41,6 +47,7 @@ jobs:
 
       # run tests!
       - run: cd Venn && gradle test
+     
 
       - run: 
           name: "Build and Publish Release on GitHub"

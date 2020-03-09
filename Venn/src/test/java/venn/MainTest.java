@@ -15,8 +15,12 @@ import javafx.scene.*;
 import javafx.stage.Stage;
 import javafx.application.*;
 import javafx.embed.swing.JFXPanel;
+<<<<<<< HEAD
 
 //import torgen.utils.FxRobotColourPicker;
+=======
+//import torgen.utils.FxRobotColourPicker;//
+>>>>>>> branch 'master' of https://github.com/TianpeiLiao/EECS2311.git
 
 public class MainTest extends ApplicationTest{
 	
@@ -255,6 +259,10 @@ public class MainTest extends ApplicationTest{
 		Thread.sleep(1000);
 		type(KeyCode.TAB);
 		Thread.sleep(1000);
+		type(KeyCode.TAB);
+		Thread.sleep(1000);
+		type(KeyCode.TAB);
+		Thread.sleep(1000);
 		type(KeyCode.ENTER);
 	
 	}
@@ -263,8 +271,6 @@ public class MainTest extends ApplicationTest{
 	@Test
 	public void testImportData() throws InterruptedException {
 		clickOn("#mFile");
-		Thread.sleep(1000);
-		type(KeyCode.TAB);
 		Thread.sleep(1000);
 		type(KeyCode.TAB);
 		Thread.sleep(1000);
@@ -280,8 +286,6 @@ public class MainTest extends ApplicationTest{
 	@Test
 	public void testExportData() throws InterruptedException {
 		clickOn("#mFile");
-		Thread.sleep(1000);
-		type(KeyCode.TAB);
 		Thread.sleep(1000);
 		type(KeyCode.TAB);
 		Thread.sleep(1000);
