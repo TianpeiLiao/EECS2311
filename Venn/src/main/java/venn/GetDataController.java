@@ -41,20 +41,12 @@ public class GetDataController {
 	TextField description;
 	
 	Stage thisStage;
-	DraggableText prev = new DraggableText("SampleText");
+	DraggableText prev = new DraggableText("SampleText", true);
 	
 	@FXML
 	private void initialize() {
 		cp.getStyleClass().add("split-button");
 		cp.setValue(Color.ANTIQUEWHITE);
-		 prev.setOnMouseDragged(null);
-
-		 
-		 prev.setOnMouseEntered(null);
-		 prev.setOnMouseClicked(null);
-		 prev.setOnMouseExited(null);
-		 prev.setOnMouseDragged(null);
-		 prev.setCursor(Cursor.DEFAULT);
 		prevPane.getChildren().add(prev);
 		System.out.println(prev.getBoundsInParent().getWidth());
 		prev.setLayoutX((prevPane.getPrefWidth()/2) - prev.getBoundsInParent().getWidth()/2);
@@ -90,14 +82,13 @@ public class GetDataController {
 	}
 	
 	public void createText() {
-		DraggableText newTxt;
 		thisStage = (Stage) create.getScene().getWindow();
 		AnchorPane root = (AnchorPane) thisStage.getOwner().getScene().getRoot();
 		if(!name.getText().isEmpty() ) {
 		//setting color corner text and description for label 
 		Color c = cp.getValue();	
 		 double radi  = cornerRadi.getValue();
-		 newTxt = new DraggableText(name.getText(), c, radi);
+		 DraggableText newTxt = new DraggableText(name.getText(), c, radi);
 		 newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
 		 newTxt.getStyleClass().add("createdText");
 		 if(!description.getText().isEmpty()) {
