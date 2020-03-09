@@ -26,4 +26,16 @@
 		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
 		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>documents/User Manual.docx</name>
+			<type>1</type>
+			<location>/Users/liaotianpei/Downloads/User Manual (1).docx</location>
+		</link>
+		<link>
+			<name>documents/User Manual.pdf</name>
+			<type>1</type>
+			<location>/Users/liaotianpei/Downloads/User Manual.pdf</location>
+		</link>
+	</linkedResources>
 </projectDescription>
