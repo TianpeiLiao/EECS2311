@@ -174,8 +174,6 @@ public class DraggableText extends Label {
 		});
 	}
 
-
-
 	public boolean collision(Object obj) {
 		Node other = (Node) obj;
 		

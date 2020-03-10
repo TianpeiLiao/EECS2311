@@ -129,6 +129,8 @@ public class GetDataController {
 		 root.getChildren().add(newTxt);
 		 System.out.print(root.getChildren());
 		}
+		name.setText("");
+		description.setText("");
 	}	
 	
 	public void changePrev(ActionEvent e) {

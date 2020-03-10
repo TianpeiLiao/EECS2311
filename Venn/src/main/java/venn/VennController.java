@@ -38,10 +38,6 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-
-
-
-
 public class VennController {
 	@FXML
 	private Button newEntry;
@@ -66,11 +62,8 @@ public class VennController {
 	
 	int elems1, elems2 = 0;
 
-
 	@FXML
 	private static double counter;
-
-
 
 	double rectX, rectY;
 	boolean selecting = true;
@@ -85,8 +78,6 @@ public class VennController {
     }
 	 
 	public ArrayList<DragContext> multipleDrag = new ArrayList<DragContext>();
-
-	
 	private static DraggableText selected = null;
 	public static ArrayList<DraggableText> entries = new ArrayList<DraggableText>();
 	public ArrayList<DraggableText> selectedTxts = new ArrayList<DraggableText>();
@@ -124,11 +115,7 @@ public class VennController {
 		circles.getChildren().addAll(cir1, cir2, setName1, setName2, setElem1, setElem2);
 		pane.getChildren().add(circles);
 		
-		
-
 		counter=1.0;
-
-
 
 		pane.setOnMousePressed(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent m){
@@ -434,11 +421,12 @@ public class VennController {
 		BufferedReader rd = new BufferedReader(new FileReader(file));
 		try {
 			System.out.println("\n"+rd.readLine());
+			rd.close();
 		}
 		catch(Exception ex){
 			
 		}
-	
+		
 		return "";
 	}
 	
