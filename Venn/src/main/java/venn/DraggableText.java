@@ -28,9 +28,7 @@ public class DraggableText extends Label {
 	private Color bg;
 	private double borderRadius;
 	private Tooltip draggableTip;
-	@FXML
-	private AnchorPane pane;
-	Main ms;
+	
 	
 	/**
 	 * The constructor with only text of the label
@@ -149,13 +147,13 @@ public class DraggableText extends Label {
 	              if( m.getSceneX() < 0) 
 	              {
 	            	  newX = 0;
-	              }else if(m.getSceneX() > Main.WIDTH ) {
-	            	  newX = Main.WIDTH - node.getBoundsInParent().getWidth() + 10;
+	              }else if(m.getSceneX() > Main.s.getWidth() ) {
+	            	  newX = Main.s.getWidth() - node.getBoundsInParent().getWidth() + 10;
 	              }
 	              if(m.getSceneY() < 0) {
 	            	  newY = 0;
-	              }else if(m.getSceneY() > Main.HEIGHT ) {
-	            	  newY = Main.HEIGHT - node.getBoundsInParent().getHeight() + 10;
+	              }else if(m.getSceneY() > Main.s.getHeight() ) {
+	            	  newY = Main.s.getHeight() - node.getBoundsInParent().getHeight() + 10;
 	              }
 	              System.out.println(newX);
                 node.setTranslateX( newX);

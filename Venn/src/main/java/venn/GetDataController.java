@@ -105,7 +105,7 @@ public class GetDataController {
 			 for(DraggableText t : VennController.entries) {
 				if(t.getBoundsInParent().contains(x, y)) {
 					x = t.getBoundsInParent().getMaxX() + 10;
-					if(x > Main.WIDTH - newTxt.getBoundsInParent().getWidth() - 45) {
+					if(x > Main.s.getWidth() - newTxt.getBoundsInParent().getWidth() - 45) {
 						 y += newTxt.getBoundsInParent().getHeight() + 25;
 						 x = ts.getBoundsInParent().getMinX();
 					}

@@ -53,19 +53,11 @@ public class VennController {
 	private AnchorPane pane;
 	@FXML
 	private Button selectFile;
-
-
-	SetCircle cir1;
-	SetCircle cir2;	
+	
+	static SetCircle cir1;
+	static SetCircle cir2;	
 	Rectangle selection;
 	
-	Text setName1;
-	Text setName2;
-	Text setElem1;
-	Text setElem2;
-	
-	int elems1, elems2 = 0;
-
 
 	@FXML
 	private static double counter;
@@ -91,41 +83,23 @@ public class VennController {
 	public static ArrayList<DraggableText> entries = new ArrayList<DraggableText>();
 	public ArrayList<DraggableText> selectedTxts = new ArrayList<DraggableText>();
 	
-	Stage stage;
 	
 	@FXML
 	private void initialize() {
 
-		
+		Main.calculateSceneSize();
 		int radius = 225;
 		Color c1 = Color.web("#b4ffff");
 		Color c2 = Color.web("#ffc4ff");
-		int px = Main.WIDTH/2 ;//+ 50;
-		int py = Main.HEIGHT/2 +  (3*radius)/4;
-		SetCircle cir1 = new SetCircle(px - 150, py, radius, "circle", c1);
-		SetCircle cir2 = new SetCircle(px + 150, py, radius, "circle", c2);
-		setName1 = new Text("Set1");
-		setName2 = new Text("Set2");
-		setElem1 = new Text("Number of elements: " + String.valueOf(elems1));
-		setElem2 = new Text("Number of elements: " + String.valueOf(elems2));
-		setName1.getStyleClass().add("setText");
-		setName2.getStyleClass().add("setText");
-		setElem1.getStyleClass().add("setNum");
-		setElem2.getStyleClass().add("setNum");
-		setName1.setLayoutX(cir1.getCenterX() - radius - 100);
-		setName1.setLayoutY(cir1.getCenterY() - radius - 20);
-		setName2.setLayoutX(cir2.getCenterX() + radius - 60);
-		setName2.setLayoutY(cir2.getCenterY() - radius - 20 );
-		setElem1.setLayoutX(setName1.getLayoutX());
-		setElem1.setLayoutY(setName1.getBoundsInParent().getMaxY() + 30);
-		setElem2.setLayoutX(setName2.getLayoutX());
-		setElem2.setLayoutY(setName2.getBoundsInParent().getMaxY() + 30);
+		System.out.println("sWidth: " + Main.sWidth + "sHeight: " + Main.sHeight);
+		double px = Main.sWidth/2 ;//+ 50;
+		double py = Main.sHeight/2 +  (2*radius)/4;
+		cir1 = new SetCircle(px - 150, py, radius,"Set1", c1);
+		cir2 = new SetCircle(px + 150, py, radius,"Set2", c2);
 		Group circles = new Group();
-		circles.getChildren().addAll(cir1, cir2, setName1, setName2, setElem1, setElem2);
+		circles.getChildren().addAll(cir1, cir2, cir1.getName(), cir1.getNum(), cir2.getName(), cir2.getNum());
 		pane.getChildren().add(circles);
 		
-		
-
 		counter=1.0;
 
 
@@ -205,44 +179,32 @@ public class VennController {
 					if(selected != null) {
 						if(cir1.inBound(selected) && !cir1.isElem(selected)) {
 							cir1.addElem(selected);
-							elems1++;
-							setElem1.setText("Number of Elements: " + String.valueOf(elems1));
 							System.out.println(cir1.elems.toString());
 						}else if(!cir1.inBound(selected) && cir1.isElem(selected)) {
 							cir1.removeElem(selected);
-							elems1--;
-							setElem1.setText("Number of Elements: " + String.valueOf(elems1));
 						}
 						if(cir2.inBound(selected)&& !cir2.isElem(selected)) {
 							cir2.addElem(selected);
-							elems2++;
-							setElem2.setText("Number of Elements: " + String.valueOf(elems2));
+						
 						}else if(!cir2.inBound(selected) && cir2.isElem(selected)) {
 							cir2.removeElem(selected);
-							elems2--;
-							setElem2.setText("Number of Elements: " + String.valueOf(elems2));
+							
 						}
 					} 
 					if(selectedTxts.size() > 0){
 						for(DraggableText txt:selectedTxts) {
 							if(cir1.inBound(txt) && !cir1.isElem(txt)) {
 								cir1.addElem(txt);
-								elems1++;
-								setElem1.setText("Number of Elements: " + String.valueOf(elems1));
+						
 								System.out.println(cir1.elems.toString());
 							}else if(!cir1.inBound(txt) && cir1.isElem(txt)) {
 								cir1.removeElem(txt);
-								elems1--;
-								setElem1.setText("Number of Elements: " + String.valueOf(elems1));
+								
 							}
 							if(cir2.inBound(txt)&& !cir2.isElem(txt)) {
 								cir2.addElem(txt);
-								elems2++;
-								setElem2.setText("Number of Elements: " + String.valueOf(elems2));
 							}else if(!cir2.inBound(txt) && cir2.isElem(txt)) {
 								cir2.removeElem(txt);
-								elems2--;
-								setElem2.setText("Number of Elements: " + String.valueOf(elems2));
 							}
 						}
 					}
@@ -325,9 +287,7 @@ public class VennController {
 		Platform.exit();
 	}
 	public String captureData(ActionEvent event)
-	{
-		stage = new Stage();
-		
+	{	
 		String path = "";
 		Color c = Color.WHITE;
 		DraggableText newTxt;
@@ -458,13 +418,22 @@ public class VennController {
 	public void deleteSelected() {
 		if(!selecting && this.selectedTxts.size() > 0) {
 			for(DraggableText t: this.selectedTxts) {
-				pane.getChildren().remove(t);
+				
+				cir1.removeElem(t);
+				cir2.removeElem(t);
 				entries.remove(t);
+				pane.getChildren().remove(t);
 			}
 			this.selectedTxts.removeAll(this.selectedTxts);
 			this.selecting = true;
 		}
 	}
+	public static void sceneChanged() {
+		// TODO Auto-generated method stub
+		cir1.setCenter(Main.s.getWidth()/3, Main.s.getHeight()/2 +  (2*cir1.getRadius())/4);
+		cir2.setCenter((cir1.getCenterX()  + 300), Main.s.getHeight()/2 +  (2*cir1.getRadius())/4 );
+	}
+
 
 	
 	
