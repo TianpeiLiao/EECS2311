@@ -14,6 +14,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class EditController {
@@ -35,17 +36,12 @@ public class EditController {
 
 	
 	Stage thisStage;
-	DraggableText prev = new DraggableText("SampleText");
+	DraggableText prev = new DraggableText("SampleText", true);
 	
 	@FXML
 	public void initialize() {
-		 prev.setOnMouseEntered(null);
-		 prev.setOnMouseClicked(null);
-		 prev.setOnMouseExited(null);
-		 prev.setOnMouseDragged(null);
-		 prev.setCursor(Cursor.DEFAULT);
-		 
-		System.out.println("Initalizing...");
+		cp.getStyleClass().add("split-button");
+		cp.setValue(Color.ANTIQUEWHITE);
 		prevPane.getChildren().add(prev);
 		System.out.println(prev.getBoundsInParent().getWidth());
 		prev.setLayoutX((prevPane.getPrefWidth()/2) - prev.getBoundsInParent().getWidth()/2);

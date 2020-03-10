@@ -64,6 +64,12 @@ public class DraggableText extends Label {
 		this.setColorBackGround();
 		this.setEventsAndTip();
 	}
+	DraggableText(String txt, boolean p){
+		super(txt);
+		this.bg = Color.WHITE;
+		this.borderRadius = 0.0;
+		this.setColorBackGround();
+	}
 	
 	/**
 	 * Change the background color for this object.
