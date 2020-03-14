@@ -3,6 +3,7 @@ package venn;
 import java.util.ArrayList;
 
 import javafx.scene.Node;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -82,6 +83,16 @@ public class SetCircle extends Circle {
 		setName.setLayoutY(this.getCenterY() - r - 50);
 		setNum.setLayoutX(setName.getLayoutX() - (setNum.getBoundsInParent().getWidth()/2));
 		setNum.setLayoutY(setName.getBoundsInParent().getMaxY() + 30);
+	}
+
+	public void changeRadius(double r) {
+		// TODO Auto-generated method stub
+		this.setRadius(r);
+		setName.setLayoutX(this.getCenterX() - (setName.getBoundsInParent().getWidth()));
+		setName.setLayoutY(this.getCenterY() - r - 50);
+		setNum.setLayoutX(setName.getLayoutX() - (setNum.getBoundsInParent().getWidth()/2));
+		setNum.setLayoutY(setName.getBoundsInParent().getMaxY() + 30);
+		this.r = r;
 	}
 
 	

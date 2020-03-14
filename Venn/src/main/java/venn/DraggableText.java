@@ -156,7 +156,7 @@ public class DraggableText extends Label {
 	              }else if(m.getSceneY() > Main.s.getHeight() ) {
 	            	  newY = Main.s.getHeight() - node.getBoundsInParent().getHeight() + 10;
 	              }
-	              System.out.println(newX);
+	             
                 node.setTranslateX( newX);
                 node.setTranslateY( newY);
                 

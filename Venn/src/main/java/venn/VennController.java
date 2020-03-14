@@ -9,6 +9,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+import org.assertj.core.util.Arrays;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -16,12 +21,15 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -54,6 +62,10 @@ public class VennController {
 	private AnchorPane pane;
 	@FXML
 	private Button selectFile;
+	@FXML
+	private MenuItem answer;
+	@FXML 
+	private MenuItem deleteSet;
 	
 	static SetCircle cir1;
 	static SetCircle cir2;	
@@ -63,7 +75,7 @@ public class VennController {
 	@FXML
 	private static double counter;
 
-
+	private static final int MAX_RAD = 225;
 
 	double rectX, rectY;
 	boolean selecting = true;
@@ -77,8 +89,10 @@ public class VennController {
         }
     }
 	 
-	public ArrayList<DragContext> multipleDrag = new ArrayList<DragContext>();
-
+	private ArrayList<DragContext> multipleDrag = new ArrayList<DragContext>();
+	
+	private List<String> answerSet1 = new ArrayList<String>();
+	private ArrayList<String> answerSet2 = new ArrayList<String>();
 	
 	private static DraggableText selected = null;
 	public static ArrayList<DraggableText> entries = new ArrayList<DraggableText>();
@@ -89,7 +103,7 @@ public class VennController {
 	private void initialize() {
 
 		Main.calculateSceneSize();
-		int radius = 225;
+		int radius = MAX_RAD;
 		Color c1 = Color.web("#b4ffff");
 		Color c2 = Color.web("#ffc4ff");
 		System.out.println("sWidth: " + Main.sWidth + "sHeight: " + Main.sHeight);
@@ -415,8 +429,63 @@ public class VennController {
         }
           
     }	
+	
+	
+	public void getAnswers() {
 
-	public void deleteSelected() {
+		String path = "";
+		FileChooser fileChooser = new FileChooser();
+        File selectedFile = fileChooser.showOpenDialog(null);
+        try {
+        path = selectedFile.getPath();
+        }
+        catch(NullPointerException e){
+        	System.out.println("couldn't get the path");
+        }
+        File file = new File(path);
+        BufferedReader br;
+		try {
+			String st;
+			int i = 0;
+			br = new BufferedReader(new FileReader(file));
+
+			while ( i < 2 && ((st = br.readLine()) != null)) {
+				String [] temp = st.split("\\s+");
+				if(i == 0 ) {
+					Collections.addAll(answerSet1, temp);
+				}else {
+					Collections.addAll(answerSet2, temp);
+				}
+				i++;
+			}
+			Alert a = new Alert(AlertType.INFORMATION);
+			a.setTitle("Answer information");
+			if(!answerSet1.isEmpty() && !answerSet2.isEmpty()) {
+				a.setHeaderText("Answers have been set and saved.");
+			}else {
+				a.setHeaderText("Answers couldn't been saved please try again.");
+			}
+			a.showAndWait();
+			System.out.println("Set1: " + answerSet1.toString());
+			System.out.println("Set2: " + answerSet2.toString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void deleteAnswerSets() {
+		if(!answerSet1.isEmpty())
+			answerSet1.removeAll(answerSet1);
+		if(!answerSet2.isEmpty())
+			answerSet2.removeAll(answerSet2);
+		Alert a = new Alert(AlertType.INFORMATION);
+		a.setTitle("Answer information");
+		a.setHeaderText("Answers were deleted you may add a new set of answers");
+		a.showAndWait();
+	}
+	private void deleteSelected() {
 		if(!selecting && this.selectedTxts.size() > 0) {
 			for(DraggableText t: this.selectedTxts) {
 				
@@ -430,9 +499,8 @@ public class VennController {
 		}
 	}
 	public static void sceneChanged() {
-		// TODO Auto-generated method stub
-		cir1.setCenter(Main.s.getWidth()/3, Main.s.getHeight()/2 +  (2*cir1.getRadius())/4);
-		cir2.setCenter((cir1.getCenterX()  + 300), Main.s.getHeight()/2 +  (2*cir1.getRadius())/4 );
+		cir1.setCenter(Main.s.getWidth()/2, Main.s.getHeight()/2 +  (2*cir1.getRadius())/4);
+		cir2.setCenter((cir1.getCenterX()  + cir1.getRadius() ), Main.s.getHeight()/2 +  (2*cir1.getRadius())/4 );
 	}
 
 
