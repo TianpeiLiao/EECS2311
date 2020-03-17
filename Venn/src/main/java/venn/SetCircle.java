@@ -1,6 +1,8 @@
 package venn;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
@@ -14,7 +16,7 @@ public class SetCircle extends Circle {
 	String name;
 	private Color c;
 	private Text setName, setNum;
-	ArrayList<DraggableText> elems = new ArrayList<DraggableText>();
+	public ArrayList<DraggableText> elems = new ArrayList<DraggableText>();
 	
 	
 	public SetCircle(double d, double py2, int r,String name, Color c) {
@@ -25,6 +27,14 @@ public class SetCircle extends Circle {
 		this.c = c;
 		this.r = r;
 		this.initCircle();
+	}
+	public ArrayList<String> getSetText(){
+		ArrayList<String> elemText = new ArrayList<String>();
+		for(DraggableText txt: elems) {
+			elemText.add(txt.getText());
+		}
+		Collections.sort(elemText);
+		return elemText;
 	}
 	
 	public boolean inBound(Object obj) {
