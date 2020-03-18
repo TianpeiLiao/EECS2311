@@ -160,6 +160,7 @@ public class DraggableText extends Label {
                 node.setTranslateX( newX);
                 node.setTranslateY( newY);
                 
+                
 			}
 		});
 		
@@ -172,6 +173,9 @@ public class DraggableText extends Label {
 		});
 		this.setOnMouseClicked(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent m){
+				DraggableText node = (DraggableText) m.getSource();
+				System.out.println("Translate x:" + node.getTranslateX() + "Layout X:" + node.getLayoutX());
+				System.out.println("Translate y:" + node.getTranslateY() + "Layout Y" + node.getLayoutY());
 				if(m.getClickCount() == 2){
 	                Main.showEditStage();
 	            }
