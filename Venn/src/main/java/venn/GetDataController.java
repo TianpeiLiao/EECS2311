@@ -1,3 +1,4 @@
+
 package venn;
 
 import javafx.application.Platform;
@@ -9,6 +10,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
@@ -86,38 +89,45 @@ public class GetDataController {
 		AnchorPane root = (AnchorPane) thisStage.getOwner().getScene().getRoot();
 		if(!name.getText().isEmpty() ) {
 		//setting color corner text and description for label 
-		Color c = cp.getValue();	
-		 double radi  = cornerRadi.getValue();
-		 DraggableText newTxt = new DraggableText(name.getText(), c, radi);
-		 newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
-		 newTxt.getStyleClass().add("createdText");
-		 if(!description.getText().isEmpty()) {
-			 newTxt.setDescription(description.getText());
-		 }
-		 
-		 //Calculating the llocation of the label in the scene
-		 Pane ts = (Pane) root.lookup("#textSpace");
-		 double x = ts.getBoundsInParent().getMinX();
-		 double y = ts.getBoundsInParent().getMinY();
-		
-		 newTxt.setTranslateY(y);
-		 if(VennController.entries.size() != 0) {
-			 for(DraggableText t : VennController.entries) {
-				if(t.getBoundsInParent().contains(x, y)) {
-					x = t.getBoundsInParent().getMaxX() + 10;
-					if(x > Main.WIDTH - newTxt.getBoundsInParent().getWidth() - 45) {
-						 y += newTxt.getBoundsInParent().getHeight() + 25;
-						 x = ts.getBoundsInParent().getMinX();
-					}
-				}
+		if(name.getText().length() > 10) {
+			Alert a = new Alert(AlertType.ERROR);
+			a.setTitle("Text Error");
+			a.setHeaderText("The lenght of labels must be 10 characters or less.\n If more specific labels needed you may use description section.");
+			a.showAndWait();
+		}else {
+			Color c = cp.getValue();	
+			 double radi  = cornerRadi.getValue();
+			 DraggableText newTxt = new DraggableText(name.getText(), c, radi);
+			 newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
+			 newTxt.getStyleClass().add("createdText");
+			 if(!description.getText().isEmpty()) {
+				 newTxt.setDescription(description.getText());
 			 }
-		 }
-		 newTxt.setTranslateX(x);
-		 newTxt.setTranslateY(y);
-		 
-		 VennController.entries.add(newTxt);
-		 
-		 root.getChildren().add(newTxt);
+			 
+			 //Calculating the llocation of the label in the scene
+			 Pane ts = (Pane) root.lookup("#textSpace");
+			 double x = ts.getBoundsInParent().getMinX();
+			 double y = ts.getBoundsInParent().getMinY();
+			
+			 newTxt.setTranslateY(y);
+			 if(VennController.entries.size() != 0) {
+				 for(DraggableText t : VennController.entries) {
+					if(t.getBoundsInParent().contains(x, y)) {
+						x = t.getBoundsInParent().getMaxX() + 10;
+						if(x > Main.s.getWidth() - newTxt.getBoundsInParent().getWidth() - 45) {
+							 y += newTxt.getBoundsInParent().getHeight() + 25;
+							 x = ts.getBoundsInParent().getMinX();
+						}
+					}
+				 }
+			 }
+			 newTxt.setTranslateX(x);
+			 newTxt.setTranslateY(y);
+			 
+			 VennController.entries.add(newTxt);
+			 
+			 root.getChildren().add(newTxt);
+		}
 		 System.out.print(root.getChildren());
 		}
 	}	

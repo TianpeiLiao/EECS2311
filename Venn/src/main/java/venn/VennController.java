@@ -1,3 +1,4 @@
+
 package venn;
 
 
@@ -8,6 +9,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+import org.assertj.core.util.Arrays;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -15,12 +21,15 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -53,24 +62,24 @@ public class VennController {
 	private AnchorPane pane;
 	@FXML
 	private Button selectFile;
-
-
-	SetCircle cir1;
-	SetCircle cir2;	
+	@FXML
+	private MenuItem answer;
+	@FXML 
+	private MenuItem deleteSet;
+	@FXML
+	private Button submit;
+	@FXML
+	private Button ansLabels;
+	
+	static SetCircle cir1;
+	static SetCircle cir2;	
 	Rectangle selection;
 	
-	Text setName1;
-	Text setName2;
-	Text setElem1;
-	Text setElem2;
-	
-	int elems1, elems2 = 0;
-
 
 	@FXML
 	private static double counter;
 
-
+	private static final int MAX_RAD = 225;
 
 	double rectX, rectY;
 	boolean selecting = true;
@@ -84,48 +93,32 @@ public class VennController {
         }
     }
 	 
-	public ArrayList<DragContext> multipleDrag = new ArrayList<DragContext>();
-
+	private ArrayList<DragContext> multipleDrag = new ArrayList<DragContext>();
+	
+	private List<String> answerSet1 = new ArrayList<String>();
+	private ArrayList<String> answerSet2 = new ArrayList<String>();
 	
 	private static DraggableText selected = null;
 	public static ArrayList<DraggableText> entries = new ArrayList<DraggableText>();
 	public ArrayList<DraggableText> selectedTxts = new ArrayList<DraggableText>();
 	
-	Stage stage;
 	
 	@FXML
 	private void initialize() {
 
-		
-		int radius = 225;
+		Main.calculateSceneSize();
+		int radius = MAX_RAD;
 		Color c1 = Color.web("#b4ffff");
 		Color c2 = Color.web("#ffc4ff");
-		int px = Main.WIDTH/2 ;//+ 50;
-		int py = Main.HEIGHT/2 +  (3*radius)/4;
-		SetCircle cir1 = new SetCircle(px - 150, py, radius, "circle", c1);
-		SetCircle cir2 = new SetCircle(px + 150, py, radius, "circle", c2);
-		setName1 = new Text("Set1");
-		setName2 = new Text("Set2");
-		setElem1 = new Text("Number of elements: " + String.valueOf(elems1));
-		setElem2 = new Text("Number of elements: " + String.valueOf(elems2));
-		setName1.getStyleClass().add("setText");
-		setName2.getStyleClass().add("setText");
-		setElem1.getStyleClass().add("setNum");
-		setElem2.getStyleClass().add("setNum");
-		setName1.setLayoutX(cir1.getCenterX() - radius - 100);
-		setName1.setLayoutY(cir1.getCenterY() - radius - 20);
-		setName2.setLayoutX(cir2.getCenterX() + radius - 60);
-		setName2.setLayoutY(cir2.getCenterY() - radius - 20 );
-		setElem1.setLayoutX(setName1.getLayoutX());
-		setElem1.setLayoutY(setName1.getBoundsInParent().getMaxY() + 30);
-		setElem2.setLayoutX(setName2.getLayoutX());
-		setElem2.setLayoutY(setName2.getBoundsInParent().getMaxY() + 30);
+		System.out.println("sWidth: " + Main.sWidth + "sHeight: " + Main.sHeight);
+		double px = Main.sWidth/2 ;//+ 50;
+		double py = Main.sHeight/2 +  (2*radius)/4;
+		cir1 = new SetCircle(px - 150, py, radius,"Set1", c1);
+		cir2 = new SetCircle(px + 150, py, radius,"Set2", c2);
 		Group circles = new Group();
-		circles.getChildren().addAll(cir1, cir2, setName1, setName2, setElem1, setElem2);
+		circles.getChildren().addAll(cir1, cir2, cir1.getName(), cir1.getNum(), cir2.getName(), cir2.getNum());
 		pane.getChildren().add(circles);
 		
-		
-
 		counter=1.0;
 
 
@@ -205,44 +198,32 @@ public class VennController {
 					if(selected != null) {
 						if(cir1.inBound(selected) && !cir1.isElem(selected)) {
 							cir1.addElem(selected);
-							elems1++;
-							setElem1.setText("Number of Elements: " + String.valueOf(elems1));
 							System.out.println(cir1.elems.toString());
 						}else if(!cir1.inBound(selected) && cir1.isElem(selected)) {
 							cir1.removeElem(selected);
-							elems1--;
-							setElem1.setText("Number of Elements: " + String.valueOf(elems1));
 						}
 						if(cir2.inBound(selected)&& !cir2.isElem(selected)) {
 							cir2.addElem(selected);
-							elems2++;
-							setElem2.setText("Number of Elements: " + String.valueOf(elems2));
+						
 						}else if(!cir2.inBound(selected) && cir2.isElem(selected)) {
 							cir2.removeElem(selected);
-							elems2--;
-							setElem2.setText("Number of Elements: " + String.valueOf(elems2));
+							
 						}
 					} 
 					if(selectedTxts.size() > 0){
 						for(DraggableText txt:selectedTxts) {
 							if(cir1.inBound(txt) && !cir1.isElem(txt)) {
 								cir1.addElem(txt);
-								elems1++;
-								setElem1.setText("Number of Elements: " + String.valueOf(elems1));
+						
 								System.out.println(cir1.elems.toString());
 							}else if(!cir1.inBound(txt) && cir1.isElem(txt)) {
 								cir1.removeElem(txt);
-								elems1--;
-								setElem1.setText("Number of Elements: " + String.valueOf(elems1));
+								
 							}
 							if(cir2.inBound(txt)&& !cir2.isElem(txt)) {
 								cir2.addElem(txt);
-								elems2++;
-								setElem2.setText("Number of Elements: " + String.valueOf(elems2));
 							}else if(!cir2.inBound(txt) && cir2.isElem(txt)) {
 								cir2.removeElem(txt);
-								elems2--;
-								setElem2.setText("Number of Elements: " + String.valueOf(elems2));
 							}
 						}
 					}
@@ -325,9 +306,7 @@ public class VennController {
 		Platform.exit();
 	}
 	public String captureData(ActionEvent event)
-	{
-		stage = new Stage();
-		
+	{	
 		String path = "";
 		Color c = Color.WHITE;
 		DraggableText newTxt;
@@ -354,48 +333,8 @@ public class VennController {
 					 newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
 					 newTxt.getStyleClass().add("createdText");
 					 Pane ts = (Pane) pane.lookup("#textSpace");
-					 double x = ts.getBoundsInParent().getMinX();
-					 double y = ts.getBoundsInParent().getMinY();
-					
-					 if(VennController.entries.size() != 0) {
-						 DraggableText prev = VennController.entries.get(VennController.entries.size() - 1);
-						 if(counter/16.0 <=1) {
-						 newTxt.setTranslateX(x);
-						 newTxt.setTranslateY(prev.getBoundsInParent().getMaxY() + 30);
-						 }
-						 else if(counter/16.0 ==2 || counter/16.0==3 || counter/16.0==4)
-						 {
-							 DraggableText prev1 = VennController.entries.get(15);
-							 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 150*(counter/16.0-1));
-							 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
-						 }
-						 else if(counter/16.0 > 1 && counter/16.0 <2) {
-							 DraggableText prev1 = VennController.entries.get((int)counter%16-1);
-							 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 150);
-							 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
-							 
-						 }
-						 else if(counter/16.0 > 2 && counter/16.0<3) {
-							 DraggableText prev1 = VennController.entries.get((int)counter%16-1);
-							 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 300);
-							 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
-							 
-						 }
-						 else if(counter/16.0 > 3 && counter/16.0<4) {
-							 DraggableText prev1 = VennController.entries.get((int)counter%16-1);
-							 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 450);
-							 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());							 
-						 }
-						 else if(counter/16.0 > 4 && counter/16.0<5) {
-							 DraggableText prev1 = VennController.entries.get((int)counter%16-1);
-							 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 600);
-							 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());							 
-						 }
-					 }else {
-					 newTxt.setTranslateX(x);
-
-					 newTxt.setTranslateY(y);
-					 }
+					 
+					 this.findEmpty(newTxt);
 					 VennController.entries.add(newTxt);
 
 					 pane.getChildren().add(newTxt);
@@ -427,9 +366,7 @@ public class VennController {
 //			
 //		}
 			for(DraggableText a:VennController.entries) {
-				
 				SaveFile(a.getText()+"\n",file);
-				
 			}
 		BufferedReader rd = new BufferedReader(new FileReader(file));
 		try {
@@ -454,19 +391,202 @@ public class VennController {
         }
           
     }	
+	
+	
+	public void getAnswers() {
 
-	public void deleteSelected() {
+		String path = "";
+		FileChooser fileChooser = new FileChooser();
+        File selectedFile = fileChooser.showOpenDialog(null);
+        try {
+        path = selectedFile.getPath();
+        }
+        catch(NullPointerException e){
+        	System.out.println("couldn't get the path");
+        }
+        File file = new File(path);
+        BufferedReader br;
+		try {
+			String st;
+			int i = 0;
+			br = new BufferedReader(new FileReader(file));
+
+			while ( i < 2 && ((st = br.readLine()) != null)) {
+				String [] temp = st.split("\\s+");
+				if(i == 0 ) {
+					Collections.addAll(answerSet1, temp);
+				}else {
+					Collections.addAll(answerSet2, temp);
+				}
+				i++;
+			}
+			Alert a = new Alert(AlertType.INFORMATION);
+			a.setTitle("Answer information");
+			if(!answerSet1.isEmpty() && !answerSet2.isEmpty()) {
+				a.setHeaderText("Answers have been set and saved.");
+			}else {
+				a.setHeaderText("Answers couldn't been saved please try again.");
+			}
+			a.showAndWait();
+			Collections.sort(answerSet1);
+			Collections.sort(answerSet2);
+			System.out.println("Set1: " + answerSet1.toString());
+			System.out.println("Set2: " + answerSet2.toString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void deleteAnswerSets() {
+		if(!answerSet1.isEmpty())
+			answerSet1.removeAll(answerSet1);
+		if(!answerSet2.isEmpty())
+			answerSet2.removeAll(answerSet2);
+		Alert a = new Alert(AlertType.INFORMATION);
+		a.setTitle("Answer information");
+		a.setHeaderText("Answers were deleted you may add a new set of answers");
+		a.showAndWait();
+	}
+	private void deleteSelected() {
 		if(!selecting && this.selectedTxts.size() > 0) {
 			for(DraggableText t: this.selectedTxts) {
-				pane.getChildren().remove(t);
+				
+				cir1.removeElem(t);
+				cir2.removeElem(t);
 				entries.remove(t);
+				pane.getChildren().remove(t);
 			}
 			this.selectedTxts.removeAll(this.selectedTxts);
 			this.selecting = true;
 		}
 	}
+	public static void sceneChanged() {
+		cir1.setCenter(Main.s.getWidth()/2, Main.s.getHeight()/2 +  (2*cir1.getRadius())/4);
+		cir2.setCenter((cir1.getCenterX()  + cir1.getRadius() ), Main.s.getHeight()/2 +  (2*cir1.getRadius())/4 );
+	}
 
+	public void submit() {
+		Alert a = new Alert(AlertType.ERROR);
+		a.setTitle("Submit Error");
+		if(cir1.elems.isEmpty() || cir2.elems.isEmpty()) {
+			a.setHeaderText("One of the sets are Empty");
+			a.showAndWait();
+		}else if(answerSet1.isEmpty() || answerSet2.isEmpty()) {
+			a.setHeaderText("Answer sets are empty. Import answers using Edit > Add Answers.");
+			a.showAndWait();
+		}else {
+			if(answerSet1.equals(cir1.getSetText()) && answerSet2.equals(cir2.getSetText())) {
+				a.setAlertType(AlertType.CONFIRMATION);
+				a.setHeaderText("Correct answer!!");
+				a.showAndWait();
+			}else {
+				a.setAlertType(AlertType.CONFIRMATION);
+				a.setHeaderText("Sorry wrong answer, Try again.");
+				a.showAndWait();
+			}
+		}
+	}
+	public void getAnswerLabels() {
+		counter = 0;
+		Alert a = new Alert(AlertType.ERROR);
+		int i = 0; int j = 0;
+		double k = 0;
+		DraggableText newTxt;
+		if(answerSet1.isEmpty() || answerSet2.isEmpty()) {
+			a.setTitle("Answers could not be imported");
+			a.setHeaderText("Answer sets have not been imported.");
+			a.showAndWait();
+		}
+			
+		if(entries.size() > 0) {
+			a.setTitle("Answers could not be imported");
+			a.setHeaderText("Can only import answers if there are no other labels in the scene.");
+			a.showAndWait();
+		}else {
+			while(i < answerSet1.size() && j < answerSet2.size()) {
+				k = Math.floor(Math.random() * 2);
+				if(k == 1) {
+					newTxt = new DraggableText(answerSet1.get(i), Color.WHITE, 400);
+					i++;
+				}else {
+					newTxt = new DraggableText(answerSet2.get(j), Color.WHITE, 400);
+					j++;
+				}
+				newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
+				newTxt.getStyleClass().add("createdText");
+				findEmpty(newTxt);
+				VennController.entries.add(newTxt);
+				pane.getChildren().add(newTxt);
+				counter++;
+			}
+			while(j < answerSet2.size()) {
+				newTxt = new DraggableText(answerSet2.get(j), Color.WHITE, 400);
+				j++;
+				newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
+				newTxt.getStyleClass().add("createdText");
+				findEmpty(newTxt);
+				VennController.entries.add(newTxt);
+				pane.getChildren().add(newTxt);
+				counter++;
+			}
+			while(i < answerSet1.size()) {
+				newTxt = new DraggableText(answerSet1.get(i), Color.WHITE, 400);
+				i++;
+				newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
+				newTxt.getStyleClass().add("createdText");
+				findEmpty(newTxt);
+				VennController.entries.add(newTxt);
+				pane.getChildren().add(newTxt);
+				counter++;
+			}
+		}
+	}
 	
+	private void findEmpty(DraggableText newTxt) {
+		 double x = textSpace.getBoundsInParent().getMinX();
+		 double y = textSpace.getBoundsInParent().getMinY();
+		
+		 if(VennController.entries.size() != 0) {
+			 DraggableText prev = VennController.entries.get(VennController.entries.size() - 1);
+			 if(entries.size()/16.0 <=1) {
+			 newTxt.setTranslateX(x);
+			 newTxt.setTranslateY(prev.getBoundsInParent().getMaxY() + 30);
+			 }
+			 else if(entries.size()/16.0 ==2 || counter/16.0==3 || counter/16.0==4)
+			 {
+				 DraggableText prev1 = VennController.entries.get(15);
+				 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 150*(counter/16.0-1));
+				 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
+			 }
+			 else if(counter/16.0 > 1 && counter/16.0 <2) {
+				 DraggableText prev1 = VennController.entries.get((int)counter%16-1);
+				 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 150);
+				 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
+				 
+			 }
+			 else if(counter/16.0 > 2 && counter/16.0<3) {
+				 DraggableText prev1 = VennController.entries.get((int)counter%16-1);
+				 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 300);
+				 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
+				 
+			 }
+			 else if(counter/16.0 > 3 && counter/16.0<4) {
+				 DraggableText prev1 = VennController.entries.get((int)counter%16-1);
+				 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 450);
+				 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());							 
+			 }
+			 else if(counter/16.0 > 4 && counter/16.0<5) {
+				 DraggableText prev1 = VennController.entries.get((int)counter%16-1);
+				 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 600);
+				 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());							 
+			 }
+		 }else {
+		 newTxt.setTranslateX(x);
+
+		 newTxt.setTranslateY(y);
+		 }
+	}
 	
 }
-

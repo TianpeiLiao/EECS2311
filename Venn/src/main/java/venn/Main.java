@@ -12,26 +12,53 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Main extends Application{
-	public static final int WIDTH = 1200;
-	public static final int HEIGHT = 960;
+	public static class Rect{
+		public double width;
+		public double height;
+		
+		Rect(double w, double h){
+			this.width = w;
+			this.height = h;
+		}
+	}
+	static int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
+    static int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
 	public static double sWidth;
 	public static double sHeight;
 	public static Stage primaryStage;
-	Scene s;
+	public static Scene s;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Parent fxml = FXMLLoader.load(getClass().getResource("App.fxml"));
-
-		s = new Scene(fxml, WIDTH, HEIGHT);
+		s = new Scene(fxml, sWidth, sHeight);
+		s.widthProperty().addListener(e->{
+			VennController.sceneChanged();
+		});
+		s.heightProperty().addListener(e->{
+			VennController.sceneChanged();
+		});
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("VENN DIAGRAM");
 		this.primaryStage.setScene(s);
 		this.primaryStage.show();
-		sWidth = s.getWidth();
-		sHeight = s.getHeight();
+	}
+	public static void calculateSceneSize() {
+		sWidth = 0;
+        sHeight = 0;
+        if (screenWidth <= 800 && screenHeight <= 600) {
+            sWidth = 700;
+            sHeight = 500;
+        } else if (screenWidth <= 1280 && screenHeight <= 768) {
+            sWidth = 1080;
+            sHeight = 700;
+        } else if (screenWidth <= 1920 && screenHeight <= 1080) {
+            sWidth = 1280;
+            sHeight = 900;
+        }
 	}
 	
 	
