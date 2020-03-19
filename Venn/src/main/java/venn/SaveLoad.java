@@ -2,7 +2,10 @@ package venn;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -17,6 +20,92 @@ import javafx.stage.FileChooser;
 
 public class SaveLoad {
 	static int counter;
+	public static void loadData() {
+		String path = "";
+		FileChooser fileChooser = new FileChooser();
+        File selectedFile = fileChooser.showOpenDialog(null);
+        path = selectedFile.getPath();
+        File file = new File(path);
+        BufferedReader br;
+        DraggableText newTxt;
+        Color c;
+        try {
+        	br = new BufferedReader(new FileReader(file));
+        	String st;
+        	String Desc = "";
+        	while((st = br.readLine()) != null){
+        		String [] temp = st.split("\\s+");
+        		
+        		c = Color.web(temp[3]);
+        		newTxt = new DraggableText(temp[0], c , 400 );
+        		newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
+				newTxt.getStyleClass().add("createdText");
+				Double x = Double.valueOf(temp[1]);
+				Double y =Double.valueOf(temp[2]);
+				System.out.println("x: "+ x);
+				System.out.println("y: " + y);
+				newTxt.setTranslateX(x);
+				newTxt.setTranslateY(y);
+				for(int i = 4; i < temp.length; i++) {
+					Desc += temp[i];
+					Desc += " ";
+				}
+				newTxt.setDescription(Desc);
+				Desc = "";
+				VennController.entries.add(newTxt);        	
+				}
+        	
+        }catch (Exception e){
+        	e.printStackTrace();
+        }
+	}
+	public static void saveData() throws FileNotFoundException {
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt, extensions)","*.txt");
+		fileChooser.getExtensionFilters().add(extFilter);
+		File file = fileChooser.showSaveDialog(null);
+		FileWriter fileWriter;
+        
+        try {
+			fileWriter = new FileWriter(file,false);
+			fileWriter.write("");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			for(DraggableText a:VennController.entries) {
+				String text = a.getText() + " " + a.getBoundsInParent().getMinX() + " " + a.getBoundsInParent().getMinY() + " ";
+				text += a.getColor()+ " " + a.getTooltip().getText()+"\n"; 
+				SaveFile(text, file);
+			}
+		BufferedReader rd = new BufferedReader(new FileReader(file));
+		try {
+			System.out.println("\n"+rd.readLine());
+		}
+		catch(Exception ex){
+			
+		}
+	}
+	
+	public static String exportData() throws FileNotFoundException {
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt, extensions)","*.txt");
+		fileChooser.getExtensionFilters().add(extFilter);
+		File file = fileChooser.showSaveDialog(null);
+		for(DraggableText a:VennController.entries) {
+			String text = a.getText() + " " + a.getTranslateX() + " " + a.getTranslateX() + " ";
+			text += a.getColor()+ " " + a.getTooltip().getText()+"\n"; 
+			SaveFile(a.getText() + "\n", file);
+		}
+		BufferedReader rd = new BufferedReader(new FileReader(file));
+		try {
+			System.out.println("\n"+rd.readLine());
+		}
+		catch(Exception ex){
+			
+		}
+		return " ";
+	}
 	public static void loadAnswers(ArrayList<String> s1, ArrayList<String> s2) {
 		String path = "";
 		FileChooser fileChooser = new FileChooser();
@@ -200,5 +289,19 @@ public class SaveLoad {
 		 newTxt.setTranslateY(y);
 		 }
 	}
+	
+	private static void SaveFile(String content, File file){
+        try {
+            FileWriter fileWriter;
+            
+            fileWriter = new FileWriter(file,true);
+            
+            fileWriter.write(content);
+            fileWriter.close();
+        } catch (IOException ex) {
+           
+        }
+          
+    }	
 	
 }

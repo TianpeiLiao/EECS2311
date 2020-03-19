@@ -67,6 +67,10 @@ public class VennController {
 	@FXML 
 	private MenuItem deleteSet;
 	@FXML
+	private MenuItem save;
+	@FXML
+	private MenuItem load;
+	@FXML
 	private Button submit;
 	@FXML
 	private Button ansLabels;
@@ -318,40 +322,21 @@ public class VennController {
 		return path;
 	}
 	
-	public String exportData(ActionEvent event) throws FileNotFoundException
-	{
-		FileChooser fileChooser = new FileChooser();
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt, extensions)","*.txt");
-		fileChooser.getExtensionFilters().add(extFilter);
-		File file = fileChooser.showSaveDialog(null);
-		
-//		if(file != null)
-//		{
-//			
-//		}
-		FileWriter fileWriter;
-        
-        try {
-			fileWriter = new FileWriter(file,false);
-			fileWriter.write("");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-			for(DraggableText a:VennController.entries) {
-				String text = a.getText() + " " + a.getTranslateX() + " " + a.getTranslateX() + " ";
-				text += a.getColor()+ " " + a.getTooltip().getText()+"\n"; 
-				SaveFile(text, file);
-			}
-		BufferedReader rd = new BufferedReader(new FileReader(file));
-		try {
-			System.out.println("\n"+rd.readLine());
-		}
-		catch(Exception ex){
-			
-		}
+	public String exportData(ActionEvent event) throws FileNotFoundException{
+		return SaveLoad.exportData();
+	}
 	
-		return "";
+	public void saveLabels(ActionEvent event) throws FileNotFoundException{
+		SaveLoad.saveData();
+		System.out.println("saved");
+	}
+	public void loadLabels(ActionEvent event) {
+		SaveLoad.loadData();
+		for(DraggableText t:entries) {
+			if(!pane.getChildren().contains(t)) {
+				pane.getChildren().add(t);
+			}
+		}
 	}
 	
 	private void SaveFile(String content, File file){
