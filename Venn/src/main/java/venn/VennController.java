@@ -325,12 +325,15 @@ public class VennController {
 	public String exportData(ActionEvent event) throws FileNotFoundException{
 		return SaveLoad.exportData();
 	}
-	
 	public void saveLabels(ActionEvent event) throws FileNotFoundException{
 		SaveLoad.saveData();
 		System.out.println("saved");
 	}
 	public void loadLabels(ActionEvent event) {
+		if(!entries.isEmpty()) {
+			pane.getChildren().removeAll(entries);
+			entries.removeAll(entries);
+		}
 		SaveLoad.loadData();
 		for(DraggableText t:entries) {
 			if(!pane.getChildren().contains(t)) {
@@ -338,22 +341,6 @@ public class VennController {
 			}
 		}
 	}
-	
-	private void SaveFile(String content, File file){
-        try {
-            FileWriter fileWriter;
-            
-            fileWriter = new FileWriter(file,true);
-            
-            fileWriter.write(content);
-            fileWriter.close();
-        } catch (IOException ex) {
-           
-        }
-          
-    }	
-	
-	
 	public void getAnswers() {
 		SaveLoad.loadAnswers(answerSet1, answerSet2);
 	}
@@ -413,10 +400,4 @@ public class VennController {
 		SaveLoad.showAnswerLabels(answerSet1, answerSet2,textSpace.getBoundsInParent().getMinX(), textSpace.getBoundsInParent().getMinY());
 		pane.getChildren().addAll(entries);
 	}
-	
-	private void findEmpty(DraggableText newTxt) {
-		
-	}
-	
-	
 }
