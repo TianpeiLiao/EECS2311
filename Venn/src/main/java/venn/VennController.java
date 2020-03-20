@@ -314,58 +314,15 @@ public class VennController {
 		Platform.exit();
 	}
 	public String captureData(ActionEvent event)
-	{	
-<<<<<<< HEAD
-		String path = "";
-		Color c = Color.WHITE;
-		DraggableText newTxt;
-		FileChooser fileChooser = new FileChooser();
-        File selectedFile = fileChooser.showOpenDialog(null);
-        try {
-        path = selectedFile.getPath();
-        }
-        catch(NullPointerException e){
-        	return "null pointer";
-        }
-       
-        File file = new File(path);
-        BufferedReader br;
-		try {
-			String st;
-			br = new BufferedReader(new FileReader(file));
-			
-			while ((st = br.readLine()) != null) {
-
-				  System.out.println(st);
-
-				  	 newTxt = new DraggableText(st, c, 400);
-					 newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
-					 newTxt.getStyleClass().add("createdText");
-					 Pane ts = (Pane) pane.lookup("#textSpace");
-					 
-					 
-					 VennController.entries.add(newTxt);
-
-					 pane.getChildren().add(newTxt);
-					 this.findEmpty(newTxt);
-
-//					 System.out.print("x:"+newTxt.getLayoutX()+"   y: "+newTxt.getLayoutY()+"\n");
-//					 System.out.print("x:"+x+"   y: "+y+"\n");
-//					 System.out.print(counter+" "+counter/16);
-					 counter++;
-					 
-				}
-		}        
-         catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-=======
+	{	 
+		
+		
 		String path = SaveLoad.captureData(this.textSpace.getBoundsInParent().getMinX(), this.textSpace.getBoundsInParent().getMinY());
 		for(DraggableText t:entries) {
 			if(!pane.getChildren().contains(t)) {
 				pane.getChildren().add(t);
 			}
->>>>>>> branch 'develop' of https://github.com/TianpeiLiao/EECS2311.git
+
 		}
 		
 		return path;
@@ -449,72 +406,5 @@ public class VennController {
 		SaveLoad.showAnswerLabels(answerSet1, answerSet2,textSpace.getBoundsInParent().getMinX(), textSpace.getBoundsInParent().getMinY());
 		pane.getChildren().addAll(entries);
 	}
-<<<<<<< HEAD
-	
-	private void findEmpty(DraggableText newTxt) {
-		 double x = textSpace.getBoundsInParent().getMinX();
-		 double y = textSpace.getBoundsInParent().getMinY();
-		 
-		 if(VennController.entries.size() == 1) {
-			 DraggableText prev = VennController.entries.get(0);
-			 newTxt.setTranslateX(x);
-			 accY+=prev.getBoundsInParent().getMaxY()+100;
-			 newTxt.setTranslateY(accY);
-		 }
-		
-		 else if(VennController.entries.size() > 1) {
-			 DraggableText prev = VennController.entries.get(VennController.entries.size() - 1);
-			 System.out.print(VennController.entries.size()+ "Y:" + prev.getBoundsInParent().getMinY()+"\n");
-			 if(entries.size()/4.0 <=1.0) {
-			 newTxt.setTranslateX(x);
-			 accY+=prev.getBoundsInParent().getMaxY()+35;
-			 newTxt.setTranslateY(accY);
-			 }
-			 else if(entries.size()/4.0 ==2 || counter/4.0==3 || counter/4.0==4 || counter/4.0==5||counter/4.0==6||counter/4.0==7)
-			 {
-				 DraggableText prev1 = VennController.entries.get(3);
-				 newTxt.setTranslateX(prev1.getBoundsInParent().getMaxX() + 100*(counter/4.0-1));
-				 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
-			 }
-			 else if(counter/4.0 > 1 && counter/4.0 <2) {
-				 DraggableText prev1 = VennController.entries.get((int)counter%4-1);
-				 newTxt.setTranslateX(prev1.getBoundsInParent().getMaxX() + 100);
-				 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
-				 
-			 }
-			 else if(counter/4.0 > 2 && counter/4.0<3) {
-				 DraggableText prev1 = VennController.entries.get((int)counter%4-1);
-				 newTxt.setTranslateX(prev1.getBoundsInParent().getMaxX() + 200);
-				 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
-				 
-			 }
-			 else if(counter/4.0 > 3 && counter/4.0<4) {
-				 DraggableText prev1 = VennController.entries.get((int)counter%4-1);
-				 newTxt.setTranslateX(prev1.getBoundsInParent().getMaxX() + 300);
-				 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());							 
-			 }
-			 else if(counter/4.0 > 4 && counter/4.0<5) {
-				 DraggableText prev1 = VennController.entries.get((int)counter%4-1);
-				 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 400);
-				 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());							 
-			 }
-			 else if(counter/4.0 > 5 && counter/4.0<6) {
-				 DraggableText prev1 = VennController.entries.get((int)counter%4-1);
-				 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 500);
-				 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());							 
-			 }
-			 else if(counter/4.0 > 6 && counter/4.0<7) {
-				 DraggableText prev1 = VennController.entries.get((int)counter%4-1);
-				 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 500);
-				 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());							 
-			 }
-		 }else {
-		 newTxt.setTranslateX(x);
 
-		 newTxt.setTranslateY(y);
-		 }
-	}
-	
-=======
->>>>>>> branch 'develop' of https://github.com/TianpeiLiao/EECS2311.git
 }
