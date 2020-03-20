@@ -4,7 +4,6 @@
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
-	<classpathentry kind="lib" path="/Users/liaotianpei/Downloads/EECS2311-master/Venn/library files/fontawesomefx-8.9.jar"/>
 	<classpathentry kind="lib" path="/Users/liaotianpei/Downloads/fontawesomefx-8.9.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
