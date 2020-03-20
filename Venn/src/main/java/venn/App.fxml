@@ -26,6 +26,8 @@
                   <MenuItem fx:id="capture" mnemonicParsing="false" onAction="#captureData" text="Import " />
                   <MenuItem fx:id="export" mnemonicParsing="false" onAction="#exportData" text="Export" />
                    <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exitProgram" text="Exit" />
+                  <MenuItem fx:id="save" mnemonicParsing="false" onAction="#saveLabels" text="Save" />
+                  <MenuItem fx:id="load" mnemonicParsing="false" onAction="#loadLabels" text="Load" />
                </items></Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>

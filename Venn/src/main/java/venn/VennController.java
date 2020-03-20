@@ -70,6 +70,10 @@ public class VennController {
 	@FXML 
 	private MenuItem deleteSet;
 	@FXML
+	private MenuItem save;
+	@FXML
+	private MenuItem load;
+	@FXML
 	private Button submit;
 	@FXML
 	private Button ansLabels;
@@ -98,7 +102,7 @@ public class VennController {
 	 
 	private ArrayList<DragContext> multipleDrag = new ArrayList<DragContext>();
 	
-	private List<String> answerSet1 = new ArrayList<String>();
+	private ArrayList<String> answerSet1 = new ArrayList<String>();
 	private ArrayList<String> answerSet2 = new ArrayList<String>();
 	
 	private static DraggableText selected = null;
@@ -110,6 +114,7 @@ public class VennController {
 	private void initialize() {
 
 		Main.calculateSceneSize();
+		
 		int radius = MAX_RAD;
 		Color c1 = Color.web("#b4ffff");
 		Color c2 = Color.web("#ffc4ff");
@@ -310,6 +315,7 @@ public class VennController {
 	}
 	public String captureData(ActionEvent event)
 	{	
+<<<<<<< HEAD
 		String path = "";
 		Color c = Color.WHITE;
 		DraggableText newTxt;
@@ -353,93 +359,39 @@ public class VennController {
          catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+=======
+		String path = SaveLoad.captureData(this.textSpace.getBoundsInParent().getMinX(), this.textSpace.getBoundsInParent().getMinY());
+		for(DraggableText t:entries) {
+			if(!pane.getChildren().contains(t)) {
+				pane.getChildren().add(t);
+			}
+>>>>>>> branch 'develop' of https://github.com/TianpeiLiao/EECS2311.git
 		}
-	
 		
 		return path;
 	}
-	public String exportData(ActionEvent event) throws FileNotFoundException
-	{
-		FileChooser fileChooser = new FileChooser();
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt, extensions)","*.txt");
-		fileChooser.getExtensionFilters().add(extFilter);
-		File file = fileChooser.showSaveDialog(null);
-//		if(file != null)
-//		{
-//			
-//		}
-			for(DraggableText a:VennController.entries) {
-				SaveFile(a.getText()+"\n",file);
-			}
-		BufferedReader rd = new BufferedReader(new FileReader(file));
-		try {
-			System.out.println("\n"+rd.readLine());
-		}
-		catch(Exception ex){
-			
-		}
 	
-		return "";
+	public String exportData(ActionEvent event) throws FileNotFoundException{
+		return SaveLoad.exportData();
 	}
-	
-	private void SaveFile(String content, File file){
-        try {
-            FileWriter fileWriter;
-           
-            fileWriter = new FileWriter(file,true);
-            fileWriter.write(content);
-            fileWriter.close();
-        } catch (IOException ex) {
-           
-        }
-          
-    }	
-	
-	
-	public void getAnswers() {
-
-		String path = "";
-		FileChooser fileChooser = new FileChooser();
-        File selectedFile = fileChooser.showOpenDialog(null);
-        try {
-        path = selectedFile.getPath();
-        }
-        catch(NullPointerException e){
-        	System.out.println("couldn't get the path");
-        }
-        File file = new File(path);
-        BufferedReader br;
-		try {
-			String st;
-			int i = 0;
-			br = new BufferedReader(new FileReader(file));
-
-			while ( i < 2 && ((st = br.readLine()) != null)) {
-				String [] temp = st.split("\\s+");
-				if(i == 0 ) {
-					Collections.addAll(answerSet1, temp);
-				}else {
-					Collections.addAll(answerSet2, temp);
-				}
-				i++;
-			}
-			Alert a = new Alert(AlertType.INFORMATION);
-			a.setTitle("Answer information");
-			if(!answerSet1.isEmpty() && !answerSet2.isEmpty()) {
-				a.setHeaderText("Answers have been set and saved.");
-			}else {
-				a.setHeaderText("Answers couldn't been saved please try again.");
-			}
-			a.showAndWait();
-			Collections.sort(answerSet1);
-			Collections.sort(answerSet2);
-			System.out.println("Set1: " + answerSet1.toString());
-			System.out.println("Set2: " + answerSet2.toString());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public void saveLabels(ActionEvent event) throws FileNotFoundException{
+		SaveLoad.saveData();
+		System.out.println("saved");
+	}
+	public void loadLabels(ActionEvent event) {
+		if(!entries.isEmpty()) {
+			pane.getChildren().removeAll(entries);
+			entries.removeAll(entries);
 		}
-		
+		SaveLoad.loadData();
+		for(DraggableText t:entries) {
+			if(!pane.getChildren().contains(t)) {
+				pane.getChildren().add(t);
+			}
+		}
+	}
+	public void getAnswers() {
+		SaveLoad.loadAnswers(answerSet1, answerSet2);
 	}
 	
 	public void deleteAnswerSets() {
@@ -452,6 +404,7 @@ public class VennController {
 		a.setHeaderText("Answers were deleted you may add a new set of answers");
 		a.showAndWait();
 	}
+	
 	private void deleteSelected() {
 		if(!selecting && this.selectedTxts.size() > 0) {
 			for(DraggableText t: this.selectedTxts) {
@@ -465,6 +418,7 @@ public class VennController {
 			this.selecting = true;
 		}
 	}
+	
 	public static void sceneChanged() {
 		cir1.setCenter(Main.s.getWidth()/2, Main.s.getHeight()/2 +  (2*cir1.getRadius())/4);
 		cir2.setCenter((cir1.getCenterX()  + cir1.getRadius() ), Main.s.getHeight()/2 +  (2*cir1.getRadius())/4 );
@@ -492,60 +446,10 @@ public class VennController {
 		}
 	}
 	public void getAnswerLabels() {
-		counter = 0;
-		Alert a = new Alert(AlertType.ERROR);
-		int i = 0; int j = 0;
-		double k = 0;
-		DraggableText newTxt;
-		if(answerSet1.isEmpty() || answerSet2.isEmpty()) {
-			a.setTitle("Answers could not be imported");
-			a.setHeaderText("Answer sets have not been imported.");
-			a.showAndWait();
-		}
-			
-		if(entries.size() > 0) {
-			a.setTitle("Answers could not be imported");
-			a.setHeaderText("Can only import answers if there are no other labels in the scene.");
-			a.showAndWait();
-		}else {
-			while(i < answerSet1.size() && j < answerSet2.size()) {
-				k = Math.floor(Math.random() * 2);
-				if(k == 1) {
-					newTxt = new DraggableText(answerSet1.get(i), Color.WHITE, 400);
-					i++;
-				}else {
-					newTxt = new DraggableText(answerSet2.get(j), Color.WHITE, 400);
-					j++;
-				}
-				newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
-				newTxt.getStyleClass().add("createdText");
-				findEmpty(newTxt);
-				VennController.entries.add(newTxt);
-				pane.getChildren().add(newTxt);
-				counter++;
-			}
-			while(j < answerSet2.size()) {
-				newTxt = new DraggableText(answerSet2.get(j), Color.WHITE, 400);
-				j++;
-				newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
-				newTxt.getStyleClass().add("createdText");
-				findEmpty(newTxt);
-				VennController.entries.add(newTxt);
-				pane.getChildren().add(newTxt);
-				counter++;
-			}
-			while(i < answerSet1.size()) {
-				newTxt = new DraggableText(answerSet1.get(i), Color.WHITE, 400);
-				i++;
-				newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
-				newTxt.getStyleClass().add("createdText");
-				findEmpty(newTxt);
-				VennController.entries.add(newTxt);
-				pane.getChildren().add(newTxt);
-				counter++;
-			}
-		}
+		SaveLoad.showAnswerLabels(answerSet1, answerSet2,textSpace.getBoundsInParent().getMinX(), textSpace.getBoundsInParent().getMinY());
+		pane.getChildren().addAll(entries);
 	}
+<<<<<<< HEAD
 	
 	private void findEmpty(DraggableText newTxt) {
 		 double x = textSpace.getBoundsInParent().getMinX();
@@ -611,4 +515,6 @@ public class VennController {
 		 }
 	}
 	
+=======
+>>>>>>> branch 'develop' of https://github.com/TianpeiLiao/EECS2311.git
 }
