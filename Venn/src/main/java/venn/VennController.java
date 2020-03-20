@@ -1,5 +1,5 @@
-
 package venn;
+
 
 
 import java.io.BufferedReader;
@@ -46,6 +46,9 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import venn.DraggableText;
+import venn.Main;
+import venn.SetCircle;
 
 
 
@@ -74,7 +77,7 @@ public class VennController {
 	static SetCircle cir1;
 	static SetCircle cir2;	
 	Rectangle selection;
-	
+	static double accY=0;
 
 	@FXML
 	private static double counter;
@@ -334,11 +337,11 @@ public class VennController {
 					 newTxt.getStyleClass().add("createdText");
 					 Pane ts = (Pane) pane.lookup("#textSpace");
 					 
-					 this.findEmpty(newTxt);
+					 
 					 VennController.entries.add(newTxt);
 
 					 pane.getChildren().add(newTxt);
-
+					 this.findEmpty(newTxt);
 
 //					 System.out.print("x:"+newTxt.getLayoutX()+"   y: "+newTxt.getLayoutY()+"\n");
 //					 System.out.print("x:"+x+"   y: "+y+"\n");
@@ -547,39 +550,58 @@ public class VennController {
 	private void findEmpty(DraggableText newTxt) {
 		 double x = textSpace.getBoundsInParent().getMinX();
 		 double y = textSpace.getBoundsInParent().getMinY();
-		
-		 if(VennController.entries.size() != 0) {
-			 DraggableText prev = VennController.entries.get(VennController.entries.size() - 1);
-			 if(entries.size()/16.0 <=1) {
+		 
+		 if(VennController.entries.size() == 1) {
+			 DraggableText prev = VennController.entries.get(0);
 			 newTxt.setTranslateX(x);
-			 newTxt.setTranslateY(prev.getBoundsInParent().getMaxY() + 30);
+			 accY+=prev.getBoundsInParent().getMaxY()+100;
+			 newTxt.setTranslateY(accY);
+		 }
+		
+		 else if(VennController.entries.size() > 1) {
+			 DraggableText prev = VennController.entries.get(VennController.entries.size() - 1);
+			 System.out.print(VennController.entries.size()+ "Y:" + prev.getBoundsInParent().getMinY()+"\n");
+			 if(entries.size()/4.0 <=1.0) {
+			 newTxt.setTranslateX(x);
+			 accY+=prev.getBoundsInParent().getMaxY()+35;
+			 newTxt.setTranslateY(accY);
 			 }
-			 else if(entries.size()/16.0 ==2 || counter/16.0==3 || counter/16.0==4)
+			 else if(entries.size()/4.0 ==2 || counter/4.0==3 || counter/4.0==4 || counter/4.0==5||counter/4.0==6||counter/4.0==7)
 			 {
-				 DraggableText prev1 = VennController.entries.get(15);
-				 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 150*(counter/16.0-1));
+				 DraggableText prev1 = VennController.entries.get(3);
+				 newTxt.setTranslateX(prev1.getBoundsInParent().getMaxX() + 100*(counter/4.0-1));
 				 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
 			 }
-			 else if(counter/16.0 > 1 && counter/16.0 <2) {
-				 DraggableText prev1 = VennController.entries.get((int)counter%16-1);
-				 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 150);
-				 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
-				 
-			 }
-			 else if(counter/16.0 > 2 && counter/16.0<3) {
-				 DraggableText prev1 = VennController.entries.get((int)counter%16-1);
-				 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 300);
+			 else if(counter/4.0 > 1 && counter/4.0 <2) {
+				 DraggableText prev1 = VennController.entries.get((int)counter%4-1);
+				 newTxt.setTranslateX(prev1.getBoundsInParent().getMaxX() + 100);
 				 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
 				 
 			 }
-			 else if(counter/16.0 > 3 && counter/16.0<4) {
-				 DraggableText prev1 = VennController.entries.get((int)counter%16-1);
-				 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 450);
+			 else if(counter/4.0 > 2 && counter/4.0<3) {
+				 DraggableText prev1 = VennController.entries.get((int)counter%4-1);
+				 newTxt.setTranslateX(prev1.getBoundsInParent().getMaxX() + 200);
+				 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
+				 
+			 }
+			 else if(counter/4.0 > 3 && counter/4.0<4) {
+				 DraggableText prev1 = VennController.entries.get((int)counter%4-1);
+				 newTxt.setTranslateX(prev1.getBoundsInParent().getMaxX() + 300);
 				 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());							 
 			 }
-			 else if(counter/16.0 > 4 && counter/16.0<5) {
-				 DraggableText prev1 = VennController.entries.get((int)counter%16-1);
-				 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 600);
+			 else if(counter/4.0 > 4 && counter/4.0<5) {
+				 DraggableText prev1 = VennController.entries.get((int)counter%4-1);
+				 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 400);
+				 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());							 
+			 }
+			 else if(counter/4.0 > 5 && counter/4.0<6) {
+				 DraggableText prev1 = VennController.entries.get((int)counter%4-1);
+				 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 500);
+				 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());							 
+			 }
+			 else if(counter/4.0 > 6 && counter/4.0<7) {
+				 DraggableText prev1 = VennController.entries.get((int)counter%4-1);
+				 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 500);
 				 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());							 
 			 }
 		 }else {
