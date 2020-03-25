@@ -141,9 +141,8 @@ public class SaveLoad {
 			}
 			a.showAndWait();
 			Collections.sort(s1);
-			Collections.sort(s1);
-			System.out.println("Set1: " + s1.toString());
-			System.out.println("Set2: " + s2.toString());
+			Collections.sort(s2);
+		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -161,12 +160,7 @@ public class SaveLoad {
 			a.setHeaderText("Answer sets have not been imported.");
 			a.showAndWait();
 		}
-			
-		if(VennController.entries.size() > 0) {
-			a.setTitle("Answers could not be imported");
-			a.setHeaderText("Can only import answers if there are no other labels in the scene.");
-			a.showAndWait();
-		}else {
+			VennController.entries.removeAll(VennController.entries);
 			while(i < answerSet1.size() && j < answerSet2.size()) {
 				k = Math.floor(Math.random() * 2);
 				if(k == 1) {
@@ -203,7 +197,6 @@ public class SaveLoad {
 				
 				counter++;
 			}
-		}
 	}
 	
 	public static String captureData(double x, double y) {
