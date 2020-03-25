@@ -55,7 +55,7 @@ public class DraggableText extends Label {
 		this.setEventsAndTip();
 	}
 	
-	public DraggableText(String txt, Color bg, double borderRadius){
+	DraggableText(String txt, Color bg, double borderRadius){
 		super(txt);
 		this.setCursor(Cursor.HAND);
 		this.bg = bg;

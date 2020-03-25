@@ -130,8 +130,7 @@ public class GetDataController {
 		}
 		 System.out.print(root.getChildren());
 		}
-	}
-	
+	}	
 	
 	public void changePrev(ActionEvent e) {
 		if(!name.getText().isEmpty())

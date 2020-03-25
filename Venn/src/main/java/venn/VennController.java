@@ -1,5 +1,5 @@
-package venn;
 
+package venn;
 
 
 import java.io.BufferedReader;
@@ -46,9 +46,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import venn.DraggableText;
-import venn.Main;
-import venn.SetCircle;
 
 
 
@@ -76,12 +73,12 @@ public class VennController {
 	@FXML
 	private Button submit;
 	@FXML
-
+	private Button ansMode;
 	
 	static SetCircle cir1;
 	static SetCircle cir2;	
 	Rectangle selection;
-	static double accY=0;
+	
 
 	@FXML
 	private static double counter;
@@ -320,15 +317,12 @@ public class VennController {
 		Platform.exit();
 	}
 	public String captureData(ActionEvent event)
-	{	 
-		
-		
+	{	
 		String path = SaveLoad.captureData(this.textSpace.getBoundsInParent().getMinX(), this.textSpace.getBoundsInParent().getMinY());
 		for(DraggableText t:entries) {
 			if(!pane.getChildren().contains(t)) {
 				pane.getChildren().add(t);
 			}
-
 		}
 		
 		return path;
@@ -440,5 +434,26 @@ public class VennController {
 			}
 		}
 	}
-	
+	public void getAnswerLabels() {
+		aMode = true; 
+		
+		pane.getChildren().removeAll(entries);
+		SaveLoad.loadAnswers(answerSet1, answerSet2);
+		if(answerSet1.size() > 0 && answerSet2.size() > 0) {
+			SaveLoad.showAnswerLabels(answerSet1, answerSet2,textSpace.getBoundsInParent().getMinX(), textSpace.getBoundsInParent().getMinY());
+			pane.getChildren().addAll(entries);
+			answer.setDisable(!aMode);
+			submit.setDisable(!aMode);
+			deleteSet.setDisable(!aMode);
+			newEntry.setDisable(aMode);
+			Alert a = new Alert(AlertType.INFORMATION);
+			a.setTitle("Answer Mode");
+			a.setHeaderText("Answer mode has been activated put the labels in corresponding sets and submit to see if you got the correct answers.");
+			a.setContentText("To get out of answer mode Edit > Delete answer. To add more to answers to the set Edit > Add Answer");
+			a.showAndWait();
+			pane.setStyle("-fx-background-color: #37474f");
+		}
+		
+		
+	}
 }
