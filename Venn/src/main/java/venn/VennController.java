@@ -73,7 +73,7 @@ public class VennController {
 	@FXML
 	private Button submit;
 	@FXML
-	private Button ansLabels;
+	private Button ansMode;
 	
 	static SetCircle cir1;
 	static SetCircle cir2;	
@@ -87,6 +87,8 @@ public class VennController {
 
 	double rectX, rectY;
 	boolean selecting = true;
+	private boolean aMode = false;
+	
 	
 	class DragContext {
         double x;
@@ -110,7 +112,11 @@ public class VennController {
 	@FXML
 	private void initialize() {
 
+		
 		Main.calculateSceneSize();
+		answer.setDisable(!aMode);
+		submit.setDisable(!aMode);
+		deleteSet.setDisable(!aMode);
 		
 		int radius = MAX_RAD;
 		Color c1 = Color.web("#b4ffff");
@@ -342,7 +348,10 @@ public class VennController {
 		}
 	}
 	public void getAnswers() {
+		pane.getChildren().removeAll(entries);
 		SaveLoad.loadAnswers(answerSet1, answerSet2);
+		SaveLoad.showAnswerLabels(answerSet1, answerSet2,textSpace.getBoundsInParent().getMinX(), textSpace.getBoundsInParent().getMinY());
+		pane.getChildren().addAll(entries);
 	}
 	
 	public void deleteAnswerSets() {
@@ -350,16 +359,30 @@ public class VennController {
 			answerSet1.removeAll(answerSet1);
 		if(!answerSet2.isEmpty())
 			answerSet2.removeAll(answerSet2);
+		selected = null;
+		for(DraggableText t: this.entries) {
+			cir1.removeElem(t);
+			cir2.removeElem(t);
+			pane.getChildren().remove(t);
+		}
+		cir2.setOpacity(0.5);
+		cir1.setOpacity(0.5);
+		entries.removeAll(entries);
+		aMode = false;
+		answer.setDisable(!aMode);
+		submit.setDisable(!aMode);
+		deleteSet.setDisable(!aMode);
+		newEntry.setDisable(aMode);
 		Alert a = new Alert(AlertType.INFORMATION);
 		a.setTitle("Answer information");
-		a.setHeaderText("Answers were deleted you may add a new set of answers");
+		a.setHeaderText("Answers mode is disabled");
 		a.showAndWait();
+		pane.setStyle("-fx-background-color: #212121");
 	}
 	
 	private void deleteSelected() {
 		if(!selecting && this.selectedTxts.size() > 0) {
 			for(DraggableText t: this.selectedTxts) {
-				
 				cir1.removeElem(t);
 				cir2.removeElem(t);
 				entries.remove(t);
@@ -381,23 +404,56 @@ public class VennController {
 		if(cir1.elems.isEmpty() || cir2.elems.isEmpty()) {
 			a.setHeaderText("One of the sets are Empty");
 			a.showAndWait();
-		}else if(answerSet1.isEmpty() || answerSet2.isEmpty()) {
-			a.setHeaderText("Answer sets are empty. Import answers using Edit > Add Answers.");
-			a.showAndWait();
 		}else {
+			int correct1 = 0;
+			int correct2 = 0;
+			int wrong1 = 0;
+			int wrong2 = 0;
 			if(answerSet1.equals(cir1.getSetText()) && answerSet2.equals(cir2.getSetText())) {
 				a.setAlertType(AlertType.CONFIRMATION);
 				a.setHeaderText("Correct answer!!");
 				a.showAndWait();
 			}else {
+				ArrayList<String> set1 = cir1.getSetText();
+				ArrayList<String> set2 = cir2.getSetText();
+				int i=0;
+				set1.retainAll(answerSet1);
+				for(String s : set1) {
+					correct1++;
+				}
+				set2.retainAll(answerSet2);
+				for(String s : set2) {
+					correct2++;
+				}
+				
 				a.setAlertType(AlertType.CONFIRMATION);
-				a.setHeaderText("Sorry wrong answer, Try again.");
+				a.setHeaderText("Wrong answer.");
+				a.setContentText("Correct labes in set1: " + correct1 +"\n"
+						+ "Correct labes in set2: " + correct2 );
 				a.showAndWait();
 			}
 		}
 	}
 	public void getAnswerLabels() {
-		SaveLoad.showAnswerLabels(answerSet1, answerSet2,textSpace.getBoundsInParent().getMinX(), textSpace.getBoundsInParent().getMinY());
-		pane.getChildren().addAll(entries);
+		aMode = true; 
+		
+		pane.getChildren().removeAll(entries);
+		SaveLoad.loadAnswers(answerSet1, answerSet2);
+		if(answerSet1.size() > 0 && answerSet2.size() > 0) {
+			SaveLoad.showAnswerLabels(answerSet1, answerSet2,textSpace.getBoundsInParent().getMinX(), textSpace.getBoundsInParent().getMinY());
+			pane.getChildren().addAll(entries);
+			answer.setDisable(!aMode);
+			submit.setDisable(!aMode);
+			deleteSet.setDisable(!aMode);
+			newEntry.setDisable(aMode);
+			Alert a = new Alert(AlertType.INFORMATION);
+			a.setTitle("Answer Mode");
+			a.setHeaderText("Answer mode has been activated put the labels in corresponding sets and submit to see if you got the correct answers.");
+			a.setContentText("To get out of answer mode Edit > Delete answer. To add more to answers to the set Edit > Add Answer");
+			a.showAndWait();
+			pane.setStyle("-fx-background-color: #37474f");
+		}
+		
+		
 	}
 }
