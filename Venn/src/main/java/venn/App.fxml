@@ -2,16 +2,9 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -22,24 +15,23 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="venn.VennController">
+
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="venn.VennController">
 
    <children>
-      <MenuBar layoutY="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <menus>
           <Menu fx:id="mFile" mnemonicParsing="false" text="File">
                <items>
-                  <MenuItem fx:id="capture" mnemonicParsing="false" onAction="#captureData" text="Import " />
+                  <MenuItem fx:id="capture" mnemonicParsing="false" onAction="#captureData" text="Import" />
                   <MenuItem fx:id="export" mnemonicParsing="false" onAction="#exportData" text="Export" />
-                   <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exitProgram" text="Exit" />
-                  <MenuItem fx:id="save" mnemonicParsing="false" onAction="#saveLabels" text="Save" />
-                  <MenuItem fx:id="load" mnemonicParsing="false" onAction="#loadLabels" text="Load" />
-                  <MenuItem fx:id="undoData" mnemonicParsing="false" onAction="#undoData" text="Undo" />
+                  <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exitProgram" text="Exit" />
                </items></Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-                  <MenuItem fx:id="answer" mnemonicParsing="false" onAction="#getAnswers" text="Add Answers" />
-              <MenuItem fx:id="deleteSet" mnemonicParsing="false" onAction="#deleteAnswerSets" text="Delete Answers" />
+              <MenuItem mnemonicParsing="false" text="Undo" />
+              <MenuItem mnemonicParsing="false" text="Redo" />
+              <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -60,9 +52,6 @@
                <font>
                   <Font name="Roboto Slab Bold" size="30.0" />
                </font>
-               <contextMenu>
-                  <ContextMenu />
-               </contextMenu>
             </Label>
          </children>
       </HBox>
@@ -116,22 +105,5 @@
          </children>
       </HBox>
       <Pane fx:id="textSpace" layoutX="58.0" layoutY="117.0" prefHeight="0.0" prefWidth="1.0" />
-      <HBox alignment="CENTER_LEFT" layoutX="65.0" layoutY="65.0" spacing="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="34.0">
-         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-         </padding>
-         <children>
-            <Button fx:id="ansLabels1" mnemonicParsing="false" onAction="#getAnswerLabels" style="-fx-background-radius: 20; -fx-border-radius: 20;" styleClass="btn" stylesheets="@style.css" text="Get Labels">
-               <font>
-                  <Font name="Roboto Slab Bold" size="15.0" />
-               </font>
-            </Button>
-            <Button fx:id="submit" mnemonicParsing="false" onAction="#submit" style="-fx-background-radius: 20; -fx-border-radius: 20;" styleClass="btn" stylesheets="@style.css" text="Submit">
-               <font>
-                  <Font name="Roboto Slab Bold" size="15.0" />
-               </font>
-            </Button>
-         </children>
-      </HBox>
    </children>
 </AnchorPane>
