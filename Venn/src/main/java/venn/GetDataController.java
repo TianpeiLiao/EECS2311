@@ -43,8 +43,7 @@ public class GetDataController {
 	@FXML 
 	TextField description;
 	
-	Stage thisStage= (Stage) create.getScene().getWindow();
-	AnchorPane root = (AnchorPane) thisStage.getOwner().getScene().getRoot();
+	Stage thisStage;
 	DraggableText prev = new DraggableText("SampleText", true);
 	
 	@FXML
@@ -86,7 +85,8 @@ public class GetDataController {
 	}
 	
 	public void createText() {
-		
+		thisStage = (Stage) create.getScene().getWindow();
+		AnchorPane root = (AnchorPane) thisStage.getOwner().getScene().getRoot();
 		if(!name.getText().isEmpty() ) {
 		//setting color corner text and description for label 
 		if(name.getText().length() > 10) {
@@ -131,19 +131,7 @@ public class GetDataController {
 		 System.out.print(root.getChildren());
 		}
 	}
-	public void undoData(ActionEvent e) {
-		try {
-		if(e.getSource()==create) {
-			int lastindex=VennController.entries.size()-1;
-			VennController.entries.remove(lastindex);
-			int lastindex2 = root.getChildren().size()-1;
-			root.getChildren().remove(lastindex2);
-		}
-		}
-		catch(Exception a){
-			System.out.print("Error");
-		}
-	}
+	
 	
 	public void changePrev(ActionEvent e) {
 		if(!name.getText().isEmpty())

@@ -77,6 +77,8 @@ public class VennController {
 	private Button submit;
 	@FXML
 	private Button ansLabels;
+	@FXML
+	private Button create;
 	
 	static SetCircle cir1;
 	static SetCircle cir2;	
@@ -406,5 +408,6 @@ public class VennController {
 		SaveLoad.showAnswerLabels(answerSet1, answerSet2,textSpace.getBoundsInParent().getMinX(), textSpace.getBoundsInParent().getMinY());
 		pane.getChildren().addAll(entries);
 	}
+	
 
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
@@ -32,7 +34,7 @@
                    <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exitProgram" text="Exit" />
                   <MenuItem fx:id="save" mnemonicParsing="false" onAction="#saveLabels" text="Save" />
                   <MenuItem fx:id="load" mnemonicParsing="false" onAction="#loadLabels" text="Load" />
-                  <MenuItem fx:id="undodata" mnemonicParsing="false" onAction="#undoData" text="Undo" />
+                  <MenuItem fx:id="undoData" mnemonicParsing="false" onAction="#undoData" text="Undo" />
                </items></Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
