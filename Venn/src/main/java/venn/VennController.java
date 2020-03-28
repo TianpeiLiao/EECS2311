@@ -89,6 +89,9 @@ public class VennController {
 	boolean selecting = true;
 	private boolean aMode = false;
 	
+
+	CommandManager manager = CommandManager.getInstance();
+
 	
 	class DragContext {
         double x;
@@ -117,6 +120,7 @@ public class VennController {
 		answer.setDisable(!aMode);
 		submit.setDisable(!aMode);
 		deleteSet.setDisable(!aMode);
+
 		
 		int radius = MAX_RAD;
 		Color c1 = Color.web("#b4ffff");
@@ -304,6 +308,8 @@ public class VennController {
 		});
 		
 	}
+	
+	
 	public static DraggableText getSelected() {
 		return selected;
 	}
@@ -318,6 +324,7 @@ public class VennController {
 	}
 	public String captureData(ActionEvent event)
 	{	
+
 		String path = SaveLoad.captureData(this.textSpace.getBoundsInParent().getMinX(), this.textSpace.getBoundsInParent().getMinY());
 		for(DraggableText t:entries) {
 			if(!pane.getChildren().contains(t)) {
@@ -414,23 +421,16 @@ public class VennController {
 				a.setHeaderText("Correct answer!!");
 				a.showAndWait();
 			}else {
-				ArrayList<String> set1 = cir1.getSetText();
-				ArrayList<String> set2 = cir2.getSetText();
-				int i=0;
-				set1.retainAll(answerSet1);
-				for(String s : set1) {
-					correct1++;
-				}
-				set2.retainAll(answerSet2);
-				for(String s : set2) {
-					correct2++;
-				}
 				
-				a.setAlertType(AlertType.CONFIRMATION);
-				a.setHeaderText("Wrong answer.");
-				a.setContentText("Correct labes in set1: " + correct1 +"\n"
-						+ "Correct labes in set2: " + correct2 );
-				a.showAndWait();
+				for(DraggableText t:entries) {
+					if((answerSet1.contains(t.getText()) && cir1.elems.contains(t)) || (answerSet2.contains(t.getText()) && cir2.elems.contains(t))) {
+						t.changeColor(Color.PALEGREEN);
+					}else if(cir1.elems.contains(t) || cir2.elems.contains(t)){
+						t.changeColor(Color.INDIANRED);
+					}else {
+						t.changeColor(Color.WHITE);
+					}
+				}
 			}
 		}
 	}
