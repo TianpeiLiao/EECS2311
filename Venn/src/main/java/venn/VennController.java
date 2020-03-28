@@ -89,6 +89,8 @@ public class VennController {
 	boolean selecting = true;
 	private boolean aMode = false;
 	
+	CommandManager manager = CommandManager.getInstance();
+
 	
 	class DragContext {
         double x;
@@ -175,8 +177,9 @@ public class VennController {
 						}
 					}
 					if(selected.collision(dlt)) {
-						pane.getChildren().remove(selected);
-						entries.remove(selected);
+						List<Action> d = new ArrayList<Action>();
+						d.add(new Delete(selected, pane));
+						manager.execute(d);
 					}
 				}
 				if(selection != null) {
@@ -300,6 +303,14 @@ public class VennController {
                 	deleteSelected();
                 	System.out.println("Deleting selected");
                 }
+                if(event.getCode() == KeyCode.Z) {
+                	manager.undo();
+                }
+                if(event.getCode() == KeyCode.X) {
+                	manager.redo();
+                }
+                
+                
             }
 		});
 		
