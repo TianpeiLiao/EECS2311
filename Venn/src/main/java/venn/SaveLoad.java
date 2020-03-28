@@ -1,5 +1,6 @@
 package venn;
 
+import java.awt.image.RenderedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,8 +10,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javax.imageio.ImageIO;
+
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -89,21 +95,31 @@ public class SaveLoad {
 	
 	public static String exportData() throws FileNotFoundException {
 		FileChooser fileChooser = new FileChooser();
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt, extensions)","*.txt");
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("png files (*.png)", "*.png");
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showSaveDialog(null);
-		for(DraggableText a:VennController.entries) {
-			String text = a.getText() + " " + a.getTranslateX() + " " + a.getTranslateX() + " ";
-			text += a.getColor()+ " " + a.getTooltip().getText()+"\n"; 
-			SaveFile(a.getText() + "\n", file);
-		}
-		BufferedReader rd = new BufferedReader(new FileReader(file));
-		try {
-			System.out.println("\n"+rd.readLine());
-		}
-		catch(Exception ex){
-			
-		}
+		if(file != null){
+	        try {
+	            //Pad the capture area
+	            WritableImage writableImage = Main.s.snapshot(null);
+	            RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
+	            //Write the snapshot to the chosen file
+	            ImageIO.write(renderedImage, "png", file);
+	        } catch (IOException ex) { ex.printStackTrace(); }
+	    }
+		
+//		for(DraggableText a:VennController.entries) {
+//			String text = a.getText() + " " + a.getTranslateX() + " " + a.getTranslateX() + " ";
+//			text += a.getColor()+ " " + a.getTooltip().getText()+"\n"; 
+//			SaveFile(a.getText() + "\n", file);
+//		}
+//		BufferedReader rd = new BufferedReader(new FileReader(file));
+//		try {
+//			System.out.println("\n"+rd.readLine());
+//		}
+//		catch(Exception ex){
+//			
+//		}
 		return " ";
 	}
 	public static void loadAnswers(ArrayList<String> s1, ArrayList<String> s2) {

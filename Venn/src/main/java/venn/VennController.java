@@ -414,23 +414,16 @@ public class VennController {
 				a.setHeaderText("Correct answer!!");
 				a.showAndWait();
 			}else {
-				ArrayList<String> set1 = cir1.getSetText();
-				ArrayList<String> set2 = cir2.getSetText();
-				int i=0;
-				set1.retainAll(answerSet1);
-				for(String s : set1) {
-					correct1++;
-				}
-				set2.retainAll(answerSet2);
-				for(String s : set2) {
-					correct2++;
-				}
 				
-				a.setAlertType(AlertType.CONFIRMATION);
-				a.setHeaderText("Wrong answer.");
-				a.setContentText("Correct labes in set1: " + correct1 +"\n"
-						+ "Correct labes in set2: " + correct2 );
-				a.showAndWait();
+				for(DraggableText t:entries) {
+					if((answerSet1.contains(t.getText()) && cir1.elems.contains(t)) || (answerSet2.contains(t.getText()) && cir2.elems.contains(t))) {
+						t.changeColor(Color.PALEGREEN);
+					}else if(cir1.elems.contains(t) || cir2.elems.contains(t)){
+						t.changeColor(Color.INDIANRED);
+					}else {
+						t.changeColor(Color.WHITE);
+					}
+				}
 			}
 		}
 	}
