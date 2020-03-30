@@ -25,7 +25,10 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 
 public class SaveLoad {
+	
+	
 	static int counter;
+	
 	public static void loadData() {
 		String path = "";
 		FileChooser fileChooser = new FileChooser();
@@ -152,12 +155,15 @@ public class SaveLoad {
 			a.setTitle("Answer information");
 			if(!s2.isEmpty() && !s1.isEmpty()) {
 				a.setHeaderText("Answers have been set and saved.");
+				Collections.sort(s1);
+				Collections.sort(s2);
+				VennController.upload = true;
 			}else {
 				a.setHeaderText("Answers couldn't been saved please try again.");
+				VennController.upload = false;
 			}
 			a.showAndWait();
-			Collections.sort(s1);
-			Collections.sort(s2);
+			
 		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -177,6 +183,7 @@ public class SaveLoad {
 			a.showAndWait();
 		}
 			VennController.entries.removeAll(VennController.entries);
+		
 			while(i < answerSet1.size() && j < answerSet2.size()) {
 				k = Math.floor(Math.random() * 2);
 				if(k == 1) {

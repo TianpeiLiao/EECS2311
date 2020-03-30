@@ -52,7 +52,7 @@ public class GetDataController {
 		cp.setValue(Color.ANTIQUEWHITE);
 		prevPane.getChildren().add(prev);
 		System.out.println(prev.getBoundsInParent().getWidth());
-		prev.setLayoutX((prevPane.getPrefWidth()/2) - prev.getBoundsInParent().getWidth()/2);
+		prev.setLayoutX((prevPane.getPrefWidth()/5) - prev.getBoundsInParent().getWidth()/2 - 10);
 		prev.setLayoutY(prevPane.getPrefHeight()/2);
 		cornerRadi.setMax(10);
 		cornerRadi.setMin(0);
@@ -82,6 +82,19 @@ public class GetDataController {
 	            }
 	        }
 	    });
+		
+		
+		name.setOnKeyTyped(new EventHandler<KeyEvent>() {
+	        @Override
+	        public void handle(KeyEvent t) {	
+	          prev.setText(name.getText());
+	          int range = name.getText().length();
+	          if(range >= 20) {
+	        	  t.consume();
+	          }
+	        }
+	    });
+		
 	}
 	
 	public void createText() {
@@ -130,6 +143,8 @@ public class GetDataController {
 		}
 		 System.out.print(root.getChildren());
 		}
+		name.clear();
+		description.clear();
 	}	
 	
 	public void changePrev(ActionEvent e) {
