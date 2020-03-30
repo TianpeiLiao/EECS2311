@@ -46,7 +46,7 @@ public class EditController {
 		cp.setValue(Color.ANTIQUEWHITE);
 		prevPane.getChildren().add(prev);
 		System.out.println(prev.getBoundsInParent().getWidth());
-		prev.setLayoutX((prevPane.getPrefWidth()/2) - prev.getBoundsInParent().getWidth()/2);
+		prev.setLayoutX((prevPane.getPrefWidth()/3) - prev.getBoundsInParent().getWidth()/2);
 		prev.setLayoutY(prevPane.getPrefHeight()/2);
 		sd.setMax(10);
 		sd.setMin(0);
@@ -75,14 +75,19 @@ public class EditController {
 		
 		tf.setOnKeyTyped(new EventHandler<KeyEvent>() {
 	        @Override
-	        public void handle(KeyEvent t) {	
-	          prev.setText(tf.getText());
-	          /*      int range = name.getText().length();
-	          if(range >= 20) {
-	        	  t.consume();
-	          } */
+	        public void handle(KeyEvent t) {
+	        	prev.setText(tf.getText());
+	        	int range = tf.getText().length();
+	        	if (range > 10)
+	        	{
+	        		t.consume();
+	        	}     	
+	        	if(tf.getText().isEmpty()) {
+		        	prev.setText("SampleText");
+	        	}       		
 	        }
 	    });  
+		
 		
 		apply.setDefaultButton(true);
 	}
