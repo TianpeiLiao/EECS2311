@@ -240,7 +240,7 @@ public class SaveLoad {
 		try {
 			String st;
 			br = new BufferedReader(new FileReader(file));
-			
+			VennController.entries.removeAll(VennController.entries);
 			while ((st = br.readLine()) != null) {
 
 				  System.out.println(st);

@@ -330,9 +330,12 @@ public class VennController {
 	}
 	public String captureData(ActionEvent event)
 	{	
-		entries.clear();
-		String path = SaveLoad.captureData(this.textSpace.getBoundsInParent().getMinX(), this.textSpace.getBoundsInParent().getMinY());
 		
+		ArrayList<DraggableText> Temp_list = new ArrayList<DraggableText>();
+		Temp_list.addAll(0, entries);
+		
+		String path = SaveLoad.captureData(this.textSpace.getBoundsInParent().getMinX(), this.textSpace.getBoundsInParent().getMinY());
+		pane.getChildren().removeAll(Temp_list);
 		for(DraggableText t:entries) {
 			if(!pane.getChildren().contains(t)) {
 				pane.getChildren().add(t);
