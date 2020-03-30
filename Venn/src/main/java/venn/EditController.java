@@ -73,8 +73,19 @@ public class EditController {
 	        }
 	    });
 		
+		tf.setOnKeyTyped(new EventHandler<KeyEvent>() {
+	        @Override
+	        public void handle(KeyEvent t) {	
+	          prev.setText(tf.getText());
+	          /*      int range = name.getText().length();
+	          if(range >= 20) {
+	        	  t.consume();
+	          } */
+	        }
+	    });  
+		
 		apply.setDefaultButton(true);
-		}
+	}
 	
 	public void changePrev(ActionEvent e) {
 		if(!tf.getText().isEmpty())

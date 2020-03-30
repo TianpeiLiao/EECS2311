@@ -63,7 +63,9 @@ public class SaveLoad {
 					}
 					newTxt.setDescription(Desc);
 					Desc = "";
-					VennController.entries.add(newTxt);        	
+					VennController.entries.clear();
+					VennController.entries.add(newTxt); 
+					VennController.upload = true;
 				}
         	}
         	else {

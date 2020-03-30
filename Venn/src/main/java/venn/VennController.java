@@ -355,11 +355,15 @@ public class VennController {
 		System.out.println("saved");
 	}
 	public void loadLabels(ActionEvent event) {
-		if(!entries.isEmpty()) {
-			pane.getChildren().removeAll(entries);
-			entries.removeAll(entries);
-		}
+	//	if(!entries.isEmpty()) {
+	//		pane.getChildren().removeAll(entries);
+	//		entries.removeAll(entries);
+	//	}
 		SaveLoad.loadData();
+		
+		if(upload) {
+			pane.getChildren().removeAll(entries);
+		}
 		for(DraggableText t:entries) {
 			if(!pane.getChildren().contains(t)) {
 				pane.getChildren().add(t);

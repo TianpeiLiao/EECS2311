@@ -88,12 +88,12 @@ public class GetDataController {
 	        @Override
 	        public void handle(KeyEvent t) {	
 	          prev.setText(name.getText());
-	          int range = name.getText().length();
+	          /*      int range = name.getText().length();
 	          if(range >= 20) {
 	        	  t.consume();
-	          }
+	          } */
 	        }
-	    });
+	    });  
 		
 	}
 	
@@ -102,12 +102,12 @@ public class GetDataController {
 		AnchorPane root = (AnchorPane) thisStage.getOwner().getScene().getRoot();
 		if(!name.getText().isEmpty() ) {
 		//setting color corner text and description for label 
-//		if(name.getText().length() > 10) {
-//			Alert a = new Alert(AlertType.ERROR);
-//			a.setTitle("Text Error");
-//			a.setHeaderText("The lenght of labels must be 10 characters or less.\n If more specific labels needed you may use description section.");
-//			a.showAndWait();
-		}else {
+		if(name.getText().length() > 10) {
+			Alert a = new Alert(AlertType.ERROR);
+			a.setTitle("Text Error");
+			a.setHeaderText("The lenght of labels must be 10 characters or less.\n If more specific labels needed you may use description section.");
+			a.showAndWait();
+		} else {
 			Color c = cp.getValue();	
 			 double radi  = cornerRadi.getValue();
 			 DraggableText newTxt = new DraggableText(name.getText(), c, radi);
@@ -140,11 +140,12 @@ public class GetDataController {
 			 VennController.entries.add(newTxt);
 			 
 			 root.getChildren().add(newTxt);
+			 System.out.print(root.getChildren());				
+			 name.clear();
+			 description.clear();
+			}
 		}
-		 System.out.print(root.getChildren());
 		
-		name.clear();
-		description.clear();
 	}	
 	
 	public void changePrev(ActionEvent e) {
