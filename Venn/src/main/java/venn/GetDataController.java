@@ -102,11 +102,11 @@ public class GetDataController {
 		AnchorPane root = (AnchorPane) thisStage.getOwner().getScene().getRoot();
 		if(!name.getText().isEmpty() ) {
 		//setting color corner text and description for label 
-		if(name.getText().length() > 10) {
-			Alert a = new Alert(AlertType.ERROR);
-			a.setTitle("Text Error");
-			a.setHeaderText("The lenght of labels must be 10 characters or less.\n If more specific labels needed you may use description section.");
-			a.showAndWait();
+//		if(name.getText().length() > 10) {
+//			Alert a = new Alert(AlertType.ERROR);
+//			a.setTitle("Text Error");
+//			a.setHeaderText("The lenght of labels must be 10 characters or less.\n If more specific labels needed you may use description section.");
+//			a.showAndWait();
 		}else {
 			Color c = cp.getValue();	
 			 double radi  = cornerRadi.getValue();
@@ -142,7 +142,7 @@ public class GetDataController {
 			 root.getChildren().add(newTxt);
 		}
 		 System.out.print(root.getChildren());
-		}
+		
 		name.clear();
 		description.clear();
 	}	
