@@ -67,6 +67,8 @@ public class VennController {
 	@FXML 
 	private MenuItem deleteSet;
 	@FXML
+	private MenuItem capture;
+	@FXML
 	private MenuItem save;
 	@FXML
 	private MenuItem load;
@@ -391,6 +393,9 @@ public class VennController {
 		deleteSet.setDisable(!aMode);
 		newEntry.setDisable(aMode);
 		dlt.setDisable(aMode);
+		capture.setDisable(aMode);
+		load.setDisable(aMode);
+		save.setDisable(aMode);
 		Alert a = new Alert(AlertType.INFORMATION);
 		a.setTitle("Answer information");
 		a.setHeaderText("Answers mode is disabled");
@@ -464,6 +469,10 @@ public class VennController {
 			deleteSet.setDisable(!aMode);
 			newEntry.setDisable(aMode);
 			dlt.setDisable(aMode);
+			capture.setDisable(aMode);
+			load.setDisable(aMode);
+			save.setDisable(aMode);
+			
 			Alert a = new Alert(AlertType.INFORMATION);
 			a.setTitle("Answer Mode");
 			a.setHeaderText("Answer mode has been activated put the labels in corresponding sets and submit to see if you got the correct answers.");
