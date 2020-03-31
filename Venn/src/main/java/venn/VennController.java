@@ -342,14 +342,19 @@ public class VennController {
 	{	
 		ArrayList<DraggableText> Temp_list = new ArrayList<DraggableText>();
 		Temp_list.addAll(0, entries);
-		pane.getChildren().removeAll(Temp_list);
+		
 		List<Action> a = new ArrayList<Action>();
 		for(DraggableText t:SaveLoad.captureData(this.textSpace.getBoundsInParent().getMinX(), this.textSpace.getBoundsInParent().getMinY())) {
 			if(!pane.getChildren().contains(t)) {
 				a.add(new Add(t, pane));
 			}
+			
+			if(upload){
+				pane.getChildren().removeAll(Temp_list);
+			}
 		}
 		manager.execute(a);
+		upload = false;
 	}
 	
 	public String exportData(ActionEvent event) throws FileNotFoundException{
@@ -360,17 +365,22 @@ public class VennController {
 		System.out.println("saved");
 	}
 	public void loadLabels(ActionEvent event) {
-		if(upload) {
-			pane.getChildren().removeAll(entries);
-			entries.removeAll(entries);
-		}
+		
+		ArrayList<DraggableText> tempList = new ArrayList<DraggableText>();
+		tempList.addAll(entries);
 		
 		List<Action> a = new ArrayList<Action>();
 		for(DraggableText t:SaveLoad.loadData()) {
 			a.add(new Add(t, pane));
+			if(upload) {
+				pane.getChildren().removeAll(entries);
+			}
 		}
+		
+		upload = false;
 		manager.execute(a);
 	}
+	
 	public void getAnswers() {
 		pane.getChildren().removeAll(entries);
 		SaveLoad.loadAnswers(answerSet1, answerSet2);

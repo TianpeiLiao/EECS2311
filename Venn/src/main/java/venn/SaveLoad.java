@@ -306,8 +306,10 @@ public class SaveLoad {
 					// findEmpty(newTxt, x, y);
 					 newTexts.add(newTxt);
 					 counter++; 
+					
 				}
-	}    
+				VennController.upload = true;
+		}    
 		catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
