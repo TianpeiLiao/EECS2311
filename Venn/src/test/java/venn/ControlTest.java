@@ -117,8 +117,13 @@ public class ControlTest extends ApplicationTest {
 		type(KeyCode.ESCAPE);
 		Thread.sleep(1000);
 		
+<<<<<<< HEAD
 //		drag(VennController.entries.get(0)).dropTo(-Main.WIDTH, 150);
 //		drag(VennController.entries.get(1)).dropTo(Main.WIDTH + 500, 150);
+=======
+		drag(VennController.entries.get(0)).dropTo(-Main.sWidth, 150);
+		drag(VennController.entries.get(1)).dropTo(Main.sWidth + 500, 150);
+>>>>>>> branch 'develop' of https://github.com/TianpeiLiao/EECS2311.git
 		drag(VennController.entries.get(2)).dropTo(500, -500);
 		drag(VennController.entries.get(3)).dropTo(500, 1400);
 		Thread.sleep(1000);

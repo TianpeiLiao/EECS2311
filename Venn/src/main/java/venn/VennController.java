@@ -67,6 +67,8 @@ public class VennController {
 	@FXML 
 	private MenuItem deleteSet;
 	@FXML
+	private MenuItem capture;
+	@FXML
 	private MenuItem save;
 	@FXML
 	private MenuItem load;
@@ -88,6 +90,7 @@ public class VennController {
 	double rectX, rectY;
 	boolean selecting = true;
 	private boolean aMode = false;
+	static boolean upload = false;
 	
 
 	CommandManager manager = CommandManager.getInstance();
@@ -323,9 +326,18 @@ public class VennController {
 		Platform.exit();
 	}
 	public String captureData(ActionEvent event)
+<<<<<<< HEAD
 	{	
 
+=======
+	{	
+		
+		ArrayList<DraggableText> Temp_list = new ArrayList<DraggableText>();
+		Temp_list.addAll(0, entries);
+		
+>>>>>>> branch 'develop' of https://github.com/TianpeiLiao/EECS2311.git
 		String path = SaveLoad.captureData(this.textSpace.getBoundsInParent().getMinX(), this.textSpace.getBoundsInParent().getMinY());
+		pane.getChildren().removeAll(Temp_list);
 		for(DraggableText t:entries) {
 			if(!pane.getChildren().contains(t)) {
 				pane.getChildren().add(t);
@@ -343,11 +355,15 @@ public class VennController {
 		System.out.println("saved");
 	}
 	public void loadLabels(ActionEvent event) {
-		if(!entries.isEmpty()) {
-			pane.getChildren().removeAll(entries);
-			entries.removeAll(entries);
-		}
+	//	if(!entries.isEmpty()) {
+	//		pane.getChildren().removeAll(entries);
+	//		entries.removeAll(entries);
+	//	}
 		SaveLoad.loadData();
+		
+		if(upload) {
+			pane.getChildren().removeAll(entries);
+		}
 		for(DraggableText t:entries) {
 			if(!pane.getChildren().contains(t)) {
 				pane.getChildren().add(t);
@@ -380,6 +396,10 @@ public class VennController {
 		submit.setDisable(!aMode);
 		deleteSet.setDisable(!aMode);
 		newEntry.setDisable(aMode);
+		dlt.setDisable(aMode);
+		capture.setDisable(aMode);
+		load.setDisable(aMode);
+		save.setDisable(aMode);
 		Alert a = new Alert(AlertType.INFORMATION);
 		a.setTitle("Answer information");
 		a.setHeaderText("Answers mode is disabled");
@@ -434,11 +454,17 @@ public class VennController {
 			}
 		}
 	}
+	
 	public void getAnswerLabels() {
 		aMode = true; 
-		
-		pane.getChildren().removeAll(entries);
+	
+		answerSet1.clear();
+		answerSet2.clear();
 		SaveLoad.loadAnswers(answerSet1, answerSet2);
+		
+		if(upload)
+			pane.getChildren().removeAll(entries);
+		
 		if(answerSet1.size() > 0 && answerSet2.size() > 0) {
 			SaveLoad.showAnswerLabels(answerSet1, answerSet2,textSpace.getBoundsInParent().getMinX(), textSpace.getBoundsInParent().getMinY());
 			pane.getChildren().addAll(entries);
@@ -446,14 +472,24 @@ public class VennController {
 			submit.setDisable(!aMode);
 			deleteSet.setDisable(!aMode);
 			newEntry.setDisable(aMode);
+			dlt.setDisable(aMode);
+			capture.setDisable(aMode);
+			load.setDisable(aMode);
+			save.setDisable(aMode);
+			
 			Alert a = new Alert(AlertType.INFORMATION);
 			a.setTitle("Answer Mode");
 			a.setHeaderText("Answer mode has been activated put the labels in corresponding sets and submit to see if you got the correct answers.");
 			a.setContentText("To get out of answer mode Edit > Delete answer. To add more to answers to the set Edit > Add Answer");
 			a.showAndWait();
 			pane.setStyle("-fx-background-color: #37474f");
+			upload = false;
 		}
 		
+	}
+	
+	private void openBrowser()
+	{
 		
 	}
 }
