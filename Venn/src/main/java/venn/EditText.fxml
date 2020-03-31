@@ -42,7 +42,7 @@
           <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField fx:id="tf" onAction="#changePrev" promptText="Change Text" GridPane.columnIndex="1">
+            <TextField fx:id="tf" onAction="#changePrev" promptText="Change Text" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1">
                <tooltip>
                   <Tooltip text="To edit the text of the selected entry" />
                </tooltip>

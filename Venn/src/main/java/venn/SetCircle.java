@@ -112,25 +112,26 @@ public class SetCircle extends Circle {
 		setNum.setLayoutY(setName.getBoundsInParent().getMaxY() + 30);
 		this.r = r;
 	}
+	
 	private void setNameEvents() {
 		this.setName.setCursor(Cursor.HAND);
 		this.setName.setOnMouseClicked(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent m){
-				if(m.getClickCount() == 1){
+				if(m.getClickCount() == 2){
 	                TextInputDialog ti = new TextInputDialog(setName.getText());
 	                ti.setTitle("Set Name");
 	                ti.setHeaderText("Enter the set name");
-	                
 	                ti.showAndWait();
-	                if(ti.getResult().length() > 15) {
-	                	Alert a = new Alert(AlertType.ERROR);
-	                	a.setTitle("Set Name Error");
-	                	a.setHeaderText("Set names must be 15 or less characters.");
-	                	a.showAndWait();
-	                }else {
-	                	setName.setText(ti.getResult());
-	                	setName.setTranslateX((-setName.getBoundsInParent().getWidth()/2 + 15));
-	                }
+		                if(ti.getResult().length() > 15 || ti.getResult().isEmpty()) {
+		                	Alert a = new Alert(AlertType.ERROR);
+		                	a.setTitle("Set Name Error");
+		                	a.setHeaderText("Set names must be 15 or less characters and cannot be empty!.");
+		                	a.showAndWait();
+		                }else {
+		                	setName.setText(ti.getResult());
+		                	setName.setTranslateX((-setName.getBoundsInParent().getWidth()/2 + 15));
+		                }
+	            
 	            }
 			}
 		});

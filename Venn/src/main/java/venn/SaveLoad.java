@@ -26,7 +26,10 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 
 public class SaveLoad {
+	
+	
 	static int counter;
+
 	public static Iterable<DraggableText> loadData() {
 		List<DraggableText> newTexts = new ArrayList<DraggableText>();
 		String path = "";
@@ -34,6 +37,7 @@ public class SaveLoad {
         File selectedFile = fileChooser.showOpenDialog(null);
         path = selectedFile.getPath();
         File file = new File(path);
+        System.out.println(file.length());
         BufferedReader br;
         DraggableText newTxt;
         Color c;
@@ -41,28 +45,36 @@ public class SaveLoad {
         	br = new BufferedReader(new FileReader(file));
         	String st;
         	String Desc = "";
-        	while((st = br.readLine()) != null){
-        		String [] temp = st.split("\\s+");
-        		
-        		c = Color.web(temp[3]);
-        		newTxt = new DraggableText(temp[0], c , 400 );
-        		newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
-				newTxt.getStyleClass().add("createdText");
-				Double x = Double.valueOf(temp[1]);
-				Double y =Double.valueOf(temp[2]);
-				System.out.println("x: "+ x);
-				System.out.println("y: " + y);
-				newTxt.setTranslateX(x);
-				newTxt.setTranslateY(y);
-				for(int i = 4; i < temp.length; i++) {
-					Desc += temp[i];
-					Desc += " ";
+        	if(!(file.length() == 0)) {
+	        	while((st = br.readLine()) != null){
+	        		String [] temp = st.split("\\s+");
+	        		
+	        		c = Color.web(temp[3]);
+	        		newTxt = new DraggableText(temp[0], c , 400 );
+	        		newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
+					newTxt.getStyleClass().add("createdText");
+					Double x = Double.valueOf(temp[1]);
+					Double y =Double.valueOf(temp[2]);
+					System.out.println("x: "+ x);
+					System.out.println("y: " + y);
+					newTxt.setTranslateX(x);
+					newTxt.setTranslateY(y);
+					for(int i = 4; i < temp.length; i++) {
+						Desc += temp[i];
+						Desc += " ";
+					}
+					newTxt.setDescription(Desc);
+					Desc = "";
+					newTexts.add(newTxt);  
+					VennController.upload = true;
 				}
-				newTxt.setDescription(Desc);
-				Desc = "";
-				newTexts.add(newTxt);        	
-				}
-        	
+        	}
+        	else {
+        		Alert a = new Alert(AlertType.INFORMATION);
+    			a.setTitle("Load file error");
+    			a.setHeaderText("File is empty or format error!");
+    			a.showAndWait();
+        	}
         }catch (Exception e){
         	e.printStackTrace();
         }
@@ -155,12 +167,15 @@ public class SaveLoad {
 			a.setTitle("Answer information");
 			if(!s2.isEmpty() && !s1.isEmpty()) {
 				a.setHeaderText("Answers have been set and saved.");
+				Collections.sort(s1);
+				Collections.sort(s2);
+				VennController.upload = true;
 			}else {
 				a.setHeaderText("Answers couldn't been saved please try again.");
+				VennController.upload = false;
 			}
 			a.showAndWait();
-			Collections.sort(s1);
-			Collections.sort(s2);
+			
 		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -180,6 +195,7 @@ public class SaveLoad {
 			a.showAndWait();
 		}
 			VennController.entries.removeAll(VennController.entries);
+		
 			while(i < answerSet1.size() && j < answerSet2.size()) {
 				k = Math.floor(Math.random() * 2);
 				if(k == 1) {
@@ -237,7 +253,7 @@ public class SaveLoad {
 		try {
 			String st;
 			br = new BufferedReader(new FileReader(file));
-			
+			VennController.entries.removeAll(VennController.entries);
 			while ((st = br.readLine()) != null) {
 
 				  System.out.println(st);
