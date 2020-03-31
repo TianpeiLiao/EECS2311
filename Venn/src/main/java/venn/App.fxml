@@ -29,7 +29,7 @@
                   <MenuItem fx:id="load" mnemonicParsing="false" onAction="#loadLabels" text="Load" />
                    <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exitProgram" text="Exit" />
                </items></Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu fx:id="eFile" mnemonicParsing="false" text="Edit">
             <items>
                   <MenuItem fx:id="answer" mnemonicParsing="false" onAction="#getAnswers" text="Add Answers" />
               <MenuItem fx:id="deleteSet" mnemonicParsing="false" onAction="#deleteAnswerSets" text="Delete Answers" />

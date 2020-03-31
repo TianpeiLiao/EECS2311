@@ -15,6 +15,7 @@ import javafx.embed.swing.JFXPanel;
 
 public class EntryCustomizeTest extends ApplicationTest{
 
+	private int time = 0;
 	
 	@Before
 	public void testA() throws InterruptedException
@@ -42,7 +43,7 @@ public class EntryCustomizeTest extends ApplicationTest{
 			thread.start();
 			Thread.sleep(3000);
 	}
-	
+/*	
 	@Test
 	public void testGetData()  throws InterruptedException
 	{
@@ -122,21 +123,20 @@ public class EntryCustomizeTest extends ApplicationTest{
 		VennController.entries.removeAll(VennController.entries);
 	
 	}
-	
+*/	
 	@Test
 	public void testdDeleteEntry() throws InterruptedException {
 		clickOn("#newEntry");
-		Thread.sleep(1000);
+		Thread.sleep(time);
 		clickOn("#name");
-		Thread.sleep(1000);
+		Thread.sleep(time);
 		write("ABCDEF");
-		Thread.sleep(1000);
+		Thread.sleep(time);
 		clickOn("#create");
-		Thread.sleep(1000);
+		Thread.sleep(time);
 		type(KeyCode.ESCAPE);
 		drag(VennController.entries.get(0)).dropTo("#dlt");
-		
-		
+			
 		WaitForAsyncUtils.waitForFxEvents();
 		VennController.entries.removeAll(VennController.entries);	
 	}

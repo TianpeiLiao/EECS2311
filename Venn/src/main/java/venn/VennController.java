@@ -359,17 +359,23 @@ public class VennController {
 	//		pane.getChildren().removeAll(entries);
 	//		entries.removeAll(entries);
 	//	}
+		ArrayList<DraggableText> tempList = new ArrayList<DraggableText>();
+		tempList.addAll(entries);
 		SaveLoad.loadData();
 		
 		if(upload) {
-			pane.getChildren().removeAll(entries);
+			pane.getChildren().removeAll(tempList);
 		}
+		
 		for(DraggableText t:entries) {
 			if(!pane.getChildren().contains(t)) {
 				pane.getChildren().add(t);
 			}
 		}
+		
+		upload  = false;
 	}
+	
 	public void getAnswers() {
 		pane.getChildren().removeAll(entries);
 		SaveLoad.loadAnswers(answerSet1, answerSet2);

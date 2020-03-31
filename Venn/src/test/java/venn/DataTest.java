@@ -41,8 +41,7 @@ public class DataTest extends ApplicationTest{
 			thread.start();
 			Thread.sleep(3000);
 	}
-	
-	
+		
 	@Test
 	public void testImportData() throws InterruptedException {
 		clickOn("#mFile");
