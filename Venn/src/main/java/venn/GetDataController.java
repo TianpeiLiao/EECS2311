@@ -1,6 +1,9 @@
 
 package venn;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -123,10 +126,11 @@ public class GetDataController {
 			 }
 			 newTxt.setTranslateX(x);
 			 newTxt.setTranslateY(y);
+			 	List<Action> a = new ArrayList<Action>();
+				a.add(new Add(newTxt, root));
+				
+				VennController.manager.execute(a);
 			 
-			 VennController.entries.add(newTxt);
-			 
-			 root.getChildren().add(newTxt);
 		}
 		 System.out.print(root.getChildren());
 		}

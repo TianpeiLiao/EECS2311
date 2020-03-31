@@ -89,7 +89,7 @@ public class VennController {
 	boolean selecting = true;
 	private boolean aMode = false;
 	
-	CommandManager manager = CommandManager.getInstance();
+	public static CommandManager manager = CommandManager.getInstance();
 
 	
 	class DragContext {
@@ -179,6 +179,7 @@ public class VennController {
 					if(selected.collision(dlt)) {
 						List<Action> d = new ArrayList<Action>();
 						d.add(new Delete(selected, pane));
+						System.out.println(entries.size());
 						manager.execute(d);
 					}
 				}
@@ -300,14 +301,20 @@ public class VennController {
 		pane.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event) {				
                 if (event.getCode() == KeyCode.BACK_SPACE) {
+                	
                 	deleteSelected();
+                	checkCircles();
                 	System.out.println("Deleting selected");
                 }
                 if(event.getCode() == KeyCode.Z) {
                 	manager.undo();
+                	checkCircles();
+                	
                 }
                 if(event.getCode() == KeyCode.X) {
                 	manager.redo();
+                	checkCircles();
+                	
                 }
                 
                 
@@ -327,16 +334,15 @@ public class VennController {
 	{
 		Platform.exit();
 	}
-	public String captureData(ActionEvent event)
+	public void captureData(ActionEvent event)
 	{	
-		String path = SaveLoad.captureData(this.textSpace.getBoundsInParent().getMinX(), this.textSpace.getBoundsInParent().getMinY());
-		for(DraggableText t:entries) {
+		List<Action> a = new ArrayList<Action>();
+		for(DraggableText t:SaveLoad.captureData(this.textSpace.getBoundsInParent().getMinX(), this.textSpace.getBoundsInParent().getMinY())) {
 			if(!pane.getChildren().contains(t)) {
-				pane.getChildren().add(t);
+				a.add(new Add(t, pane));
 			}
 		}
-		
-		return path;
+		manager.execute(a);
 	}
 	
 	public String exportData(ActionEvent event) throws FileNotFoundException{
@@ -351,12 +357,12 @@ public class VennController {
 			pane.getChildren().removeAll(entries);
 			entries.removeAll(entries);
 		}
-		SaveLoad.loadData();
-		for(DraggableText t:entries) {
-			if(!pane.getChildren().contains(t)) {
-				pane.getChildren().add(t);
-			}
+		
+		List<Action> a = new ArrayList<Action>();
+		for(DraggableText t:SaveLoad.loadData()) {
+			a.add(new Add(t, pane));
 		}
+		manager.execute(a);
 	}
 	public void getAnswers() {
 		pane.getChildren().removeAll(entries);
@@ -393,12 +399,17 @@ public class VennController {
 	
 	private void deleteSelected() {
 		if(!selecting && this.selectedTxts.size() > 0) {
+			List<Action> d = new ArrayList<Action>();
+			
+			
 			for(DraggableText t: this.selectedTxts) {
 				cir1.removeElem(t);
 				cir2.removeElem(t);
-				entries.remove(t);
-				pane.getChildren().remove(t);
+				d.add(new Delete(t, pane));
+				System.out.println(entries.size());
+				t.changeColor(t.getColor().brighter());
 			}
+			manager.execute(d);
 			this.selectedTxts.removeAll(this.selectedTxts);
 			this.selecting = true;
 		}
@@ -459,5 +470,32 @@ public class VennController {
 		}
 		
 		
+	}
+	public void checkCircles() {
+		for(DraggableText txt :entries) {
+    		if(cir1.inBound(txt) && !cir1.isElem(txt)) {
+				cir1.addElem(txt);
+		
+				System.out.println(cir1.elems.toString());
+			}else if(!cir1.inBound(txt) && cir1.isElem(txt)) {
+				cir1.removeElem(txt);
+				
+			}
+			if(cir2.inBound(txt)&& !cir2.isElem(txt)) {
+				cir2.addElem(txt);
+			}else if(!cir2.inBound(txt) && cir2.isElem(txt)) {
+				cir2.removeElem(txt);
+			}
+    	}
+    	if(cir1.getSetSize() == 0) {
+			cir1.setOpacity(0.5);
+    	}else {
+    		cir1.setOpacity(0.8);
+    	}
+    	if(cir2.getSetSize() == 0) {
+			cir2.setOpacity(0.5);
+    	}else {
+    		cir2.setOpacity(0.8);
+    	}
 	}
 }

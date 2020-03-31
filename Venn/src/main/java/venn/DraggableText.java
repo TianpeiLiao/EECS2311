@@ -1,6 +1,9 @@
 
 package venn;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -26,6 +29,8 @@ public class DraggableText extends Label {
 	/**Private fields of the object bg refers to object's background color 
 	 * borderRadius is the radius of the objec.
 	 */
+	double oldX; 
+	double	oldY;
 	private Color bg;
 	private double borderRadius;
 	private Tooltip draggableTip;
@@ -123,6 +128,8 @@ public class DraggableText extends Label {
 	         double y;
 	     }
 		 
+
+		 
 		DragContext dragContext = new DragContext();
 		
 		this.draggableTip = new Tooltip("Double click to set description.");
@@ -157,25 +164,42 @@ public class DraggableText extends Label {
 	            	  newY = Main.s.getHeight() - node.getBoundsInParent().getHeight() + 10;
 	              }
 	             
-                node.setTranslateX( newX);
-                node.setTranslateY( newY);
+	             node.setTranslateX(newX);
+	             node.setTranslateY(newY);
+//	            List<Action> move = new ArrayList<Action>();
+//	            move.add(new Drag(node, newX, newY, oldX, oldY));
+//                VennController.manager.execute(move);
                 
                 
 			}
 		});
 		
+		
 		this.setOnMousePressed(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent m) {
-				DraggableText node = (DraggableText) m.getSource();
+				DraggableText node = ((DraggableText) (m.getSource()));
+				oldX = node.getTranslateX();
+				oldY = node.getTranslateY();
 				dragContext.x = node.getTranslateX() - m.getSceneX();
                 dragContext.y = node.getTranslateY() - m.getSceneY();
+			}
+		});
+		this.setOnMouseReleased(new EventHandler<MouseEvent>(){
+			public void handle(MouseEvent m){
+				DraggableText node = (DraggableText) m.getSource();
+				double newX = node.getTranslateX();
+				double newY = node.getTranslateY();
+				List<Action> move = new ArrayList<Action>();
+	            move.add(new Drag(node, newX, newY, oldX, oldY));
+                VennController.manager.execute(move);
+				
 			}
 		});
 		this.setOnMouseClicked(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent m){
 				DraggableText node = (DraggableText) m.getSource();
-				System.out.println("Translate x:" + node.getTranslateX() + "Layout X:" + node.getLayoutX());
-				System.out.println("Translate y:" + node.getTranslateY() + "Layout Y" + node.getLayoutY());
+				
+				System.out.println(node.getLayoutX() + " " + node.getTranslateX());
 				if(m.getClickCount() == 2){
 	                Main.showEditStage();
 	            }
