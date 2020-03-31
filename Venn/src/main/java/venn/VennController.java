@@ -326,16 +326,13 @@ public class VennController {
 		Platform.exit();
 	}
 	public String captureData(ActionEvent event)
-<<<<<<< HEAD
-	{	
 
-=======
 	{	
 		
 		ArrayList<DraggableText> Temp_list = new ArrayList<DraggableText>();
 		Temp_list.addAll(0, entries);
 		
->>>>>>> branch 'develop' of https://github.com/TianpeiLiao/EECS2311.git
+
 		String path = SaveLoad.captureData(this.textSpace.getBoundsInParent().getMinX(), this.textSpace.getBoundsInParent().getMinY());
 		pane.getChildren().removeAll(Temp_list);
 		for(DraggableText t:entries) {
