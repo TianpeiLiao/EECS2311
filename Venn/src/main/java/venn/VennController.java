@@ -2,18 +2,23 @@
 package venn;
 
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
 import org.assertj.core.util.Arrays;
+
+import com.sun.glass.ui.Application;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -23,7 +28,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -32,7 +36,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
@@ -40,12 +43,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.application.HostServices;
 
 
 
@@ -504,10 +507,18 @@ public class VennController {
 		
 	}
 	
-	private void openBrowser()
+	public void openBrowser()
 	{
-		
+		try {
+            Desktop.getDesktop().browse(new URI("https://github.com/TianpeiLiao/EECS2311/releases"));
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        } catch (URISyntaxException e1) {
+            e1.printStackTrace();
+        }     
 	}
+	
+	
 	public void checkCircles() {
 		for(DraggableText txt :entries) {
     		if(cir1.inBound(txt) && !cir1.isElem(txt)) {

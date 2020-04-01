@@ -77,6 +77,10 @@ public class SaveLoad {
         	}
         }catch (Exception e){
         	e.printStackTrace();
+        	Alert a = new Alert(AlertType.INFORMATION);
+			a.setTitle("Load file error");
+			a.setHeaderText("File is empty or format error!");
+			a.showAndWait();
         }
         return newTexts;
 	}
@@ -180,6 +184,10 @@ public class SaveLoad {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Alert a = new Alert(AlertType.INFORMATION);
+			a.setTitle("Load file error");
+			a.setHeaderText("File is empty or format error!");
+			a.showAndWait();
 		}
 	}
 	
@@ -245,7 +253,11 @@ public class SaveLoad {
         path = selectedFile.getPath();
         }
         catch(NullPointerException e){
-        	return null;      
+        	Alert a = new Alert(AlertType.INFORMATION);
+			a.setTitle("Load file error");
+			a.setHeaderText("File is empty or format error!");
+			a.showAndWait();
+			//return null;  
         }
        
         File file = new File(path);
@@ -311,8 +323,12 @@ public class SaveLoad {
 				VennController.upload = true;
 		}    
 		catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Alert a = new Alert(AlertType.INFORMATION);
+			a.setTitle("Load file error");
+			a.setHeaderText("File is empty or format error!");
+			a.showAndWait();
 		}
 		return newTexts;
 	}
