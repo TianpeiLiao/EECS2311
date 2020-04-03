@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -28,8 +29,9 @@ public class SaveLoad {
 	
 	
 	static int counter;
-	
-	public static void loadData() {
+
+	public static Iterable<DraggableText> loadData() {
+		List<DraggableText> newTexts = new ArrayList<DraggableText>();
 		String path = "";
 		FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(null);
@@ -63,8 +65,7 @@ public class SaveLoad {
 					}
 					newTxt.setDescription(Desc);
 					Desc = "";
-					VennController.entries.clear();
-					VennController.entries.add(newTxt); 
+					newTexts.add(newTxt);  
 					VennController.upload = true;
 				}
         	}
@@ -74,10 +75,14 @@ public class SaveLoad {
     			a.setHeaderText("File is empty or format error!");
     			a.showAndWait();
         	}
-        		
         }catch (Exception e){
         	e.printStackTrace();
+        	Alert a = new Alert(AlertType.INFORMATION);
+			a.setTitle("Load file error");
+			a.setHeaderText("File is empty or format error!");
+			a.showAndWait();
         }
+        return newTexts;
 	}
 	public static void saveData() throws FileNotFoundException {
 		FileChooser fileChooser = new FileChooser();
@@ -179,6 +184,10 @@ public class SaveLoad {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Alert a = new Alert(AlertType.INFORMATION);
+			a.setTitle("Load file error");
+			a.setHeaderText("File is empty or format error!");
+			a.showAndWait();
 		}
 	}
 	
@@ -233,7 +242,8 @@ public class SaveLoad {
 			}
 	}
 	
-	public static String captureData(double x, double y) {
+	public static Iterable<DraggableText> captureData(double x, double y) {
+		List<DraggableText> newTexts = new ArrayList<DraggableText>();
 		String path = "";
 		Color c = Color.WHITE;
 		DraggableText newTxt;
@@ -243,7 +253,11 @@ public class SaveLoad {
         path = selectedFile.getPath();
         }
         catch(NullPointerException e){
-        	return "NullPointer";        
+        	Alert a = new Alert(AlertType.INFORMATION);
+			a.setTitle("Load file error");
+			a.setHeaderText("File is empty or format error!");
+			a.showAndWait();
+			//return null;  
         }
        
         File file = new File(path);
@@ -260,17 +274,63 @@ public class SaveLoad {
 					 newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
 					 newTxt.getStyleClass().add("createdText");
 			
+					 if(newTexts.size() != 0) {
+						 DraggableText prev = newTexts.get(newTexts.size() - 1);
+						 if(newTexts.size()/16.0 <=1) {
+						 newTxt.setTranslateX(x);
+						 newTxt.setTranslateY(prev.getBoundsInParent().getMaxY() + 30);
+						 }
+						 else if(newTexts.size()/16.0 ==2 || counter/16.0==3 || counter/16.0==4)
+						 {
+							 DraggableText prev1 = newTexts.get(15);
+							 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 150*(counter/16.0-1));
+							 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
+						 }
+						 else if(counter/16.0 > 1 && counter/16.0 <2) {
+							 DraggableText prev1 = newTexts.get((int)counter%16-1);
+							 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 150);
+							 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
+							 
+						 }
+						 else if(counter/16.0 > 2 && counter/16.0<3) {
+							 DraggableText prev1 = newTexts.get((int)counter%16-1);
+							 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 300);
+							 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());
+							 
+						 }
+						 else if(counter/16.0 > 3 && counter/16.0<4) {
+							 DraggableText prev1 = newTexts.get((int)counter%16-1);
+							 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 450);
+							 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());							 
+						 }
+						 else if(counter/16.0 > 4 && counter/16.0<5) {
+							 DraggableText prev1 = newTexts.get((int)counter%16-1);
+							 newTxt.setTranslateX(prev1.getBoundsInParent().getMinX() + 600);
+							 newTxt.setTranslateY(prev1.getBoundsInParent().getMaxY());							 
+						 }
+					 }else {
+					 newTxt.setTranslateX(x);
+
+					 newTxt.setTranslateY(y);
+					 }
 					 
-					 findEmpty(newTxt, x, y);
-					 VennController.entries.add(newTxt);
+					 
+					// findEmpty(newTxt, x, y);
+					 newTexts.add(newTxt);
 					 counter++; 
+					
 				}
-	}    
+				VennController.upload = true;
+		}    
 		catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Alert a = new Alert(AlertType.INFORMATION);
+			a.setTitle("Load file error");
+			a.setHeaderText("File is empty or format error!");
+			a.showAndWait();
 		}
-		return path;
+		return newTexts;
 	}
 	private static void findEmpty(DraggableText newTxt, double x, double y) {
 		// TODO Auto-generated method stub

@@ -78,7 +78,7 @@ public class EditController {
 	        public void handle(KeyEvent t) {
 	        	prev.setText(tf.getText());
 	        	int range = tf.getText().length();
-	        	if (range > 10)
+	        	if (range >= 10)
 	        	{
 	        		t.consume();
 	        	}     	
@@ -101,12 +101,12 @@ public class EditController {
 	}
 	
 	public void edit(ActionEvent e) {
-		if(tf.getText().length() > 10) {
-			Alert a = new Alert(AlertType.ERROR);
-			a.setTitle("Text Error");
-			a.setHeaderText("The lenght of labels must be 10 characters or less.\n If more specific labels needed you may use description section.");
-			a.showAndWait();
-		}else {
+	//	if(tf.getText().length() > 10) {
+	//		Alert a = new Alert(AlertType.ERROR);
+	//		a.setTitle("Text Error");
+	//		a.setHeaderText("The lenght of labels must be 10 characters or less.\n If more specific labels needed you may use description section.");
+	//		a.showAndWait();
+	//	}else {
 			thisStage = (Stage) apply.getScene().getWindow();
 			AnchorPane root = (AnchorPane) thisStage.getOwner().getScene().getRoot();
 			DraggableText txt = VennController.getSelected();
@@ -120,8 +120,5 @@ public class EditController {
 			txt.changeBorder(sd.getValue());
 			thisStage.close();
 		}
-		
-	}	
-	
-	
+			
 }

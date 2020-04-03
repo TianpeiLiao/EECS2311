@@ -2,18 +2,23 @@
 package venn;
 
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
 import org.assertj.core.util.Arrays;
+
+import com.sun.glass.ui.Application;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -23,7 +28,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -32,7 +36,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
@@ -40,12 +43,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.application.HostServices;
 
 
 
@@ -92,8 +95,7 @@ public class VennController {
 	private boolean aMode = false;
 	static boolean upload = false;
 	
-
-	CommandManager manager = CommandManager.getInstance();
+	public static CommandManager manager = CommandManager.getInstance();
 
 	
 	class DragContext {
@@ -123,7 +125,6 @@ public class VennController {
 		answer.setDisable(!aMode);
 		submit.setDisable(!aMode);
 		deleteSet.setDisable(!aMode);
-
 		
 		int radius = MAX_RAD;
 		Color c1 = Color.web("#b4ffff");
@@ -182,8 +183,10 @@ public class VennController {
 						}
 					}
 					if(selected.collision(dlt)) {
-						pane.getChildren().remove(selected);
-						entries.remove(selected);
+						List<Action> d = new ArrayList<Action>();
+						d.add(new Delete(selected, pane));
+						System.out.println(entries.size());
+						manager.execute(d);
 					}
 				}
 				if(selection != null) {
@@ -304,15 +307,27 @@ public class VennController {
 		pane.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event) {				
                 if (event.getCode() == KeyCode.BACK_SPACE) {
+                	
                 	deleteSelected();
+                	checkCircles();
                 	System.out.println("Deleting selected");
                 }
+                if(event.getCode() == KeyCode.Z) {
+                	manager.undo();
+                	checkCircles();
+                	
+                }
+                if(event.getCode() == KeyCode.X) {
+                	manager.redo();
+                	checkCircles();
+                	
+                }
+                
+                
             }
 		});
 		
 	}
-	
-	
 	public static DraggableText getSelected() {
 		return selected;
 	}
@@ -325,23 +340,24 @@ public class VennController {
 	{
 		Platform.exit();
 	}
-	public String captureData(ActionEvent event)
 
+	public void captureData(ActionEvent event)
 	{	
-		
 		ArrayList<DraggableText> Temp_list = new ArrayList<DraggableText>();
 		Temp_list.addAll(0, entries);
 		
-
-		String path = SaveLoad.captureData(this.textSpace.getBoundsInParent().getMinX(), this.textSpace.getBoundsInParent().getMinY());
-		pane.getChildren().removeAll(Temp_list);
-		for(DraggableText t:entries) {
+		List<Action> a = new ArrayList<Action>();
+		for(DraggableText t:SaveLoad.captureData(this.textSpace.getBoundsInParent().getMinX(), this.textSpace.getBoundsInParent().getMinY())) {
 			if(!pane.getChildren().contains(t)) {
-				pane.getChildren().add(t);
+				a.add(new Add(t, pane));
+			}
+			
+			if(upload){
+				pane.getChildren().removeAll(Temp_list);
 			}
 		}
-		
-		return path;
+		manager.execute(a);
+		upload = false;
 	}
 	
 	public String exportData(ActionEvent event) throws FileNotFoundException{
@@ -352,21 +368,22 @@ public class VennController {
 		System.out.println("saved");
 	}
 	public void loadLabels(ActionEvent event) {
-	//	if(!entries.isEmpty()) {
-	//		pane.getChildren().removeAll(entries);
-	//		entries.removeAll(entries);
-	//	}
-		SaveLoad.loadData();
 		
-		if(upload) {
-			pane.getChildren().removeAll(entries);
-		}
-		for(DraggableText t:entries) {
-			if(!pane.getChildren().contains(t)) {
-				pane.getChildren().add(t);
+		ArrayList<DraggableText> tempList = new ArrayList<DraggableText>();
+		tempList.addAll(entries);
+		
+		List<Action> a = new ArrayList<Action>();
+		for(DraggableText t:SaveLoad.loadData()) {
+			a.add(new Add(t, pane));
+			if(upload) {
+				pane.getChildren().removeAll(entries);
 			}
 		}
+		
+		upload = false;
+		manager.execute(a);
 	}
+	
 	public void getAnswers() {
 		pane.getChildren().removeAll(entries);
 		SaveLoad.loadAnswers(answerSet1, answerSet2);
@@ -406,12 +423,17 @@ public class VennController {
 	
 	private void deleteSelected() {
 		if(!selecting && this.selectedTxts.size() > 0) {
+			List<Action> d = new ArrayList<Action>();
+			
+			
 			for(DraggableText t: this.selectedTxts) {
 				cir1.removeElem(t);
 				cir2.removeElem(t);
-				entries.remove(t);
-				pane.getChildren().remove(t);
+				d.add(new Delete(t, pane));
+				System.out.println(entries.size());
+				t.changeColor(t.getColor().brighter());
 			}
+			manager.execute(d);
 			this.selectedTxts.removeAll(this.selectedTxts);
 			this.selecting = true;
 		}
@@ -485,8 +507,43 @@ public class VennController {
 		
 	}
 	
-	private void openBrowser()
+	public void openBrowser()
 	{
+		try {
+            Desktop.getDesktop().browse(new URI("https://github.com/TianpeiLiao/EECS2311/releases"));
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        } catch (URISyntaxException e1) {
+            e1.printStackTrace();
+        }     
+	}
+	
+	
+	public void checkCircles() {
+		for(DraggableText txt :entries) {
+    		if(cir1.inBound(txt) && !cir1.isElem(txt)) {
+				cir1.addElem(txt);
 		
+				System.out.println(cir1.elems.toString());
+			}else if(!cir1.inBound(txt) && cir1.isElem(txt)) {
+				cir1.removeElem(txt);
+				
+			}
+			if(cir2.inBound(txt)&& !cir2.isElem(txt)) {
+				cir2.addElem(txt);
+			}else if(!cir2.inBound(txt) && cir2.isElem(txt)) {
+				cir2.removeElem(txt);
+			}
+    	}
+    	if(cir1.getSetSize() == 0) {
+			cir1.setOpacity(0.5);
+    	}else {
+    		cir1.setOpacity(0.8);
+    	}
+    	if(cir2.getSetSize() == 0) {
+			cir2.setOpacity(0.5);
+    	}else {
+    		cir2.setOpacity(0.8);
+    	}
 	}
 }
