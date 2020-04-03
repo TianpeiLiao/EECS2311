@@ -2,6 +2,12 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -16,17 +22,17 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="venn.VennController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="venn.VennController">
 
    <children>
       <MenuBar layoutY="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu fx:id="mFile" mnemonicParsing="false" text="File">
                <items>
-                  <MenuItem fx:id="capture" mnemonicParsing="false" onAction="#captureData" text="Import " />
-                  <MenuItem fx:id="export" mnemonicParsing="false" onAction="#exportData" text="Export" />
-                  <MenuItem fx:id="save" mnemonicParsing="false" onAction="#saveLabels" text="Save" />
-                  <MenuItem fx:id="load" mnemonicParsing="false" onAction="#loadLabels" text="Load" />
+                  <MenuItem fx:id="capture" mnemonicParsing="false" onAction="#captureData" text="Save(without info)" />
+                  <MenuItem fx:id="export" mnemonicParsing="false" onAction="#exportData" text="Load(without info)" />
+                  <MenuItem fx:id="save" mnemonicParsing="false" onAction="#saveLabels" text="Save(with info)" />
+                  <MenuItem fx:id="load" mnemonicParsing="false" onAction="#loadLabels" text="Load(with info)" />
                    <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exitProgram" text="Exit" />
                </items></Menu>
           <Menu mnemonicParsing="false" text="Edit">
@@ -37,7 +43,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" onAction="#openBrowser"/>
+              <MenuItem mnemonicParsing="false" onAction="#openBrowser" text="About" />
             </items>
           </Menu>
         </menus>
