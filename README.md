@@ -31,6 +31,14 @@ Mac/Linux - Using console, the command is java -jar
 - right click on your project --> Gradle --> Refresh gradle project
 - the eclipse IDE automatically download and build the dependencies for your project 
 
+**Application screen size problem
+
+- In case the running in different Operating System, our venn diagram might encounter different performance, such as unreachable screen sizes appearing on windows. In this case, we suggested the users to adjust the screen size or better change Operating system (best OS we recommended is Windos or IOS system)
+
+**We welcome any bug report
+
+-If anyone finds additional bug on our project, please feel free to upload on our issue tracking sites, we will try to fix and imporve
+
                
 
                 
