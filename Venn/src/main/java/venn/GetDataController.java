@@ -106,7 +106,6 @@ public class GetDataController {
 		thisStage = (Stage) create.getScene().getWindow();
 		AnchorPane root = (AnchorPane) thisStage.getOwner().getScene().getRoot();
 		if(!name.getText().isEmpty() ) {
-		//setting color corner text and description for label 
 		/*if(name.getText().length() > 10) {
 			Alert a = new Alert(AlertType.ERROR);
 			a.setTitle("Text Error");

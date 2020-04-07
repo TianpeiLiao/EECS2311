@@ -14,6 +14,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import javafx.embed.swing.SwingFXUtils;
+import javafx.fxml.FXML;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -45,36 +46,35 @@ public class SaveLoad {
         	br = new BufferedReader(new FileReader(file));
         	String st;
         	String Desc = "";
-        	if(!(file.length() == 0)) {
-	        	while((st = br.readLine()) != null){
-	        		String [] temp = st.split("\\s+");
-	        		
-	        		c = Color.web(temp[3]);
-	        		newTxt = new DraggableText(temp[0], c , 400 );
-	        		newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
-					newTxt.getStyleClass().add("createdText");
-					Double x = Double.valueOf(temp[1]);
-					Double y =Double.valueOf(temp[2]);
-					System.out.println("x: "+ x);
-					System.out.println("y: " + y);
-					newTxt.setTranslateX(x);
-					newTxt.setTranslateY(y);
-					for(int i = 4; i < temp.length; i++) {
-						Desc += temp[i];
-						Desc += " ";
-					}
-					newTxt.setDescription(Desc);
-					Desc = "";
-					newTexts.add(newTxt);  
-					VennController.upload = true;
+        	int num = 25;
+	        	while((st = br.readLine()) != null)
+	        	{
+	        		if(st.length() <=  10 && num <= 24) {
+		        		String [] temp = st.split("\\s+");
+		        		
+		        		c = Color.web(temp[3]);
+		        		newTxt = new DraggableText(temp[0], c , 400 );
+		        		newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
+						newTxt.getStyleClass().add("createdText");
+						Double x = Double.valueOf(temp[1]);
+						Double y =Double.valueOf(temp[2]);
+						System.out.println("x: "+ x);
+						System.out.println("y: " + y);
+						newTxt.setTranslateX(x);
+						newTxt.setTranslateY(y);
+						for(int i = 4; i < temp.length; i++) {
+							Desc += temp[i];
+							Desc += " ";
+						}
+						newTxt.setDescription(Desc);
+						Desc = "";
+						newTexts.add(newTxt);  
+						VennController.upload = true;
+						num++;
+	        		}
 				}
-        	}
-        	else {
-        		Alert a = new Alert(AlertType.INFORMATION);
-    			a.setTitle("Load file error");
-    			a.setHeaderText("File is empty or format error!");
-    			a.showAndWait();
-        	}
+        	
+        
         }catch (Exception e){
         	e.printStackTrace();
         	Alert a = new Alert(AlertType.INFORMATION);
@@ -84,6 +84,8 @@ public class SaveLoad {
         }
         return newTexts;
 	}
+	
+	
 	public static void saveData() throws FileNotFoundException {
 		FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt, extensions)","*.txt");
@@ -253,11 +255,8 @@ public class SaveLoad {
         path = selectedFile.getPath();
         }
         catch(NullPointerException e){
-        	Alert a = new Alert(AlertType.INFORMATION);
-			a.setTitle("Load file error");
-			a.setHeaderText("File is empty or format error!");
-			a.showAndWait();
-			//return null;  
+   
+			return null;  
         }
        
         File file = new File(path);
@@ -266,15 +265,16 @@ public class SaveLoad {
 			String st;
 			br = new BufferedReader(new FileReader(file));
 			VennController.entries.removeAll(VennController.entries);
+			int num = 0;
 			while ((st = br.readLine()) != null) {
-
-				  System.out.println(st);
+				
+				  	System.out.println(st);
 
 				  	 newTxt = new DraggableText(st, c, 400);
 					 newTxt.setFont(Font.font("Roboto Slab", FontWeight.NORMAL, 15));
 					 newTxt.getStyleClass().add("createdText");
-			
-					 if(newTexts.size() != 0) {
+				 if(st.length() <=  10 && num <= 24) {
+					 if(newTexts.size() != 0 ) {
 						 DraggableText prev = newTexts.get(newTexts.size() - 1);
 						 if(newTexts.size()/16.0 <=1) {
 						 newTxt.setTranslateX(x);
@@ -314,10 +314,11 @@ public class SaveLoad {
 					 newTxt.setTranslateY(y);
 					 }
 					 
-					 
 					// findEmpty(newTxt, x, y);
 					 newTexts.add(newTxt);
 					 counter++; 
+					 num++;
+				 }
 					
 				}
 				VennController.upload = true;
@@ -332,6 +333,8 @@ public class SaveLoad {
 		}
 		return newTexts;
 	}
+	
+	
 	private static void findEmpty(DraggableText newTxt, double x, double y) {
 		// TODO Auto-generated method stub
 		
@@ -376,6 +379,7 @@ public class SaveLoad {
 		 newTxt.setTranslateY(y);
 		 }
 	}
+
 	
 	private static void SaveFile(String content, File file){
         try {

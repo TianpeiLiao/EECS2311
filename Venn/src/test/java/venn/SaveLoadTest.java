@@ -20,7 +20,8 @@ import java.io.File;
 
 public class SaveLoadTest extends ApplicationTest{
 
-	private int cout = AllVennTests.time;
+	private int cout = AllVennTest.stime;
+	private int wout = AllVennTest.wtime;
 	
 	@Before
 	public void testA() throws InterruptedException
@@ -48,10 +49,31 @@ public class SaveLoadTest extends ApplicationTest{
 			thread.start();
 			Thread.sleep(3000);
 	}
-/*	
+	
+	public void addLabels() throws InterruptedException
+	{
+		for(int i=0; i<2; i++)
+		{
+			clickOn("#newEntry");
+			Thread.sleep(cout);
+			clickOn("#create");
+			Thread.sleep(cout);
+			clickOn("#name");
+			Thread.sleep(cout);
+			write("ABCDEF");
+			Thread.sleep(cout);
+			type(KeyCode.ENTER);
+			Thread.sleep(cout);
+		}
+		type(KeyCode.ESCAPE);
+		Thread.sleep(cout);
+		
+	}
+	
 	@Test
 	public void saveTest() throws InterruptedException 
 	{
+		addLabels();
 		clickOn("#mFile");
 		Thread.sleep(cout);
 		type(KeyCode.TAB);
@@ -61,20 +83,12 @@ public class SaveLoadTest extends ApplicationTest{
 		type(KeyCode.TAB);
 		Thread.sleep(cout);
 		type(KeyCode.ENTER);
-		Thread.sleep(cout);	
-		type(KeyCode.TAB);
-		Thread.sleep(cout);	
-		type(KeyCode.TAB);
-		Thread.sleep(cout);	
-		type(KeyCode.TAB);
-		Thread.sleep(cout);	
-		type(KeyCode.TAB);
-		Thread.sleep(cout);	
+		Thread.sleep(wout);		
 		type(KeyCode.ENTER);
 		Thread.sleep(cout);	
 		VennController.entries.removeAll(VennController.entries);	
 	}
-*/	
+	
 	@Test
 	public void loadTest() throws InterruptedException 
 	{
@@ -89,107 +103,83 @@ public class SaveLoadTest extends ApplicationTest{
 		type(KeyCode.TAB);
 		Thread.sleep(cout);
 		type(KeyCode.ENTER);
-		Thread.sleep(cout);	
-		type(KeyCode.TAB);
-		Thread.sleep(cout);
-		type(KeyCode.TAB);
-		Thread.sleep(cout);
-		//write("C:\\Users\\jpras\\OneDrive\\Desktop\\TestFiles\\saved file");
-		URL url = getClass().getResource("importSample.txt");
-		File file = new File(url.getPath());
-		
-		
-		
-		Thread.sleep(cout);	
+		Thread.sleep(wout);	
 		type(KeyCode.ENTER);
 		Thread.sleep(cout);	
-		
 		VennController.entries.removeAll(VennController.entries);	
 	}
 	
-/*	
+	
 	@Test
 	public void getLabelsTest() throws InterruptedException
 	{
 		clickOn("#ansLabels1");
-		Thread.sleep(cout);
-		type(KeyCode.TAB);
-		Thread.sleep(cout);
-		type(KeyCode.TAB);
-		Thread.sleep(cout);
+		Thread.sleep(wout);
 		type(KeyCode.ENTER);
-		VennController.entries.removeAll(VennController.entries);	
-	}
-	
-	@Test
-	public void submitTest() throws InterruptedException
-	{
+		Thread.sleep(cout);	
+		type(KeyCode.ENTER);
+		Thread.sleep(cout);	
+		type(KeyCode.ENTER);
+		Thread.sleep(cout);	
+		
+		drag(VennController.entries.get(0)).dropTo(800, 700);
+		Thread.sleep(cout);
+		drag(VennController.entries.get(1)).dropTo(850, 700);
+		Thread.sleep(cout);
+		drag(VennController.entries.get(2)).dropTo(1150, 700);
+		Thread.sleep(cout);
+		drag(VennController.entries.get(3)).dropTo(1200, 700);
+		Thread.sleep(cout);
 		clickOn("#submit");
 		Thread.sleep(cout);
-		type(KeyCode.TAB);
-		Thread.sleep(cout);
-		type(KeyCode.TAB);
-		Thread.sleep(cout);
 		type(KeyCode.ENTER);
-		VennController.entries.removeAll(VennController.entries);	
-	}
-	
-	@Test
-	public void addAnswersTest() throws InterruptedException
-	{
+		Thread.sleep(cout);	
+		
+		drag(VennController.entries.get(3)).dropTo(1200, 300);
+		Thread.sleep(cout);
+		clickOn("#submit");
+		Thread.sleep(cout);
+		
 		clickOn("#eFile");
 		Thread.sleep(cout);
 		type(KeyCode.TAB);
 		Thread.sleep(cout);
 		type(KeyCode.ENTER);
+		Thread.sleep(wout);	
+		type(KeyCode.ENTER);
 		Thread.sleep(cout);	
+		type(KeyCode.ENTER);
+		
+		clickOn("#eFile");
+		Thread.sleep(cout);
 		type(KeyCode.TAB);
 		Thread.sleep(cout);
 		type(KeyCode.TAB);
 		Thread.sleep(cout);
 		type(KeyCode.ENTER);
-		VennController.entries.removeAll(VennController.entries);		
+		Thread.sleep(cout);	
+		type(KeyCode.ENTER);
+		Thread.sleep(cout);	
+			
+		VennController.entries.removeAll(VennController.entries);	
+	}
+	
+	@Test
+	public void UndoRedoTest() throws InterruptedException
+	{
+		addLabels();
+		Thread.sleep(cout);
+		drag(VennController.entries.get(0)).dropTo(800, 700);
+		Thread.sleep(cout);
+		drag(VennController.entries.get(0)).dropTo(1150, 700);
+		Thread.sleep(cout);
+		type(KeyCode.Z);
+		Thread.sleep(cout);
+		type(KeyCode.X);
+		Thread.sleep(cout);
 		
 	}
 	
-	@Test
-	public void deleteAnswersTest() throws InterruptedException
-	{
-		clickOn("#eFile");
-		Thread.sleep(cout);
-		type(KeyCode.TAB);
-		Thread.sleep(cout);
-		type(KeyCode.TAB);
-		Thread.sleep(cout);
-		type(KeyCode.ENTER);
-		Thread.sleep(cout);	
-		type(KeyCode.TAB);
-		Thread.sleep(cout);
-		type(KeyCode.TAB);
-		Thread.sleep(cout);
-		type(KeyCode.ENTER);
-		VennController.entries.removeAll(VennController.entries);	
-	}
-	
-	@Test
-	public void circleNameTest() throws InterruptedException
-	{
-		clickOn("#eFile");
-		Thread.sleep(cout);
-		type(KeyCode.TAB);
-		Thread.sleep(cout);
-		type(KeyCode.TAB);
-		Thread.sleep(cout);
-		type(KeyCode.ENTER);
-		Thread.sleep(cout);	
-		type(KeyCode.TAB);
-		Thread.sleep(cout);
-		type(KeyCode.TAB);
-		Thread.sleep(cout);
-		type(KeyCode.ENTER);
-		VennController.entries.removeAll(VennController.entries);	
-	}
-*/	
 	@After
 	public void tearDown() throws TimeoutException
 	{

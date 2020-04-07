@@ -15,6 +15,8 @@ import javafx.embed.swing.JFXPanel;
 
 public class EntryCustomizeTest extends ApplicationTest{
 
+	private int cout = AllVennTest.time;
+	private int wout = AllVennTest.wtime;
 	
 	@Before
 	public void testA() throws InterruptedException
@@ -46,26 +48,34 @@ public class EntryCustomizeTest extends ApplicationTest{
 	@Test
 	public void testGetData()  throws InterruptedException
 	{
-		clickOn("#newEntry");
-		Thread.sleep(1000);
-		clickOn("#create");
-		Thread.sleep(1000);
-		clickOn("#name");
-		Thread.sleep(1000);
-		write("ABCDEF");
-		Thread.sleep(1000);
-		clickOn("#cp").type(KeyCode.TAB).type(KeyCode.TAB).type(KeyCode.DOWN).type(KeyCode.DOWN);
-		Thread.sleep(1000);
-		clickOn("#cornerRadi").type(KeyCode.TAB).type(KeyCode.RIGHT);
-		Thread.sleep(1000);
-		clickOn("#description");
-		Thread.sleep(1000);
-		write("This is a sample1 test description for above entry");
-		Thread.sleep(1000);
-		clickOn("#create");
-		Thread.sleep(1000);
-		type(KeyCode.ENTER);
-		Thread.sleep(1000);
+		for(int i=0; i<2; i++) {
+			clickOn("#newEntry");
+			Thread.sleep(cout);
+			clickOn("#create");
+			Thread.sleep(cout);
+			clickOn("#name");
+			Thread.sleep(cout);
+			write("ABCDEF");
+			Thread.sleep(cout);
+			clickOn("#cp").type(KeyCode.TAB).type(KeyCode.TAB).type(KeyCode.DOWN).type(KeyCode.DOWN);
+			Thread.sleep(cout);
+			clickOn("#cornerRadi").type(KeyCode.TAB).type(KeyCode.RIGHT);
+			Thread.sleep(cout);
+			clickOn("#description");
+			Thread.sleep(cout);
+			write("This is a sample1 test description for above entry");
+			Thread.sleep(cout);
+			clickOn("#create");
+			Thread.sleep(cout);
+			type(KeyCode.ENTER);
+			Thread.sleep(cout);
+		}
+		type(KeyCode.ESCAPE);
+		Thread.sleep(3000);
+		type(KeyCode.Z);
+		Thread.sleep(3000);
+		type(KeyCode.X);
+		Thread.sleep(3000);
 		
 		WaitForAsyncUtils.waitForFxEvents();
 		VennController.entries.removeAll(VennController.entries);
@@ -75,49 +85,39 @@ public class EntryCustomizeTest extends ApplicationTest{
 	public void testEditData()  throws InterruptedException
 	{
 		clickOn("#newEntry");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		clickOn("#create");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		clickOn("#name");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		write("ABCDEF");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		clickOn("#cp").type(KeyCode.TAB).type(KeyCode.TAB).type(KeyCode.DOWN).type(KeyCode.DOWN);
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		clickOn("#cornerRadi").type(KeyCode.TAB).type(KeyCode.RIGHT);
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		clickOn("#description");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		write("This is a sample1 test description for above entry");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		clickOn("#create");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		type(KeyCode.ENTER);
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		type(KeyCode.ESCAPE);
 		doubleClickOn(VennController.entries.get(0));
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		clickOn("#tf");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		write("TEST");
 		type(KeyCode.ENTER);
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		clickOn("#cp").type(KeyCode.TAB).type(KeyCode.TAB).type(KeyCode.DOWN).type(KeyCode.DOWN);
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		clickOn("#sd").type(KeyCode.TAB).type(KeyCode.RIGHT);
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		clickOn("#apply");
-		Thread.sleep(1000);
-
-		clickOn(VennController.entries.get(1));
-		clickOn(VennController.entries.get(1));
-		clickOn("#cp").type(KeyCode.TAB).type(KeyCode.TAB).type(KeyCode.DOWN).type(KeyCode.DOWN);
-		Thread.sleep(1000);
-		clickOn("#sd").type(KeyCode.TAB).type(KeyCode.RIGHT);
-		Thread.sleep(1000);
-		clickOn("#apply");
-
-		
+		Thread.sleep(cout);	
 		WaitForAsyncUtils.waitForFxEvents();
 		VennController.entries.removeAll(VennController.entries);
 	
@@ -126,18 +126,22 @@ public class EntryCustomizeTest extends ApplicationTest{
 	@Test
 	public void testdDeleteEntry() throws InterruptedException {
 		clickOn("#newEntry");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		clickOn("#name");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		write("ABCDEF");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		clickOn("#create");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		type(KeyCode.ESCAPE);
-		drag(VennController.entries.get(0)).dropTo("#dlt");
-		
-		
+		Thread.sleep(cout);
+		drag(VennController.entries.get(0)).dropTo("#dlt");	
+		Thread.sleep(cout);
+		type(KeyCode.Z);
+		Thread.sleep(cout);
+		type(KeyCode.X);
 		WaitForAsyncUtils.waitForFxEvents();
+		
 		VennController.entries.removeAll(VennController.entries);	
 	}
 	

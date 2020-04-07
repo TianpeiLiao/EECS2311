@@ -45,6 +45,7 @@ public class Main extends Application{
 		this.primaryStage.setTitle("VENN DIAGRAM");
 		this.primaryStage.setScene(s);
 		this.primaryStage.show();
+		//primaryStage.resizableProperty().setValue(false);
 	}
 	public static void calculateSceneSize() {
 		sWidth = 0;
@@ -59,8 +60,8 @@ public class Main extends Application{
             sWidth = 1280;
             sHeight = 900;
         }
-	}
-	
+	} 
+
 	
 	public static void showAddStage() {
 		Parent fxml;

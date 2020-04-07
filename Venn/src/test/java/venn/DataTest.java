@@ -15,6 +15,9 @@ import org.testfx.util.WaitForAsyncUtils;
 
 public class DataTest extends ApplicationTest{
 
+	private int cout = AllVennTest.stime;
+	private int wout = AllVennTest.wtime;
+	
 	@Before
 	public void testA() throws InterruptedException
 	{
@@ -42,47 +45,66 @@ public class DataTest extends ApplicationTest{
 			Thread.sleep(3000);
 	}
 	
+	public void addLabels() throws InterruptedException
+	{
+		for(int i=0; i<2; i++)
+		{
+			clickOn("#newEntry");
+			Thread.sleep(cout);
+			clickOn("#create");
+			Thread.sleep(cout);
+			clickOn("#name");
+			Thread.sleep(cout);
+			write("ABCDEF");
+			Thread.sleep(cout);
+			type(KeyCode.ENTER);
+			Thread.sleep(cout);
+		}
+		type(KeyCode.ESCAPE);
+		Thread.sleep(cout);	
+	}
 	
 	@Test
 	public void testImportData() throws InterruptedException {
 		clickOn("#mFile");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		type(KeyCode.TAB);
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		type(KeyCode.ENTER);
-		Thread.sleep(1000);	
-		type(KeyCode.TAB);
-		Thread.sleep(1000);	
-		type(KeyCode.TAB);
-		Thread.sleep(1000);	
+		Thread.sleep(wout);	
 		type(KeyCode.ENTER);
-		Thread.sleep(1000);	
+		Thread.sleep(cout);	
 		VennController.entries.removeAll(VennController.entries);	
 	}
 	
 	
 	@Test
-	public void testExportData() throws InterruptedException {
+	public void testExportData() throws InterruptedException 
+	{	
+		addLabels();
 		clickOn("#mFile");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		type(KeyCode.TAB);
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		type(KeyCode.TAB);
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		type(KeyCode.ENTER);
-		Thread.sleep(1000);	
-		type(KeyCode.TAB);
-		Thread.sleep(1000);	
-		type(KeyCode.TAB);
-		Thread.sleep(1000);	
-		type(KeyCode.TAB);
-		Thread.sleep(1000);	
-		type(KeyCode.TAB);
-		Thread.sleep(1000);	
+		Thread.sleep(wout);	
 		type(KeyCode.ENTER);
-		Thread.sleep(1000);	
+		Thread.sleep(cout);	
 		VennController.entries.removeAll(VennController.entries);	
 	
+	}
+	
+	@Test
+	public void AboutTest() throws InterruptedException 
+	{
+		clickOn("#hFile");
+		Thread.sleep(cout);
+		type(KeyCode.TAB);
+		Thread.sleep(cout);
+		type(KeyCode.ENTER);
+		Thread.sleep(cout);
 	}
 	
 	@After

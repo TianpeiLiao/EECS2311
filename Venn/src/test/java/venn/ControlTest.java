@@ -15,6 +15,9 @@ import org.testfx.util.WaitForAsyncUtils;
 
 public class ControlTest extends ApplicationTest {
 
+	private int cout = AllVennTest.time;
+	private int wout = AllVennTest.wtime;
+	
 	@Before
 	public void testA() throws InterruptedException
 	{
@@ -45,7 +48,7 @@ public class ControlTest extends ApplicationTest {
 	@Test 
 	public void multipleEntries() throws InterruptedException {
 		clickOn("#newEntry");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		clickOn("#name");
 		write("Test - 0" );
 		for(int i = 1; i < 5 ;i++) {
@@ -56,54 +59,50 @@ public class ControlTest extends ApplicationTest {
 		}
 		
 		clickOn("#create");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		type(KeyCode.ESCAPE);
-		Thread.sleep(1000);	
+		Thread.sleep(cout);	
 		drag(VennController.entries.get(0)).dropTo(VennController.entries.get(1));
-		Thread.sleep(1000);	
+		Thread.sleep(cout);	
 		WaitForAsyncUtils.waitForFxEvents();
 		VennController.entries.removeAll(VennController.entries);
 		
 	}
+	
 
 	@Test 
 	public void testDraggedEntry() throws InterruptedException {
 		
 		clickOn("#newEntry");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		clickOn("#name");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		write("ABCDEF");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		clickOn("#create");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		type(KeyCode.ENTER);
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		type(KeyCode.ESCAPE);
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		clickOn(VennController.entries.get(0));
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		drag(VennController.entries.get(0)).dropTo(800, 700);
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		drag(VennController.entries.get(0)).dropTo(950, 700);
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		drag(VennController.entries.get(0)).dropTo(1150, 700);
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		drag(VennController.entries.get(0)).dropTo(1150, 300);
-		Thread.sleep(1000);
-		
-		double newX = VennController.entries.get(1).getBoundsInParent().getMinX();
-		double newY = VennController.entries.get(1).getBoundsInParent().getMinX();
-		
-		drag(VennController.entries.get(0)).dropTo(VennController.entries.get(1)).dropTo(newX, newY);
-		Thread.sleep(1000);
-		VennController.entries.removeAll(VennController.entries);	
+		Thread.sleep(cout);
+	
 	}
 	
+
 	@Test
 	public void boundaryTest() throws InterruptedException {
 		clickOn("#newEntry");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		clickOn("#name");
 		write("Test - 0" );
 		
@@ -113,30 +112,25 @@ public class ControlTest extends ApplicationTest {
 			write("Test - " + String.valueOf(i));
 		}
 		clickOn("#create");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		type(KeyCode.ESCAPE);
-		Thread.sleep(1000);
-		
-<<<<<<< HEAD
-//		drag(VennController.entries.get(0)).dropTo(-Main.WIDTH, 150);
-//		drag(VennController.entries.get(1)).dropTo(Main.WIDTH + 500, 150);
-=======
-		drag(VennController.entries.get(0)).dropTo(-Main.sWidth, 150);
-		drag(VennController.entries.get(1)).dropTo(Main.sWidth + 500, 150);
->>>>>>> branch 'develop' of https://github.com/TianpeiLiao/EECS2311.git
+		Thread.sleep(cout);
+		drag(VennController.entries.get(0)).dropTo(-100, 150);
+		Thread.sleep(cout);
+		drag(VennController.entries.get(1)).dropTo(1500, 150);
+		Thread.sleep(cout);
 		drag(VennController.entries.get(2)).dropTo(500, -500);
+		Thread.sleep(cout);
 		drag(VennController.entries.get(3)).dropTo(500, 1400);
-		Thread.sleep(1000);
-		
-		
+		Thread.sleep(cout);
 		WaitForAsyncUtils.waitForFxEvents();
 		VennController.entries.removeAll(VennController.entries);
-		}
+	}
 	
 	@Test
 	public void circleTest() throws InterruptedException {
 		clickOn("#newEntry");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		clickOn("#name");
 		write("Test - 0" );
 		for(int i = 1; i < 5 ;i++) {
@@ -145,16 +139,16 @@ public class ControlTest extends ApplicationTest {
 			write("Test - " + String.valueOf(i));
 		}
 		clickOn("#create");
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		type(KeyCode.ESCAPE);
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		
 		drag(VennController.entries.get(0)).dropTo(700, 650);
 		drag(VennController.entries.get(1)).dropTo(700, 650);
 		drag(VennController.entries.get(2)).dropTo(950, 650);
 		drag(VennController.entries.get(3)).dropTo(1200, 650);
 		drag(VennController.entries.get(4)).dropTo(1200, 650);
-		Thread.sleep(1000);
+		Thread.sleep(cout);
 		
 		
 		WaitForAsyncUtils.waitForFxEvents();
@@ -168,5 +162,6 @@ public class ControlTest extends ApplicationTest {
 		release(new KeyCode[]{});
 		release(new MouseButton[]{});
 	}
+	
 
 }

@@ -61,7 +61,6 @@ public class MainTest extends ApplicationTest{
 	{
 			final String errMsg = "One of the button cannot be retireved anymore!";
 			assertNotNull(errMsg, addNew);
-			assertNotNull(errMsg, delete);	
 	}
 	
 	@After
@@ -72,14 +71,25 @@ public class MainTest extends ApplicationTest{
 		release(new MouseButton[]{});
 	}
 
-	
-/*	@Test
+/*	
+	@Test
 	public void testExit() throws InterruptedException {
+		
+		
 		clickOn("#mFile");
 		Thread.sleep(1000);
 		type(KeyCode.TAB);
 		Thread.sleep(1000);
+		type(KeyCode.TAB);
+		Thread.sleep(1000);
+		type(KeyCode.TAB);
+		Thread.sleep(1000);
+		type(KeyCode.TAB);
+		Thread.sleep(1000);
+		type(KeyCode.TAB);
+		Thread.sleep(1000);
 		type(KeyCode.ENTER);
+		Thread.sleep(1000);
 	
 	}
 	

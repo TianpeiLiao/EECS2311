@@ -29,19 +29,19 @@
         <menus>
           <Menu fx:id="mFile" mnemonicParsing="false" text="File">
                <items>
-                  <MenuItem fx:id="capture" mnemonicParsing="false" onAction="#captureData" text="Save(without info)" />
-                  <MenuItem fx:id="export" mnemonicParsing="false" onAction="#exportData" text="Load(without info)" />
-                  <MenuItem fx:id="save" mnemonicParsing="false" onAction="#saveLabels" text="Save(with info)" />
-                  <MenuItem fx:id="load" mnemonicParsing="false" onAction="#loadLabels" text="Load(with info)" />
+                  <MenuItem fx:id="capture" mnemonicParsing="false" onAction="#captureData" text="Import" />
+                  <MenuItem fx:id="export" mnemonicParsing="false" onAction="#exportData" text="Export" />
+                  <MenuItem fx:id="save" mnemonicParsing="false" onAction="#saveLabels" text="Save" />
+                  <MenuItem fx:id="load" mnemonicParsing="false" onAction="#loadLabels" text="Load" />
                    <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exitProgram" text="Exit" />
                </items></Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu fx:id="eFile" mnemonicParsing="false" text="Edit">
             <items>
                   <MenuItem fx:id="answer" mnemonicParsing="false" onAction="#getAnswers" text="Add Answers" />
               <MenuItem fx:id="deleteSet" mnemonicParsing="false" onAction="#deleteAnswerSets" text="Delete Answers" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu fx:id="hFile" mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#openBrowser" text="About" />
             </items>
