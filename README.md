@@ -8,7 +8,7 @@ This release contains up-to-date feature and functions for final release.
 
 **Running**
 - Windows - Double click the executable .jar file
--Windows/Mac/Linux - Using console, the command is 
+- Windows/Mac/Linux - Using console, the command is 
                 java -jar filename.jar
 
 **If you want to run the source files from your eclipse IDE**
